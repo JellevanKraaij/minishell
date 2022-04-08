@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.23.0)
 
-project(hello-world)
+project(minishell)
 set (SRCS src/main.c)
-set (EXEC_NAME hello-world)
+set (EXEC_NAME minishell)
 
 #compiler settings:
 set (CMAKE_C_COMPILER gcc)
