@@ -16,5 +16,5 @@
 
 int	main(void)
 {
-	printf("Hello world!\n");
+	printf("command_prompt!\n");
 }
