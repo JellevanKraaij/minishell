@@ -5,7 +5,6 @@ set (SRCS src/main.c)
 set (EXEC_NAME minishell)
 
 #compiler settings:
-set (CMAKE_C_COMPILER gcc)
 set (CMAKE_C_FLAGS "-Wall -Werror -Wextra")
 set (CMAKE_C_FLAGS_DEBUG "-g -fsanitize=address") #cmake -DCMAKE_BUILD_TYPE=DEBUG to add debug flags
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON) #vscode include path checking
