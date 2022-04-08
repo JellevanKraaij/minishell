@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HELLOWORLD_H
-# define HELLOWORLD_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 #endif
