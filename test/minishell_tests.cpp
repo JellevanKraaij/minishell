@@ -9,14 +9,13 @@ extern "C" {
 
 using namespace testing;
 
-
-// Demonstrate some basic assertions.
-TEST(ErrorTests, exit) {
-	// Expect two strings not to be equal.
+TEST(ErrorTests, perror_exit) {
 	EXPECT_EXIT(perror_exit("gtest_perror", 42), ExitedWithCode(42), StartsWith("gtest_perror:"));
-	EXPECT_EXIT(null_exit(NULL), ExitedWithCode(1), StartsWith("minishell:"));
 }
-TEST(ErrorTests, basic)
+
+TEST(ErrorTests, null_exit)
 {
-	EXPECT_TRUE((null_exit(42) == (void *)42));
+	EXPECT_EQ(null_exit((void *)42), (void *)42);
+	EXPECT_EQ(null_exit((void *)SIZE_T_MAX), (void *)SIZE_T_MAX);
+	EXPECT_EXIT(null_exit(NULL), ExitedWithCode(1), StartsWith("minishell:"));
 }
