@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   helloworld.h                                       :+:    :+:            */
+/*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-kra <jvan-kra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
@@ -12,5 +12,10 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+//Errors
+void	perror_exit(const char *s, int error_code) __attribute__((noreturn));
+void	*null_exit(void	*ptr);
+
 
 #endif
