@@ -16,6 +16,6 @@ TEST(ErrorTests, perror_exit) {
 TEST(ErrorTests, null_exit)
 {
 	EXPECT_EQ(null_exit((void *)42), (void *)42);
-	EXPECT_EQ(null_exit((void *)SIZE_T_MAX), (void *)SIZE_T_MAX);
+	EXPECT_EQ(null_exit((void *)SIZE_MAX), (void *)SIZE_MAX);
 	EXPECT_EXIT(null_exit(NULL), ExitedWithCode(1), StartsWith("minishell:"));
 }
