@@ -15,7 +15,7 @@ int	main(void)
 			exit(0);
 		if (*line)
 			add_history(line);
-		printf("line read: %s\n", line);
+		parse_exec(line);
 		free(line);
 	}
 }

@@ -5,6 +5,7 @@ project(minishell)
 set (MAIN_SRCS src/main.c)
 set (UTIL_SRCS
 	src/error.c
+	src/parser.c
 )
 set (EXEC_NAME minishell)
 
