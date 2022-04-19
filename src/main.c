@@ -8,6 +8,7 @@ int	main(void)
 {
 	char	*line;
 
+	init_signals();
 	while (1)
 	{
 		line = readline(SHELL_PROMPT);

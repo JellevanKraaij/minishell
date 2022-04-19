@@ -6,6 +6,7 @@ set (MAIN_SRCS src/main.c)
 set (UTIL_SRCS
 	src/error.c
 	src/parser.c
+	src/signals.c
 )
 set (EXEC_NAME minishell)
 
@@ -44,6 +45,7 @@ target_link_libraries(
 	gtest_main
 	gmock_main
 	ft
+	readline
 )
 
 include(GoogleTest)
