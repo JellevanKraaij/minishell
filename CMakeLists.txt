@@ -42,6 +42,7 @@ target_link_libraries(
 	minishell_tests
 	gtest_main
 	gmock_main
+	ft
 )
 
 include(GoogleTest)
