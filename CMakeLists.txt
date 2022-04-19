@@ -17,6 +17,8 @@ set (CMAKE_EXPORT_COMPILE_COMMANDS ON) #vscode include path checking
 add_executable(${EXEC_NAME} ${MAIN_SRCS} ${UTIL_SRCS})
 target_include_directories(${EXEC_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+target_link_libraries(${EXEC_NAME} readline)
+
 #optionaly add libft:
 # add_subdirectory(lib/libft)
 # target_link_libraries(${EXEC_NAME} PRIVATE ft)
