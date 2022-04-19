@@ -5,6 +5,9 @@ project(minishell)
 set (MAIN_SRCS src/main.c)
 set (UTIL_SRCS
 	src/error.c
+	src/builtins/builtin_pwd.c
+	src/builtins/builtin_cd.c
+	src/builtins/builtin_exit.c
 )
 set (EXEC_NAME minishell)
 
