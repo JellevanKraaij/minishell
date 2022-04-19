@@ -17,6 +17,6 @@
 //Errors
 void	perror_exit(const char *s, int error_code) __attribute__((noreturn));
 void	*null_exit(void	*ptr);
-
+void	print_error(char *name, char *error_desc, char *error);
 
 #endif
