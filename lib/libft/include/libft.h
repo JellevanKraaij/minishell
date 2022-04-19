@@ -17,6 +17,11 @@
 # include <unistd.h>
 # include <limits.h>
 
+static inline void	ft_ignore_result(long long int unused_result)
+{
+	(void)unused_result;
+}
+
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
