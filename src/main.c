@@ -12,11 +12,9 @@ int	main(void)
 	while (1)
 	{
 		line = readline(SHELL_PROMPT);
-		if (line == NULL)
-			exit(0);
+		parse_exec(line);
 		if (*line)
 			add_history(line);
-		parse_exec(line);
 		free(line);
 	}
 }
