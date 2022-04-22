@@ -6,8 +6,11 @@ project(minishell)
 set (MAIN_SRCS src/main.c)
 set (UTIL_SRCS
 	src/error.c
-	src/parser.c
 	src/signals.c
+	src/parser/parser.c
+	src/parser/process_quotes.c
+	src/parser/trim_whitespace.c
+	src/parser/line_meta.c
 )
 set (EXEC_NAME minishell)
 
