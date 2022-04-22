@@ -20,6 +20,24 @@ void	*null_exit(void	*ptr);
 void	print_error(char *name, char *error_desc, char *error);
 void	parse_exec(char *line);
 void	init_signals(void);
+void    lexer_exec(char *line);
 
+typedef enum e_token_labels
+{
+    WORD, //undefined
+    SQUOTED, // string single quotes
+    DQUOTED, // string double quotes
+    RED_INPUT, // <
+    RED_OUTPUT, // >
+    RED_OUT_APPEND, //  >>
+    RED_IN, //  <<
+    PIPE, // |
+}   t_token_labels;
+
+typedef struct s_tokenized
+{
+    int     token;
+    char    *element;
+}   t_tokenized;
 
 #endif
