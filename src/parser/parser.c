@@ -25,4 +25,5 @@ void	parse_exec(char *line)
 	if (ft_strncmp(line_s->line, "exit", 4) == 0)
 		exit (0);
 	print_error("minishell", "command not found", line_s->line);
+	destroy_line_data(line_s);
 }

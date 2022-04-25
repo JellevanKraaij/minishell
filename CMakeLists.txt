@@ -11,6 +11,9 @@ set (UTIL_SRCS
 	src/parser/process_quotes.c
 	src/parser/trim_whitespace.c
 	src/parser/line_data.c
+	src/parser/cmd_data.c
+	src/parser/parse_operators.c
+	src/parser/expand_vars.c
 )
 set (EXEC_NAME minishell)
 

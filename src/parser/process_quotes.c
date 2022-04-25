@@ -46,13 +46,13 @@ t_line_data	*process_quotes(char *line)
 		if (!update_status(&status, line[i]))
 		{
 			ret->line[j] = line[i];
-			ret->status[j] = status;
+			ret->token[j] = status;
 			j++;
 		}
 		i++;
 	}
 	ret->line[j] = '\0';
-	ret->status[j] = END;
+	ret->token[j] = END;
 	if (check_unclosed_quotes(status))
 		return (destroy_line_data(ret));
 	return (ret);

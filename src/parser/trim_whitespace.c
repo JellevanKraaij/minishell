@@ -18,15 +18,15 @@ void	trim_whitespace(t_line_data *line)
 			next = (ft_strchr(WHITESPACE, line->line[i + 1]) == NULL);
 		else
 			next = 0;
-		if (line->status[i] != NORMAL || current || next)
+		if (line->token[i] != NORMAL || current || next)
 		{
 			line->line[j] = line->line[i];
-			line->status[j] = line->status[i];
+			line->token[j] = line->token[i];
 			j++;
 		}
 		i++;
 		current = next;
 	}
 	line->line[j] = '\0';
-	line->status[j] = END;
+	line->token[j] = END;
 }
