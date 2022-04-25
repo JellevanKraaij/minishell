@@ -2,7 +2,7 @@
 #include "parser.h"
 #include "libft.h"
 
-void	trim_whitespace(t_line_meta *line)
+void	trim_whitespace(t_line_data *line)
 {
 	size_t		i;
 	size_t		j;

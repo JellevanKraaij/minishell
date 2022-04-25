@@ -8,7 +8,7 @@
 
 void	parse_exec(char *line)
 {
-	t_line_meta	*line_s;
+	t_line_data	*line_s;
 
 	if (line == NULL)
 	{

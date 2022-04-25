@@ -10,7 +10,7 @@ set (UTIL_SRCS
 	src/parser/parser.c
 	src/parser/process_quotes.c
 	src/parser/trim_whitespace.c
-	src/parser/line_meta.c
+	src/parser/line_data.c
 )
 set (EXEC_NAME minishell)
 

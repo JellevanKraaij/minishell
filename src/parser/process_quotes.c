@@ -2,7 +2,7 @@
 #include "parser.h"
 #include "libft.h"
 
-static int	check_unclosed_quotes(t_quote_stat status)
+static int	check_unclosed_quotes(t_token status)
 {
 	if (status != NORMAL)
 	{
@@ -12,16 +12,16 @@ static int	check_unclosed_quotes(t_quote_stat status)
 	return (0);
 }
 
-static int	update_status(t_quote_stat *status, char c)
+static int	update_status(t_token *status, char c)
 {
 	if (c == '\'' || c == '\"')
 	{
 		if (*status == NORMAL)
 		{
-			*status = (t_quote_stat)c;
+			*status = (t_token)c;
 			return (1);
 		}
-		if (*status == (t_quote_stat)c)
+		if (*status == (t_token)c)
 		{
 			*status = NORMAL;
 			return (1);
@@ -30,17 +30,17 @@ static int	update_status(t_quote_stat *status, char c)
 	return (0);
 }
 
-t_line_meta	*process_quotes(char *line)
+t_line_data	*process_quotes(char *line)
 {
 	size_t			i;
 	size_t			j;
-	t_quote_stat	status;
-	t_line_meta		*ret;
+	t_token			status;
+	t_line_data		*ret;
 
 	i = 0;
 	j = 0;
 	status = NORMAL;
-	ret = init_meta_char(ft_strlen(line) + 1);
+	ret = init_line_data(ft_strlen(line) + 1);
 	while (line[i])
 	{
 		if (!update_status(&status, line[i]))
@@ -54,6 +54,6 @@ t_line_meta	*process_quotes(char *line)
 	ret->line[j] = '\0';
 	ret->status[j] = END;
 	if (check_unclosed_quotes(status))
-		return (destroy_meta_char(ret));
+		return (destroy_line_data(ret));
 	return (ret);
 }
