@@ -10,6 +10,7 @@ set (UTIL_SRCS
 	src/parser/parser.c
 	src/parser/process_quotes.c
 	src/parser/token.c
+	src/parser/parse_operators.c
 )
 set (EXEC_NAME minishell)
 

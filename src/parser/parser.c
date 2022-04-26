@@ -6,9 +6,17 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-void	parse_exec(char *line)
+void	fprint_tokens(void *data)
 {
 	t_token	*token;
+
+	token = data;
+	printf("str = '%s' type = %d\n", token->str, token->type);
+}
+
+void	parse_exec(char *line)
+{
+	t_list	*tokens;
 
 	if (line == NULL)
 	{
@@ -17,8 +25,7 @@ void	parse_exec(char *line)
 	}
 	if (*line == '\0')
 		return ;
-	while ((token = get_next_quote(line)))
-	{
-		printf("type = %d, str = '%s'\n", token->type, token->str);
-	}
+	tokens = null_exit(ft_lstnew(create_token(line, ft_strlen(line), DEFAULT)));
+	update_token_list(&tokens, get_next_quote);
+	ft_lstiter(tokens, fprint_tokens);
 }

@@ -3,7 +3,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-t_type	char_to_type(char c)
+static t_type	char_to_type(char c)
 {
 	if (c == '\'')
 		return (STRING_S);
@@ -12,7 +12,7 @@ t_type	char_to_type(char c)
 	return (DEFAULT);
 }
 
-size_t	first_quote(char *str)
+static size_t	first_quote(char *str)
 {
 	char	*s_quote;
 	char	*d_quote;
@@ -27,7 +27,7 @@ size_t	first_quote(char *str)
 		return (s_quote - str);
 }
 
-size_t	calc_quote_lenght(char *str, char type)
+static size_t	calc_quote_lenght(char *str, char type)
 {
 	char	*tmp;
 
@@ -39,24 +39,7 @@ size_t	calc_quote_lenght(char *str, char type)
 	return (tmp - str);
 }
 
-t_token	*create_token(char *str, size_t len, t_type type)
-{
-	t_token	*token;
-
-	if (len == 0)
-		return (NULL);
-	token = init_token();
-	token->type = type;
-	if (type == DEFAULT)
-		token->str = null_exit(ft_strntrim(str, WHITESPACE, len));
-	else
-		token->str = null_exit(ft_strndup(str, len));
-	if (*token->str == '\0')
-		return (destroy_token(token));
-	return (token);
-}
-
-t_token	*get_next_quote(char *line)
+t_token	*get_next_quote(t_token *input)
 {
 	static size_t	pos = 0;
 	t_token			*token;
@@ -64,15 +47,16 @@ t_token	*get_next_quote(char *line)
 	size_t			len;
 
 	token = NULL;
-	while (line[pos] != '\0')
+	while (input->str[pos] != '\0')
 	{
-		quote_pos = first_quote(&line[pos]);
+		quote_pos = first_quote(&input->str[pos]);
 		if (quote_pos)
-			token = create_token(&line[pos], quote_pos, DEFAULT);
+			token = create_token(&input->str[pos], quote_pos, DEFAULT);
 		else
 		{
-			len = calc_quote_lenght(&line[pos + 1], line[pos]);
-			token = create_token(&line[pos + 1], len, char_to_type(line[pos]));
+			len = calc_quote_lenght(&input->str[pos + 1], input->str[pos]);
+			token = create_token(&input->str[pos + 1], len, \
+			char_to_type(input->str[pos]));
 			quote_pos = len + 2;
 		}
 		pos += quote_pos;
