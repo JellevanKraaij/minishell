@@ -1,6 +1,7 @@
 #include "minishell.h"
 #include "parser.h"
 #include "libft.h"
+#include <stdio.h>
 
 t_token	*init_token(void)
 {
@@ -22,16 +23,17 @@ t_token	*create_token(char *str, size_t len, t_type type)
 {
 	t_token	*token;
 
-	if (len == 0)
-		return (NULL);
 	token = init_token();
 	token->type = type;
 	if (type == DEFAULT)
 		token->str = null_exit(ft_strntrim(str, WHITESPACE, len));
 	else
 		token->str = null_exit(ft_strndup(str, len));
-	if (*token->str == '\0')
+	if (*token->str == '\0' && type != STRING_D && type != STRING_S)
+	{
+		printf("return empty\n");
 		return (destroy_token(token));
+	}
 	return (token);
 }
 

@@ -18,5 +18,5 @@ static void	sigint_handler(int sig)
 void	init_signals(void)
 {
 	signal(SIGINT, sigint_handler);
-	// signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }

@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strrchr.c                                       :+:    :+:            */
+/*   ft_strchrset.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jvan-kra <jvan-kra@student.42.fr>            +#+                     */
+/*   By: jvna-kra <jvan-kra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/19 15:45:02 by jvan-kra      #+#    #+#                 */
-/*   Updated: 2021/10/20 14:34:36 by jvan-kra      ########   odam.nl         */
+/*   Created: 2022/04/26 17:32:48 by jvna-kra      #+#    #+#                 */
+/*   Updated: 2022/04/26 17:32:48 by jvna-kra      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strrchrset(const char *s, const char *set)
 {
-	char	*ret;
-
-	ret = NULL;
 	while (*s)
 	{
-		if ((unsigned char)(*s) == (unsigned char)c)
-			ret = (char *)s;
+		if (ft_strrchr(set, *s))
+			return ((char *)s);
 		s++;
 	}
-	if (c == '\0')
-		ret = (char *)s;
-	return (ret);
+	return (NULL);
 }

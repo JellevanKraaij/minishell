@@ -11,7 +11,8 @@ void	fprint_tokens(void *data)
 	t_token	*token;
 
 	token = data;
-	printf("str = '%s' type = %d\n", token->str, token->type);
+	printf("type = %-12s | str = '%s'\n", \
+	type_to_string(token->type), token->str);
 }
 
 void	parse_exec(char *line)
@@ -26,6 +27,7 @@ void	parse_exec(char *line)
 	if (*line == '\0')
 		return ;
 	tokens = null_exit(ft_lstnew(create_token(line, ft_strlen(line), DEFAULT)));
-	update_token_list(&tokens, get_next_quote);
+	update_token_list(&tokens, process_quote);
+	update_token_list(&tokens, process_operators);
 	ft_lstiter(tokens, fprint_tokens);
 }
