@@ -8,7 +8,7 @@
 
 void	parse_exec(char *line)
 {
-	t_line_data	*line_s;
+	t_token	*token;
 
 	if (line == NULL)
 	{
@@ -17,13 +17,8 @@ void	parse_exec(char *line)
 	}
 	if (*line == '\0')
 		return ;
-	line_s = process_quotes(line);
-	if (line_s == NULL)
-		return ;
-	trim_whitespace(line_s);
-	printf("line = \"%s\"\n", line_s->line);
-	if (ft_strncmp(line_s->line, "exit", 4) == 0)
-		exit (0);
-	print_error("minishell", "command not found", line_s->line);
-	destroy_line_data(line_s);
+	while ((token = get_next_quote(line)))
+	{
+		printf("type = %d, str = '%s'\n", token->type, token->str);
+	}
 }
