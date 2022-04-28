@@ -40,7 +40,7 @@ typedef struct s_token
 }	t_token;
 
 // add qoutes metadata to line and removes the unnecessary quotes 
-t_token	*process_quote(t_token *input);
+t_token	*process_quotes(t_token *input);
 t_token	*process_operators(t_token *input);
 
 t_token	*init_token(void);

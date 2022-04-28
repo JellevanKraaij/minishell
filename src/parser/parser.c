@@ -27,7 +27,7 @@ void	parse_exec(char *line)
 	if (*line == '\0')
 		return ;
 	tokens = null_exit(ft_lstnew(create_token(line, ft_strlen(line), DEFAULT)));
-	update_token_list(&tokens, process_quote);
+	update_token_list(&tokens, process_quotes);
 	update_token_list(&tokens, process_operators);
 	ft_lstiter(tokens, fprint_tokens);
 }

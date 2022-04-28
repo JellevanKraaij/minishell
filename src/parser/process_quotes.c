@@ -24,7 +24,7 @@ static size_t	calc_quote_lenght(char *str, char type)
 	return (tmp - str);
 }
 
-t_token	*process_quote(t_token *in)
+t_token	*process_quotes(t_token *in)
 {
 	static size_t	pos = 0;
 	t_token			*token;

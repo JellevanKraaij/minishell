@@ -37,7 +37,7 @@ t_token	*process_operators(t_token *input)
 	if (input->type != DEFAULT && pos == 0)
 	{
 		pos = -1;
-		token = create_token(input->str, input->str[pos] != '\0', input->type);
+		token = create_token(input->str, ft_strlen(input->str), input->type);
 	}
 	while (pos >= 0 && input->str[pos] != '\0')
 	{
