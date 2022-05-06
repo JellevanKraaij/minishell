@@ -16,7 +16,10 @@ int	main(void)
 		if (line == NULL)
 			exit(1);
 		while (tokenized.token != END)
+		{
 			tokenized = lexer_exec(line);
+			printf("Element: \"%s\"\ntoken: %i\n", tokenized.element, tokenized.token);
+		}
 		// parse_exec(line);
 		if (*line)
 			add_history(line);
