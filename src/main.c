@@ -6,13 +6,18 @@
 
 int	main(void)
 {
-	char	*line;
+	char		*line;
+	t_tokenized tokenized;
 
-	init_signals();
+	// init_signals();
 	while (1)
 	{
 		line = readline(SHELL_PROMPT);
-		parse_exec(line);
+		if (line == NULL)
+			exit(1);
+		while (tokenized.token != END)
+			tokenized = lexer_exec(line);
+		// parse_exec(line);
 		if (*line)
 			add_history(line);
 		free(line);

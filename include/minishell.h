@@ -14,13 +14,6 @@
 # define MINISHELL_H
 
 # define SHELL_PROMPT "minishell$> "
-//Errors
-void	perror_exit(const char *s, int error_code) __attribute__((noreturn));
-void	*null_exit(void	*ptr);
-void	print_error(char *name, char *error_desc, char *error);
-void	parse_exec(char *line);
-void	init_signals(void);
-void    lexer_exec(char *line);
 
 typedef enum e_token_labels
 {
@@ -32,6 +25,7 @@ typedef enum e_token_labels
     RED_OUT_APPEND, //  >>
     RED_IN, //  <<
     PIPE, // |
+    END
 }   t_token_labels;
 
 typedef struct s_tokenized
@@ -39,5 +33,13 @@ typedef struct s_tokenized
     int     token;
     char    *element;
 }   t_tokenized;
+
+//Errors
+void	    perror_exit(const char *s, int error_code) __attribute__((noreturn));
+void	    *null_exit(void	*ptr);
+void	    print_error(char *name, char *error_desc, char *error);
+void	    parse_exec(char *line);
+void	    init_signals(void);
+t_tokenized lexer_exec(char *line);
 
 #endif

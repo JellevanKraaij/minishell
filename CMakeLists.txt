@@ -8,6 +8,7 @@ set (UTIL_SRCS
 	src/error.c
 	src/parser.c
 	src/signals.c
+	src/lexer.c
 )
 set (EXEC_NAME minishell)
 
