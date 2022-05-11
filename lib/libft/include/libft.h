@@ -74,7 +74,9 @@ double	ft_pow(double x, double y);
 void	*ft_reallocf(void *old, size_t oldsize, size_t newsize);
 
 char	*ft_strntrim(char const *s1, char const *set, size_t n);
-char	*ft_strrchrset(const char *s, const char *set);
+char	*ft_strchrset(const char *s, const char *set);
+
+char	*ft_strjoin3(char const *s1, char const *s2, char const *s3);
 
 //-----------BONUS---------------
 

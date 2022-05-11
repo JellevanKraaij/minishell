@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strchrset.c                                     :+:    :+:            */
+/*   ft_strjoin3.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvna-kra <jvan-kra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/26 17:32:48 by jvna-kra      #+#    #+#                 */
-/*   Updated: 2022/04/26 17:32:48 by jvna-kra      ########   odam.nl         */
+/*   Created: 2022/05/11 19:24:06 by jvna-kra      #+#    #+#                 */
+/*   Updated: 2022/05/11 19:24:06 by jvna-kra      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchrset(const char *s, const char *set)
+char	*ft_strjoin3(char const *s1, char const *s2, char const *s3)
 {
-	while (*s)
-	{
-		if (ft_strrchr(set, *s))
-			return ((char *)s);
-		s++;
-	}
-	return (NULL);
+	size_t	s1len;
+	size_t	s2len;
+	size_t	s3len;
+	char	*ret;
+
+	s1len = ft_strlen(s1);
+	s2len = ft_strlen(s2);
+	s3len = ft_strlen(s3);
+	ret = malloc(s1len + s2len + s3len + 1);
+	if (ret == NULL)
+		return (NULL);
+	ft_memcpy(ret, s1, s1len);
+	ft_memcpy(ret + s1len, s2, s2len + 1);
+	ft_memcpy(ret + s1len + s2len, s3, s3len + 1);
+
+	return (ret);
 }

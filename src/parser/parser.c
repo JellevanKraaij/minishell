@@ -29,5 +29,6 @@ void	parse_exec(char *line)
 	tokens = null_exit(ft_lstnew(create_token(line, ft_strlen(line), DEFAULT)));
 	update_token_list(&tokens, process_quotes);
 	update_token_list(&tokens, process_operators);
+	update_token_list(&tokens, expand_vars);
 	ft_lstiter(tokens, fprint_tokens);
 }
