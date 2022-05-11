@@ -17,8 +17,8 @@ int	main(void)
 			exit(1);
 		while (tokenized.token != END)
 		{
-			tokenized = lexer_exec(line);
-			printf("Element: \"%s\"\ntoken: %i\n", tokenized.element, tokenized.token);
+			tokenized = create_token(line);
+			print_tokenized(tokenized);
 		}
 		// parse_exec(line);
 		if (*line)

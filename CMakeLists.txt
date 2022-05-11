@@ -9,6 +9,7 @@ set (UTIL_SRCS
 	src/parser.c
 	src/signals.c
 	src/lexer.c
+	src/print_tokenized.c
 )
 set (EXEC_NAME minishell)
 

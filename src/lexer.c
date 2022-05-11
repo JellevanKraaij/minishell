@@ -45,9 +45,9 @@ static int	get_quoted(char *line, int i, t_tokenized *tokenized)
 	int	token;
 
 	token = line[i];
-	if (!ft_strchr(&line[i + 1], token))
+	if (!ft_strchr(&line[i + 1], token) || !line[i + 1])
 	{
-		printf("No closing quote");
+		printf("ERROR: No closing quote\n");
 		return (-1);
 	}
 	if (token == '\'')
@@ -65,36 +65,37 @@ static int	get_word(char *line, int i, t_tokenized *tokenized)
 
 	start = i;
 	tokenized->token = WORD;
-	while(line[i] && line[i] != ' ' && line[i] != '<' && line[i] != '>' && line[i] != '|')
+	while(line[i] && line[i] != ' ' && line[i] != '<' && line[i] != '>' && line[i] != '|' && line[i] != '\''  && line[i] != '\"')
 		i++;
 	tokenized->element = ft_substr(&line[start], 0, i - start);
 	return (i);
 }
 
-t_tokenized	lexer_exec(char *line)
+t_tokenized	create_token(char *line)
 {
 	t_tokenized	tokenized;
 	static int	i = 0;
 
-	// if (!line[i])
-		// return (-1);
-	printf("This int: %i\n", i);
 	while (line[i])
 	{
 		while (line[i] == ' ')
 			i++;
 		if (line[i] == '\'' || line[i] == '\"')
 		{
-			i += get_quoted(line, i, &tokenized);
+			i += get_quoted(line, i, &tokenized); //-1 if no quote end
 			return (tokenized);
 		}
 		if (line[i] == '<' || line[i] == '>' || line[i] == '|')
+		{
 			i += get_sym(line, i, &tokenized);
+			return (tokenized);
+		}
 		else
 			i += get_word(line, i, &tokenized);
 		return (tokenized);
 	i++;
 	}
 	tokenized.token = END;
+	tokenized.element = NULL;
 	return (tokenized);
 }

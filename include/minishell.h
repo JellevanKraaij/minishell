@@ -30,8 +30,8 @@ typedef enum e_token_labels
 
 typedef struct s_tokenized
 {
-	int		token;
-	char	*element;
+	t_token_labels	token;
+	char			*element;
 }	t_tokenized;
 
 //Errors
@@ -40,6 +40,7 @@ void		*null_exit(void	*ptr);
 void		print_error(char *name, char *error_desc, char *error);
 void		parse_exec(char *line);
 void		init_signals(void);
-t_tokenized	lexer_exec(char *line);
+t_tokenized	create_token(char *line);
+void		print_tokenized(t_tokenized tokenized);
 
 #endif
