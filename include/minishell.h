@@ -25,7 +25,8 @@ typedef enum e_token_labels
 	RED_OUT_APPEND, //  >>
 	RED_IN, //  <<
 	PIPE, // |
-	END
+	END,
+	UNCLOSED
 }	t_token_labels;
 
 typedef struct s_tokenized

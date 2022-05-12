@@ -15,7 +15,7 @@ int	main(void)
 		line = readline(SHELL_PROMPT);
 		if (line == NULL)
 			exit(1);
-		while (tokenized.token != END)
+		while (tokenized.token != END && tokenized.token != UNCLOSED)
 		{
 			tokenized = create_token(line);
 			print_tokenized(tokenized);

@@ -48,7 +48,9 @@ static int	get_quoted(char *line, int i, t_tokenized *tokenized)
 	if (!ft_strchr(&line[i + 1], token) || !line[i + 1])
 	{
 		printf("ERROR: No closing quote\n");
-		return (-1);
+		tokenized->token = UNCLOSED;
+		tokenized->element = NULL;
+		return (0);
 	}
 	if (token == '\'')
 		tokenized->token = SQUOTED;
@@ -57,7 +59,6 @@ static int	get_quoted(char *line, int i, t_tokenized *tokenized)
 	tokenized->element = ft_substr(&line[i + 1], 0, ft_strchr(&line[i + 1], token) - ft_strchr(&line[i], token) - 1);
 	return (ft_strchr(&line[i + 1], token) - ft_strchr(&line[i], token) + 1);
 }
-
 
 static int	get_word(char *line, int i, t_tokenized *tokenized)
 {
