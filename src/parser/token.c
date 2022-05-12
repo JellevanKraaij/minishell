@@ -56,6 +56,6 @@ void	update_token_list(t_list **lst, t_token *(*token_f)(t_token *))
 		}
 		lst_i = lst_i->next;
 	}
-	ft_lstclear(lst, (void (*)(void *))destroy_token);
+	ft_lstclear(lst, ((void (*))(void *)destroy_token));
 	*lst = ret;
 }

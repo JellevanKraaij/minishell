@@ -17,22 +17,6 @@ typedef enum e_type
 	PIPE,
 }	t_type;
 
-inline const char	*type_to_string(t_type type)
-{
-	const char	*type_str[] = {
-	[DEFAULT] = "DEFAULT",
-	[STRING_S] = "STRING_S",
-	[STRING_D] = "STRING_D",
-	[IN_REDIR] = "IN_REDIR",
-	[HEREDOC] = "HEREDOC",
-	[OUT_REDIR] = "OUT_REDIR",
-	[OUT_REDIR_A] = "OUT_REDIR_A",
-	[PIPE] = "PIPE",
-	};
-
-	return (type_str[type]);
-}
-
 typedef struct s_token
 {
 	char	*str;
