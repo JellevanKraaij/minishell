@@ -47,10 +47,14 @@ static int	get_quoted(char *line, int i, t_tokenized *tokenized)
 	token = line[i];
 	if (!ft_strchr(&line[i + 1], token) || !line[i + 1])
 	{
-		printf("ERROR: No closing quote\n");
+		int		i_copy;
+
+		i_copy = i;
+		while (line[i])
+			i++;
 		tokenized->token = UNCLOSED;
-		tokenized->element = NULL;
-		return (0);
+		tokenized->element = ft_substr(&line[i_copy + 1], 0, i);
+		return (i);
 	}
 	if (token == '\'')
 		tokenized->token = SQUOTED;
@@ -77,26 +81,22 @@ t_tokenized	create_token(char *line)
 	t_tokenized	tokenized;
 	static int	i = 0;
 
-	while (line[i])
+	line = ft_strtrim(line, " ");
+	if (!line[i])
 	{
-		while (line[i] == ' ')
-			i++;
-		if (line[i] == '\'' || line[i] == '\"')
-		{
-			i += get_quoted(line, i, &tokenized); //-1 if no quote end
-			return (tokenized);
-		}
-		if (line[i] == '<' || line[i] == '>' || line[i] == '|')
-		{
-			i += get_sym(line, i, &tokenized);
-			return (tokenized);
-		}
-		else
-			i += get_word(line, i, &tokenized);
+		tokenized.token = END;
+		tokenized.element = NULL;
+		i = 0;
 		return (tokenized);
-	i++;
 	}
-	tokenized.token = END;
-	tokenized.element = NULL;
+	while (line[i] == ' ')
+		i++;
+	if (line[i] == '\'' || line[i] == '\"')
+		i += get_quoted(line, i, &tokenized);
+	else if (line[i] == '<' || line[i] == '>' || line[i] == '|')
+		i += get_sym(line, i, &tokenized);
+	else
+		i += get_word(line, i, &tokenized);
 	return (tokenized);
-}
+} //null returenn bij unclosed quote die eindigd met alleen spaties
+//trim all white spaces
