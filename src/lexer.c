@@ -93,7 +93,8 @@ static int	get_word(char *line, int i, t_tokenized *tokenized)
 
 	start = i;
 	tokenized->token = WORD;
-	while (line[i] && !ft_strchr(TOKEN_ARRAY, line[i]))
+	while (line[i] && !ft_strchr("<>|\'\"", line[i]) \
+			&& !ft_strchr(WHITESPACE, line[i]))
 		i++;
 	tokenized->element = null_exit(ft_substr(&line[start], 0, i - start));
 	return (i);

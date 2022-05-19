@@ -17,8 +17,6 @@
 
 # define WHITESPACE " "
 
-# define TOKEN_ARRAY " <>|\'\""
-
 typedef enum e_token_labels
 {
 	WORD, //undefined
