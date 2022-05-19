@@ -15,15 +15,19 @@
 
 # define SHELL_PROMPT "minishell$> "
 
+# define WHITESPACE " "
+
+# define TOKEN_ARRAY " <>|\'\""
+
 typedef enum e_token_labels
 {
 	WORD, //undefined
-	SQUOTED, // string single quotes
-	DQUOTED, // string double quotes
-	RED_INPUT, // <
-	RED_OUTPUT, // >
-	RED_OUT_APPEND, //  >>
-	RED_IN, //  <<
+	SINGLE_QUOTED, // string single quotes
+	DOUBLE_QUOTED, // string double quotes
+	REDIR_INPUT, // <
+	REDIR_OUTPUT, // >
+	OUTFILE_APPEND, //  >>
+	HERE_DOC, //  <<
 	PIPE, // |
 	END,
 	UNCLOSED
