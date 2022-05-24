@@ -22,39 +22,47 @@ static ssize_t	get_index(const char *str, char c)
 	return (pntr - str);
 }
 
-static int	get_sym(char *line, int i, t_tokenized *tokenized)
+static int single_sym(char *line, int i, t_tokenized *tokenized)
 {
-	if (line[i] == '>' && line[i + 1] == '>')
-	{
-		tokenized->token = OUTFILE_APPEND;
-		tokenized->element = null_exit(ft_strdup(">>"));
-		return (2);
-	}
-	else if (line[i] == '<' && line[i + 1] == '<')
-	{
-		tokenized->token = HERE_DOC;
-		tokenized->element = null_exit(ft_strdup("<<"));
-		return (2);
-	}
-	else if (line[i] == '<')
+	if (line[i] == '<')
 	{
 		tokenized->token = REDIR_INPUT;
 		tokenized->element = null_exit(ft_strdup("<"));
-		return (1);
 	}
 	else if (line[i] == '>')
 	{
 		tokenized->token = REDIR_OUTPUT;
 		tokenized->element = null_exit(ft_strdup(">"));
-		return (1);
 	}
 	else if (line[i] == '|')
 	{
 		tokenized->token = PIPE;
 		tokenized->element = null_exit(ft_strdup("|"));
-		return (1);
 	}
-	return (0);
+	return (1);
+}
+
+static int	double_sym(char *line, int i, t_tokenized *tokenized)
+{
+	if (line[i] == '>' && line[i + 1] == '>')
+	{
+		tokenized->token = OUTFILE_APPEND;
+		tokenized->element = null_exit(ft_strdup(">>"));
+	}
+	else if (line[i] == '<' && line[i + 1] == '<')
+	{
+		tokenized->token = HERE_DOC;
+		tokenized->element = null_exit(ft_strdup("<<"));
+	}
+	return (2);
+}
+
+static int	get_sym(char *line, int i, t_tokenized *tokenized)
+{
+	if (line[i + 1] && line[i] == line[i + 1])
+		return (double_sym(line, i, tokenized));
+	else
+		return (single_sym(line, i, tokenized));
 }
 
 static int	get_quoted(char *line, int i, t_tokenized *tokenized)
@@ -108,11 +116,11 @@ t_tokenized	create_token(char *line)
 	while (line[i] == ' ')
 		i++;
 	if (line[i] == '\'' || line[i] == '\"')
-		i += get_quoted(line, i, &tokenized);
+		i = i + get_quoted(line, i, &tokenized);
 	else if (line[i] == '<' || line[i] == '>' || line[i] == '|')
-		i += get_sym(line, i, &tokenized);
+		i = i + get_sym(line, i, &tokenized);
 	else if (line[i])
-		i += get_word(line, i, &tokenized);
+		i = get_word(line, i, &tokenized);
 	else
 	{
 		tokenized.token = END;
