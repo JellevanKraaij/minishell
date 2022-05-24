@@ -12,7 +12,7 @@
 // 	return (0);
 // }
 
-static ssize_t	get_index(const char *str, char c)
+static ssize_t	strlen_quoted(const char *str, char c)
 {
 	char	*pntr;
 
@@ -22,70 +22,55 @@ static ssize_t	get_index(const char *str, char c)
 	return (pntr - str);
 }
 
-static int single_sym(char *line, int i, t_tokenized *tokenized)
+static size_t	fill_token(t_token_labels label, const char *sym, t_tokenized *tokenized)
+{
+	tokenized->token = label;
+	tokenized->element = null_exit(ft_strdup(sym));
+	return (ft_strlen(sym));
+}
+
+static size_t tokenize_sym(char *line, int i, t_tokenized *tokenized)
 {
 	if (line[i] == '<')
-	{
-		tokenized->token = REDIR_INPUT;
-		tokenized->element = null_exit(ft_strdup("<"));
-	}
-	else if (line[i] == '>')
-	{
-		tokenized->token = REDIR_OUTPUT;
-		tokenized->element = null_exit(ft_strdup(">"));
-	}
-	else if (line[i] == '|')
-	{
-		tokenized->token = PIPE;
-		tokenized->element = null_exit(ft_strdup("|"));
-	}
-	return (1);
-}
-
-static int	double_sym(char *line, int i, t_tokenized *tokenized)
-{
+		return (fill_token(REDIR_INPUT, "<", tokenized));
+	if (line[i] == '>')
+		return (fill_token(REDIR_OUTPUT, ">", tokenized));
+	if (line[i] == '|')
+		return (fill_token(PIPE, "|", tokenized));
 	if (line[i] == '>' && line[i + 1] == '>')
-	{
-		tokenized->token = OUTFILE_APPEND;
-		tokenized->element = null_exit(ft_strdup(">>"));
-	}
-	else if (line[i] == '<' && line[i + 1] == '<')
-	{
-		tokenized->token = HERE_DOC;
-		tokenized->element = null_exit(ft_strdup("<<"));
-	}
-	return (2);
+		return (fill_token(REDIR_OUTPUT_APPEND, ">>", tokenized));
+	if (line[i] == '<' && line[i + 1] == '<')
+		return (fill_token(REDIR_OUTPUT_APPEND, "<<", tokenized));
+	return (0);
 }
 
-static int	get_sym(char *line, int i, t_tokenized *tokenized)
-{
-	if (line[i + 1] && line[i] == line[i + 1])
-		return (double_sym(line, i, tokenized));
-	else
-		return (single_sym(line, i, tokenized));
+static int unclosed_quote(char *line, int i, t_tokenized *tokenized)
+{	
+	int		current_pos;
+
+	if (!line[i + 1])
+	{
+		tokenized->element = NULL;
+		return (1);
+	}
+	current_pos = i;
+	while (line[i])
+		i++;
+	tokenized->element = null_exit(ft_substr(line, current_pos + 1, i));
+	return (i - current_pos);
 }
 
-static int	get_quoted(char *line, int i, t_tokenized *tokenized)
+static int	tokenize_quoted(char *line, int i, t_tokenized *tokenized)
 {
 	char	token;
-	int		current_pos;
 	ssize_t	quote_length;
 
 	token = line[i];
-	quote_length = get_index(&line[i + 1], token);
+	quote_length = strlen_quoted(&line[i + 1], token);
 	if (quote_length < 0 || !line[i + 1])
 	{
 		tokenized->token = UNCLOSED;
-		if (!line[i + 1])
-		{
-			tokenized->element = NULL;
-			return (1);
-		}
-		current_pos = i;
-		while (line[i])
-			i++;
-		tokenized->element = null_exit(ft_substr(line, current_pos + 1, i));
-		return (i - current_pos);
+		return (unclosed_quote(line, i, tokenized));
 	}
 	if (token == '\'')
 		tokenized->token = SINGLE_QUOTED;
@@ -95,7 +80,7 @@ static int	get_quoted(char *line, int i, t_tokenized *tokenized)
 	return (quote_length + 2);
 }
 
-static int	get_word(char *line, int i, t_tokenized *tokenized)
+static int	tokenize_word(char *line, int i, t_tokenized *tokenized)
 {
 	int	start;
 
@@ -116,11 +101,11 @@ t_tokenized	create_token(char *line)
 	while (line[i] == ' ')
 		i++;
 	if (line[i] == '\'' || line[i] == '\"')
-		i = i + get_quoted(line, i, &tokenized);
+		i = i + tokenize_quoted(line, i, &tokenized);
 	else if (line[i] == '<' || line[i] == '>' || line[i] == '|')
-		i = i + get_sym(line, i, &tokenized);
+		i = i + tokenize_sym(line, i, &tokenized);
 	else if (line[i])
-		i = get_word(line, i, &tokenized);
+		i = tokenize_word(line, i, &tokenized);
 	else
 	{
 		tokenized.token = END;

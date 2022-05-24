@@ -8,7 +8,7 @@
 char	*get_type(int token)
 {
 	char	*types[] = {"WORD", "SINGLE_QUOTED", "DOUBLE_QUOTED", "REDIR_INPUT", "REDIR_OUTPUT", \
-	"OUTFILE_APPEND", "HERE_DOC", "PIPE", "END", "UNCLOSED"};
+	"REDIR_OUTPUT_APPEND", "HERE_DOC", "PIPE", "END", "UNCLOSED"};
 
 	return (types[token]);
 }

@@ -24,7 +24,7 @@ typedef enum e_token_labels
 	DOUBLE_QUOTED, // string double quotes
 	REDIR_INPUT, // <
 	REDIR_OUTPUT, // >
-	OUTFILE_APPEND, //  >>
+	REDIR_OUTPUT_APPEND, //  >>
 	HERE_DOC, //  <<
 	PIPE, // |
 	END,
