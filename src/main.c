@@ -7,7 +7,6 @@
 int	main(void)
 {
 	char		*line;
-	t_tokenized tokenized;
 
 	// init_signals();
 	while (1)
@@ -15,13 +14,7 @@ int	main(void)
 		line = readline(SHELL_PROMPT);
 		if (line == NULL)
 			exit(1);
-		tokenized.token = WORD;
-		while (tokenized.token != END)
-		{
-			tokenized = create_token(line);
-			print_tokenized(tokenized);
-		}
-		// parse_exec(line);
+		parse_exec(line);
 		if (*line)
 			add_history(line);
 		free(line);

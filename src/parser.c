@@ -5,16 +5,15 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+
 void	parse_exec(char *line)
 {
-	if (line == NULL)
+	t_tokenized	tokenized;
+
+	tokenized.token = WORD;
+	while (tokenized.token != END)
 	{
-		rl_clear_history();
-		exit(0);
+		tokenized = create_token(line);
+		print_tokenized(tokenized);
 	}
-	if (*line == '\0')
-		return ;
-	if (ft_strncmp(line, "exit", 4) == 0)
-		exit (0);
-	print_error("minishell", "command not found", line);
 }

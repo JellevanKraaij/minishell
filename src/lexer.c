@@ -22,14 +22,15 @@ static ssize_t	strlen_quoted(const char *str, char c)
 	return (pntr - str);
 }
 
-static size_t	fill_token(t_token_labels label, const char *sym, t_tokenized *tokenized)
+static size_t	fill_token(t_token_labels label, const char *sym, \
+				t_tokenized *tokenized)
 {
 	tokenized->token = label;
 	tokenized->element = null_exit(ft_strdup(sym));
 	return (ft_strlen(sym));
 }
 
-static size_t tokenize_sym(char *line, int i, t_tokenized *tokenized)
+static size_t	tokenize_sym(char *line, int i, t_tokenized *tokenized)
 {
 	if (line[i] == '<')
 		return (fill_token(REDIR_INPUT, "<", tokenized));
@@ -44,7 +45,7 @@ static size_t tokenize_sym(char *line, int i, t_tokenized *tokenized)
 	return (0);
 }
 
-static int unclosed_quote(char *line, int i, t_tokenized *tokenized)
+static int	unclosed_quote(char *line, int i, t_tokenized *tokenized)
 {	
 	int		current_pos;
 
