@@ -5,15 +5,24 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+static t_token	*init_token(void)
+{
+	t_token	*ret;
+
+	ret = null_exit(malloc(sizeof(t_token)));
+	ret->str = NULL;
+	ret->type = WORD;
+	return (ret);
+}
 
 void	parse_exec(char *line)
 {
-	t_tokenized	tokenized;
+	t_token	*token;
 
-	tokenized.token = WORD;
-	while (tokenized.token != END)
+	token = init_token();
+	while (token->type != END)
 	{
-		tokenized = create_token(line);
-		print_tokenized(tokenized);
+		token = create_token(line);
+		print_token(token);
 	}
 }

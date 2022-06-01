@@ -17,7 +17,7 @@
 
 # define WHITESPACE " "
 
-typedef enum e_token_labels
+typedef enum e_type
 {
 	WORD, //undefined
 	SINGLE_QUOTED, // string single quotes
@@ -27,15 +27,15 @@ typedef enum e_token_labels
 	REDIR_OUTPUT_APPEND, //  >>
 	HERE_DOC, //  <<
 	PIPE, // |
-	END,
-	UNCLOSED
-}	t_token_labels;
+	UNCLOSED,
+	END
+}	t_type;
 
-typedef struct s_tokenized
+typedef struct s_token
 {
-	t_token_labels	token;
-	char			*element;
-}	t_tokenized;
+	char			*str;
+	t_type			type;
+}	t_token;
 
 //Errors
 void		perror_exit(const char *s, int error_code) __attribute__((noreturn));
@@ -43,7 +43,7 @@ void		*null_exit(void	*ptr);
 void		print_error(char *name, char *error_desc, char *error);
 void		parse_exec(char *line);
 void		init_signals(void);
-t_tokenized	create_token(char *line);
-void		print_tokenized(t_tokenized tokenized);
+t_token		*create_token(char *line);
+void		print_token(t_token *token);
 
 #endif

@@ -8,14 +8,14 @@
 char	*get_type(int token)
 {
 	char	*types[] = {"WORD", "SINGLE_QUOTED", "DOUBLE_QUOTED", "REDIR_INPUT", "REDIR_OUTPUT", \
-	"REDIR_OUTPUT_APPEND", "HERE_DOC", "PIPE", "END", "UNCLOSED"};
+	"REDIR_OUTPUT_APPEND", "HERE_DOC", "PIPE", "UNCLOSED", "END"};
 
 	return (types[token]);
 }
 
-void	print_tokenized(t_tokenized tokenized)
+void	print_token(t_token *token)
 {
-	printf("Token num : '%i'\n", tokenized.token);
-	printf("Token type: '%s'\n", get_type(tokenized.token));
-	printf("String    : '%s'\n\n", tokenized.element);
+	printf("Token num : '%i'\n", token->type);
+	printf("Token type: '%s'\n", get_type(token->type));
+	printf("String    : '%s'\n\n", token->str);
 }
