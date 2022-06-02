@@ -1,7 +1,6 @@
 #include "minishell.h"
 #include "parser.h"
 #include "libft.h"
-#include <stdio.h>
 
 void	lookup_var(char **var)
 {
@@ -19,7 +18,6 @@ void	lookup_var(char **var)
 	}
 	free(*var);
 	*var = ret;
-	printf("var = '%s'\n", *var);
 }
 
 size_t	calc_varlen(char *var)

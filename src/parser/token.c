@@ -9,6 +9,7 @@ t_token	*init_token(void)
 
 	ret = null_exit(malloc(sizeof(t_token)));
 	ret->str = NULL;
+	ret->type = DEFAULT;
 	return (ret);
 }
 

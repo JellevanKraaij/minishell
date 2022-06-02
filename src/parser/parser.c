@@ -46,5 +46,6 @@ void	parse_exec(char *line)
 	update_token_list(&tokens, process_quotes);
 	update_token_list(&tokens, process_operators);
 	update_token_list(&tokens, expand_vars);
+	update_token_list(&tokens, split_tokens);
 	ft_lstiter(tokens, fprint_tokens);
 }
