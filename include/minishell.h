@@ -9,5 +9,4 @@ void	print_error(char *name, char *error_desc, char *error);
 void	parse_exec(char *line);
 void	init_signals(void);
 
-
 #endif
