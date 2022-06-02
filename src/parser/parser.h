@@ -8,13 +8,14 @@
 typedef enum e_type
 {
 	DEFAULT,
-	STRING_S,
-	STRING_D,
-	IN_REDIR,
+	SINGLE_QUOTED,
+	DOUBLE_QUOTED,
+	REDIR_INPUT,
 	HEREDOC,
-	OUT_REDIR,
-	OUT_REDIR_A,
+	REDIR_OUTPUT,
+	REDIR_OUTPUT_APPEND,
 	PIPE,
+	UNCLOSED
 }	t_type;
 
 typedef struct s_token
@@ -24,10 +25,9 @@ typedef struct s_token
 }	t_token;
 
 // add qoutes metadata to line and removes the unnecessary quotes 
-t_token	*process_quotes(t_token *input);
-t_token	*process_operators(t_token *input);
+t_token	*lexer_process(t_token *input);
 t_token	*expand_vars(t_token *input);
-t_token *split_tokens(t_token *input);
+t_token	*split_tokens(t_token *input);
 
 t_token	*init_token(void);
 t_token	*destroy_token(t_token *token);
