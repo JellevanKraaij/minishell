@@ -15,7 +15,7 @@ int	main(void)
 		line = readline(SHELL_PROMPT);
 		if (line == NULL)
 			exit(1);
-		parse_exec(line);
+		// parse_exec(line);
 		if (*line)
 			add_history(line);
 		free(line);

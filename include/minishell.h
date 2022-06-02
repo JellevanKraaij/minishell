@@ -43,7 +43,7 @@ void		*null_exit(void	*ptr);
 void		print_error(char *name, char *error_desc, char *error);
 void		parse_exec(char *line);
 void		init_signals(void);
-t_token		*create_token(char *line);
+t_token		*create_token(t_token *input);
 void		print_token(t_token *token);
 
 #endif

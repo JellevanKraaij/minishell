@@ -5,12 +5,14 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-// static int	ft_isspace(int i)
-// {
-// 	if (i == ' ' || i == '\t' || i == '\v' || i == '\f' || i == '\r')
-// 		return (1);
-// 	return (0);
-// }
+static int	ft_isspace(int i)
+{
+	if (!i)
+		return (0);
+	if (ft_strchr(WHITESPACE, i))
+		return (1);
+	return (0);
+}
 
 t_token	*init_token(void)
 {
@@ -42,16 +44,16 @@ static size_t	fill_token(t_type label, const char *sym, \
 
 static size_t	tokenize_sym(char *line, int i, t_token *token)
 {
+	if (line[i] == '>' && line[i + 1] == '>')
+		return (fill_token(REDIR_OUTPUT_APPEND, ">>", token));
+	if (line[i] == '<' && line[i + 1] == '<')
+		return (fill_token(REDIR_OUTPUT_APPEND, "<<", token));
 	if (line[i] == '<')
 		return (fill_token(REDIR_INPUT, "<", token));
 	if (line[i] == '>')
 		return (fill_token(REDIR_OUTPUT, ">", token));
 	if (line[i] == '|')
 		return (fill_token(PIPE, "|", token));
-	if (line[i] == '>' && line[i + 1] == '>')
-		return (fill_token(REDIR_OUTPUT_APPEND, ">>", token));
-	if (line[i] == '<' && line[i + 1] == '<')
-		return (fill_token(REDIR_OUTPUT_APPEND, "<<", token));
 	return (0);
 }
 
@@ -104,25 +106,26 @@ static int	tokenize_word(char *line, int i, t_token *token)
 	return (i);
 }
 
-t_token	*create_token(char *line)
+t_token	*create_token(t_token *input)
 {
-	t_token	*token;
+	t_token		*token;
 	static int	i = 0;
 
 	token = init_token();
-	while (line[i] == ' ')
+	while (ft_isspace(input->str[i]))
 		i++;
-	if (line[i] == '\'' || line[i] == '\"')
-		i = i + tokenize_quoted(line, i, token);
-	else if (line[i] == '<' || line[i] == '>' || line[i] == '|')
-		i = i + tokenize_sym(line, i, token);
-	else if (line[i])
-		i = tokenize_word(line, i, token);
+	if (input->str[i] == '\'' || input->str[i] == '\"')
+		i = i + tokenize_quoted(input->str, i, token);
+	else if (input->str[i] == '<' || input->str[i] == '>' \
+			|| input->str[i] == '|')
+		i = i + tokenize_sym(input->str, i, token);
+	else if (input->str[i])
+		i = tokenize_word(input->str, i, token);
 	else
 	{
-		token->type = END;
-		token->str = NULL;
+		free(token);
 		i = 0;
+		return (NULL);
 	}
 	return (token);
 }
