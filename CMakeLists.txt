@@ -8,9 +8,8 @@ set (UTIL_SRCS
 	src/error.c
 	src/signals.c
 	src/parser/parser.c
-	src/parser/process_quotes.c
 	src/parser/token.c
-	src/parser/process_operators.c
+	src/parser/lexer_process.c
 	src/parser/utils.c
 	src/parser/expand_vars.c
 	src/parser/split_tokens.c
