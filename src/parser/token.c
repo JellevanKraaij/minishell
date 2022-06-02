@@ -30,11 +30,6 @@ t_token	*create_token(char *str, size_t len, t_type type)
 		token->str = null_exit(ft_strntrim(str, WHITESPACE, len));
 	else
 		token->str = null_exit(ft_strndup(str, len));
-	if (*token->str == '\0' && type != STRING_D && type != STRING_S)
-	{
-		printf("return empty\n");
-		return (destroy_token(token));
-	}
 	return (token);
 }
 
