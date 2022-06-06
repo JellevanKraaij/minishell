@@ -4,6 +4,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#ifndef TESTER
 int	main(void)
 {
 	char	*line;
@@ -18,3 +19,4 @@ int	main(void)
 		free(line);
 	}
 }
+#endif

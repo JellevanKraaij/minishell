@@ -24,7 +24,7 @@ typedef struct s_token
 	t_type	type;
 }	t_token;
 
-// add qoutes metadata to line and removes the unnecessary quotes 
+// lexer
 t_token	*lexer_process(t_token *input);
 t_token	*expand_vars(t_token *input);
 t_token	*split_tokens(t_token *input);
