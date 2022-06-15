@@ -3,8 +3,19 @@
 
 // #include <limits.h>
 
+
 extern "C" {
 	#include "minishell.h"
+	#include "string.h"
+
+static int	ft_isspace(int i)
+{
+	if (!i)
+		return (0);
+	if (strchr(" ", i))
+		return (1);
+	return (0);
+}
 }
 
 using namespace testing;
@@ -18,4 +29,9 @@ TEST(ErrorTests, null_exit)
 	EXPECT_EQ(null_exit((void *)42), (void *)42);
 	EXPECT_EQ(null_exit((void *)SIZE_MAX), (void *)SIZE_MAX);
 	EXPECT_EXIT(null_exit(NULL), ExitedWithCode(1), StartsWith("minishell:"));
+}
+
+TEST(IsspaceTests, outcome_test)
+{
+	EXPECT_TRUE(ft_isspace(" "));
 }
