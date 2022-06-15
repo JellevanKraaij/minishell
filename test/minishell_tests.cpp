@@ -22,7 +22,8 @@ TEST(ErrorTests, null_exit)
 	EXPECT_EXIT(null_exit(NULL), ExitedWithCode(1), StartsWith("minishell:"));
 }
 
-TEST(IsspaceTests, outcome_test)
+TEST(LexerTests, ft_isspace)
 {
-	EXPECT_TRUE(ft_isspace(" "));
+	EXPECT_TRUE(ft_isspace(' '));
+	EXPECT_FALSE(ft_isspace('\0'));
 }
