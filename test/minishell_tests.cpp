@@ -6,16 +6,7 @@
 
 extern "C" {
 	#include "minishell.h"
-	#include "string.h"
-
-static int	ft_isspace(int i)
-{
-	if (!i)
-		return (0);
-	if (strchr(" ", i))
-		return (1);
-	return (0);
-}
+	#include "parser.h"
 }
 
 using namespace testing;

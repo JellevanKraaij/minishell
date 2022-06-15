@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-static int	ft_isspace(int i)
+int	ft_isspace(int i)
 {
 	if (!i)
 		return (0);
@@ -13,7 +13,7 @@ static int	ft_isspace(int i)
 	return (0);
 }
 
-static ssize_t	strlen_quoted(const char *str, char c)
+ssize_t	strlen_quoted(const char *str, char c)
 {
 	char	*pntr;
 
@@ -23,7 +23,7 @@ static ssize_t	strlen_quoted(const char *str, char c)
 	return (pntr - str);
 }
 
-static size_t	fill_token(t_type label, const char *sym, \
+size_t	fill_token(t_type label, const char *sym, \
 				t_token *token)
 {
 	token->type = label;
@@ -31,7 +31,7 @@ static size_t	fill_token(t_type label, const char *sym, \
 	return (ft_strlen(sym));
 }
 
-static size_t	tokenize_sym(char *line, int i, t_token *token)
+size_t	tokenize_sym(char *line, int i, t_token *token)
 {
 	if (line[i] == '>' && line[i + 1] == '>')
 		return (fill_token(REDIR_OUTPUT_APPEND, ">>", token));
