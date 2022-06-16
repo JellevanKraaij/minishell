@@ -1,8 +1,6 @@
 #include "minishell.h"
 #include "parser.h"
 #include <libft.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -23,7 +21,7 @@ const char	*type_to_string(t_type type)
 	return (type_str[type]);
 }
 
-void	fprint_tokens(void *data)
+void	fprint_token(void *data)
 {
 	t_token	*token;
 
@@ -32,9 +30,36 @@ void	fprint_tokens(void *data)
 	type_to_string(token->type), token->str);
 }
 
+void	print_commands(t_list *commands)
+{
+	t_list *tmp;
+	t_command *cmd;
+	int	i;
+
+	while(commands != NULL)
+	{
+		cmd = commands->content;
+		printf("cmd='%s'", cmd->cmd);
+		i = 0;
+		tmp = cmd->args;
+		while (tmp != NULL)
+		{
+			printf(" arg[%d]='%s'",i, (char *)tmp->content);
+			i++;
+			tmp = tmp->next;
+		}
+		if (commands->next != NULL)
+			printf(" | ");
+		else
+			printf("\n");
+		commands = commands->next;
+	}
+}
+
 void	parse_exec(char *line)
 {
 	t_list	*tokens;
+	t_list	*commands;
 
 	if (line == NULL)
 	{
@@ -47,5 +72,7 @@ void	parse_exec(char *line)
 	update_token_list(&tokens, lexer_process);
 	update_token_list(&tokens, expand_vars);
 	update_token_list(&tokens, split_tokens);
-	ft_lstiter(tokens, fprint_tokens);
+	ft_lstiter(tokens, fprint_token);
+	commands = parse_tokens(tokens);
+	print_commands(commands);
 }

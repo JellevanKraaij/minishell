@@ -1,8 +1,6 @@
 #include "minishell.h"
 #include "parser.h"
 #include "libft.h"
-#include <stdio.h>
-#include <string.h>
 
 static int	ft_isspace(int i)
 {
