@@ -18,3 +18,10 @@ int	is_token_type_text(t_token token)
 		return (1);
 	return (0);
 }
+
+int	is_token_type_redir(t_token token)
+{
+	if (token.type == REDIR_INPUT || token.type == REDIR_OUTPUT || token.type == REDIR_OUTPUT_APPEND)
+		return (1);
+	return (0);
+}

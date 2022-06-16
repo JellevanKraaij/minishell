@@ -4,7 +4,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-const char	*type_to_string(t_type type)
+static const char	*type_to_string(t_type type)
 {
 	const char	*type_str[] = {
 	[DEFAULT] = "DEFAULT",
@@ -21,6 +21,17 @@ const char	*type_to_string(t_type type)
 	return (type_str[type]);
 }
 
+static const char 	*flag_to_string(t_fileflags flag)
+{
+	const char	*flag_str[] = {
+	[INPUT] = "input",
+	[OUTPUT] = "output",
+	[OUTPUT_APP] = "output app",
+	};
+
+	return (flag_str[flag]);
+}
+
 void	fprint_token(void *data)
 {
 	t_token	*token;
@@ -33,25 +44,31 @@ void	fprint_token(void *data)
 void	print_commands(t_list *commands)
 {
 	t_list *tmp;
+	t_file	*file;
 	t_command *cmd;
 	int	i;
 
+	i = 1;
 	while(commands != NULL)
 	{
 		cmd = commands->content;
-		printf("cmd='%s'", cmd->cmd);
-		i = 0;
-		tmp = cmd->args;
-		while (tmp != NULL)
+		printf("COMMAND %d\n{\n    files =", i);
+		tmp = cmd->files;
+		while(tmp != NULL)
 		{
-			printf(" arg[%d]='%s'",i, (char *)tmp->content);
-			i++;
+			file = tmp->content;
+			printf(" (name='%s' type='%s')", file->name, flag_to_string(file->flag));
 			tmp = tmp->next;
 		}
-		if (commands->next != NULL)
-			printf(" | ");
-		else
-			printf("\n");
+		printf("\n    argv =");
+		tmp = cmd->argv;
+		while (tmp != NULL)
+		{
+			printf(" '%s'",(char *)tmp->content);
+			tmp = tmp->next;
+		}
+		printf("\n}\n");
+		i++;
 		commands = commands->next;
 	}
 }
@@ -72,7 +89,7 @@ void	parse_exec(char *line)
 	update_token_list(&tokens, lexer_process);
 	update_token_list(&tokens, expand_vars);
 	update_token_list(&tokens, split_tokens);
-	ft_lstiter(tokens, fprint_token);
+	// ft_lstiter(tokens, fprint_token);
 	commands = parse_tokens(tokens);
 	print_commands(commands);
 }

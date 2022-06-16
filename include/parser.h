@@ -24,10 +24,24 @@ typedef struct s_token
 	t_type	type;
 }	t_token;
 
+typedef enum e_fileflags
+{
+	INPUT = REDIR_INPUT,
+	OUTPUT = REDIR_OUTPUT,
+	OUTPUT_APP = REDIR_OUTPUT_APPEND
+}	t_fileflags;
+
+typedef struct s_file
+{
+	char		*name;
+	t_fileflags	flag;
+}	t_file;
+
+
 typedef struct s_command
 {
-	char	*cmd;
-	t_list	*args;
+	t_list	*argv;
+	t_list	*files;
 }	t_command;
 
 // add qoutes metadata to line and removes the unnecessary quotes 
@@ -43,9 +57,13 @@ size_t	find_token_len(char *str, char *set);
 
 t_list	*parse_tokens(t_list *tokens);
 int		is_token_type_text(t_token token);
+int		is_token_type_redir(t_token token);
 
 t_command *init_command(void);
 t_command *destroy_command(t_command *cmd);
 
+t_file *init_file(void);
+t_file *destroy_file(t_file *file);
+t_file *create_file(char *name, t_fileflags flag);
 
 #endif

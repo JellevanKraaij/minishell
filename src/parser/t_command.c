@@ -7,14 +7,14 @@ t_command *init_command(void)
 	t_command *ret;
 
 	ret = null_exit(malloc(sizeof(t_command)));
-	ret->args = NULL;
-	ret->cmd = NULL;
+	ret->argv = NULL;
+	ret->files = NULL;
 	return (ret);
 }
 t_command *destroy_command(t_command *cmd)
 {
-	free(cmd->cmd);
-	ft_lstclear(&cmd->args, free);
+	ft_lstclear(&cmd->files, ((void (*))(void *)destroy_file));
+	ft_lstclear(&cmd->argv, free);
 	free(cmd);
 	return(NULL);
 }
