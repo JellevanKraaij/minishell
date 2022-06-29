@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strjoin3.c                                      :+:    :+:            */
+/*   ft_lsttoarray.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvna-kra <jvan-kra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/05/11 19:24:06 by jvna-kra      #+#    #+#                 */
-/*   Updated: 2022/05/11 19:24:06 by jvna-kra      ########   odam.nl         */
+/*   Created: 2022/06/28 16:19:29 by jvna-kra      #+#    #+#                 */
+/*   Updated: 2022/06/28 16:19:29 by jvna-kra      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
-char	*ft_strjoin3(char const *s1, char const *s2, char const *s3)
+void	**ft_lsttoarray(t_list *lst, void *(*dup)(void *))
 {
-	size_t	s1len;
-	size_t	s2len;
-	size_t	s3len;
-	char	*ret;
+	void	**ret;
+	int		idx;
 
-	s1len = ft_strlen(s1);
-	s2len = ft_strlen(s2);
-	s3len = ft_strlen(s3);
-	ret = malloc(s1len + s2len + s3len + 1);
+	if (lst == NULL)
+		return (NULL);
+	ret = malloc((ft_lstsize(lst) + 1) * sizeof(void *));
 	if (ret == NULL)
 		return (NULL);
-	ft_memcpy(ret, s1, s1len);
-	ft_memcpy(ret + s1len, s2, s2len + 1);
-	ft_memcpy(ret + s1len + s2len, s3, s3len + 1);
+	idx = 0;
+	while (lst)
+	{
+		ret[idx] = (*dup)(lst->content);
+		idx++;
+		lst = lst->next;
+	}
+	ret[idx] = NULL;
 	return (ret);
 }

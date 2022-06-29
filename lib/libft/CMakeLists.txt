@@ -16,6 +16,7 @@ src/ft_putendl_fd.c src/ft_pow.c src/ft_putnbr_fd.c src/ft_strndup.c src/ft_lstn
 src/ft_lstadd_front.c src/ft_lstsize.c src/ft_lstlast.c	src/ft_lstadd_back.c
 src/ft_lstdelone.c src/ft_lstclear.c src/ft_lstiter.c src/ft_lstmap.c
 src/ft_reallocf.c src/ft_abs.c src/ft_strntrim.c src/ft_strchrset.c src/ft_strjoin3.c
+src/ft_lsttoarray.c
 )
 
 add_library(ft STATIC ${SRCS})
