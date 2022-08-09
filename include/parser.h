@@ -37,7 +37,6 @@ typedef struct s_file
 	t_fileflags	flag;
 }	t_file;
 
-
 typedef struct s_command
 {
 	t_list	*argv;
