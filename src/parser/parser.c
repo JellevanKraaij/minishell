@@ -93,4 +93,5 @@ void	parse_exec(char *line)
 	commands = parse_tokens(tokens);
 	ft_lstclear(&tokens, ((void (*))(void *)destroy_token));
 	print_commands(commands);
+	execute_cmd(commands);
 }

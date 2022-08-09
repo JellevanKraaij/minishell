@@ -5,6 +5,12 @@
 
 # define WHITESPACE " "
 
+# define PIPE_OUT_WRITE 1
+# define PIPE_IN_READ 0
+
+# define FILE_OUT 1
+# define FILE_IN 0
+
 typedef enum e_type
 {
 	DEFAULT,
@@ -42,7 +48,16 @@ typedef struct s_command
 {
 	t_list	*argv;
 	t_list	*files;
+	char	**argv_array;
 }	t_command;
+
+typedef struct s_childs
+{
+	int		child_count;
+	int		fd[2];
+	pid_t	child;
+	int		pipe_end[2][2];
+}	t_childs;
 
 // add qoutes metadata to line and removes the unnecessary quotes 
 t_token		*lexer_process(t_token *input);
