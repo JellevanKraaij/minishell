@@ -90,7 +90,7 @@ void	parse_exec(char *line)
 	update_token_list(&tokens, lexer_process);
 	update_token_list(&tokens, expand_vars);
 	update_token_list(&tokens, split_tokens);
-	// ft_lstiter(tokens, fprint_token);
 	commands = parse_tokens(tokens);
+	ft_lstclear(&tokens, ((void (*))(void *)destroy_token));
 	print_commands(commands);
 }
