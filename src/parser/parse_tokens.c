@@ -35,7 +35,7 @@ t_list	*parse_command(t_command *cmd, t_list *tokens)
 		else if (token.type == PIPE)
 			break ;
 		else
-			ft_lstadd_back(&cmd->argv, \
+			ft_lstadd_back(&cmd->argv_list, \
 				null_exit(ft_lstnew(null_exit(ft_strdup(token.str)))));
 		tokens = tokens->next;
 	}
@@ -67,7 +67,7 @@ t_list	*parse_tokens(t_list *tokens)
 		cmd = init_command();
 		tokens = parse_command(cmd, tokens);
 		ft_lstadd_back(&ret, null_exit(ft_lstnew(cmd)));
-		if (cmd->argv == NULL && cmd->files == NULL)
+		if (cmd->argv_list == NULL && cmd->files == NULL)
 		{
 			ft_lstclear(&ret, ((void (*))(void *)destroy_command));
 			return (parser_error(tokens));

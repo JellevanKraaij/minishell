@@ -14,7 +14,6 @@
 typedef struct s_childs
 {
 	int		child_count;
-	int		fd[2];
 	pid_t	child;
 	int		pipe_end[2][2];
 }	t_childs;

@@ -9,7 +9,23 @@
 // 	perror("Fork did not succeed\n");
 // }
 
+extern char	**environ;
 
+char	*get_cmd_path(char *cmd, char **paths)
+{
+	int		i;
+	char	*cmd_path;
+
+	i = 0;
+	while (paths[i])
+	{
+		cmd_path = ft_strjoin(paths[i], cmd);
+		if (access(cmd_path, 0) == 0)
+			return (cmd_path);
+		i++;
+	}
+	print_error("minishell", cmd, "command not found");
+}
 
 char	**argv_array(t_list *lst)
 {
@@ -17,9 +33,9 @@ char	**argv_array(t_list *lst)
 	char	**commands;
 	int		counter;
 
-	length	= ft_lstsize(lst);
+	length = ft_lstsize(lst);
 	counter = 0;
-	commands = null_exit((char**)malloc(sizeof(char*) * (length + 1)));
+	commands = null_exit((char **)malloc(sizeof(char *) * (length + 1)));
 	while (lst)
 	{
 		commands[counter] = null_exit(ft_strdup(lst->content));
@@ -67,7 +83,7 @@ void	fork_process(t_list *commands)
 		cmd = ((t_command *)commands->content);
 		if (!pipe_flag)
 			builtin_process(cmd->argv_array);
-		path = get_cmd_path(cmd->argv_array[0]);
+		path = get_cmd_path(cmd->argv_array[0], cmd->cmd_paths);
 		// fork
 		// child_process();
 		// open_files(cmd->files);
