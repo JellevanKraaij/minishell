@@ -26,6 +26,7 @@ typedef struct s_token
 
 typedef enum e_fileflags
 {
+	INVALID = -1,
 	INPUT,
 	OUTPUT,
 	OUTPUT_APP
@@ -59,9 +60,9 @@ int			is_token_type_text(t_token token);
 int			is_token_type_redir(t_token token);
 t_fileflags	token_to_fileflag(t_token token);
 
-
 t_command	*init_command(void);
 t_command	*destroy_command(t_command *cmd);
+void		clear_command(t_command *cmd);
 
 t_file		*init_tfile(void);
 t_file		*destroy_tfile(t_file *file);

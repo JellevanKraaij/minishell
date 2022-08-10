@@ -1,125 +1,85 @@
 #include "minishell.h"
 #include "parser.h"
 #include "libft.h"
+#include <stdio.h>
 
-enum states {ARGV, REDIR};
-
-static t_list	*ft_lstnew_str(char *s)
+static int	handle_file(t_command *cmd, t_token token, t_fileflags fileflags)
 {
-	return (null_exit(ft_lstnew(null_exit(ft_strdup(s)))));
+	if (!is_token_type_text(token))
+	{
+		clear_command(cmd);
+		return (-1);
+	}
+	ft_lstadd_back(&cmd->files, \
+		null_exit(ft_lstnew(null_exit(create_tfile(token.str, fileflags)))));
+	return (0);
 }
-
-static t_list	*ft_lstnew_file(char *s, t_fileflags flag)
-{
-	return (null_exit(ft_lstnew(null_exit(create_tfile(s, flag)))));
-}
-
-static void	*parser_error(char *str, t_command *cmd)
-{
-	ft_lstclear(&cmd->files, ((void (*))(void *)destroy_tfile));
-	ft_lstclear(&cmd->argv, free);
-	print_error("minishell", "syntax error near unexpected token", str);
-	return (NULL);
-}
-
 
 t_list	*parse_command(t_command *cmd, t_list *tokens)
 {
 	t_token			token;
-	int				redir_flag;
+	t_fileflags		fileflags;
 
-	redir_flag = -1;
-	while (tokens != NULL && token.type != PIPE)
+	fileflags = INVALID;
+	while (tokens != NULL)
 	{
 		token = *(t_token *)(tokens->content);
-		if (redir_flag != -1)
+		if (fileflags != INVALID)
 		{
-			if (!is_token_type_text(token))
-				return (parser_error(token.str, cmd));
-			ft_lstadd_back(&cmd->files, ft_lstnew_file(token.str, redir_flag));
-			redir_flag = -1;
+			if (handle_file(cmd, token, fileflags) < 0)
+				break ;
+			fileflags = INVALID;
 		}
-		else if (is_token_type_text(token))
-			ft_lstadd_back(&cmd->argv, ft_lstnew_str(token.str));
 		else if (is_token_type_redir(token))
-			redir_flag = token_to_fileflag(token);
+			fileflags = token_to_fileflag(token);
+		else if (token.type == PIPE)
+			break ;
 		else
-			return (parser_error(token.str, cmd));
+			ft_lstadd_back(&cmd->argv, \
+				null_exit(ft_lstnew(null_exit(ft_strdup(token.str)))));
 		tokens = tokens->next;
 	}
+	if (fileflags != INVALID)
+		clear_command(cmd);
 	return (tokens);
+}
+
+static void	*parser_error(t_list *tokens)
+{
+	char	*error_text;
+
+	if (tokens == NULL)
+		error_text = "newline";
+	else
+		error_text = ((t_token *)(tokens->content))->str;
+	print_error("minishell", "syntax error near unexpected token", error_text);
+	return (NULL);
 }
 
 t_list	*parse_tokens(t_list *tokens)
 {
 	t_list		*ret;
 	t_command	*cmd;
-	t_token		token;
 
+	ret = NULL;
 	while (tokens != NULL)
 	{
-		if (token.type == PIPE && tokens->next == NULL)
-		{
-			print_error("minishell", "unexpected token near", "newline");
-			ft_lstclear(&ret, ((void (*))(void *)destroy_command));
-			return (NULL);
-		}
 		cmd = init_command();
 		tokens = parse_command(cmd, tokens);
 		ft_lstadd_back(&ret, null_exit(ft_lstnew(cmd)));
 		if (cmd->argv == NULL && cmd->files == NULL)
 		{
 			ft_lstclear(&ret, ((void (*))(void *)destroy_command));
-			return (NULL);
+			return (parser_error(tokens));
 		}
-		token = *(t_token *)(tokens->content);
+		if (tokens == NULL)
+			break ;
+		tokens = tokens->next;
+		if (tokens == NULL)
+		{
+			ft_lstclear(&ret, ((void (*))(void *)destroy_command));
+			return (parser_error(tokens));
+		}
 	}
 	return (ret);
 }
-
-// t_list	*parse_tokens(t_list *tokens)
-// {
-// 	t_list		*ret;
-// 	enum states	state;
-// 	t_token		token;
-// 	t_command	*cmd;
-// 	t_fileflags	redir_flag;
-
-// 	state = ARGV;
-// 	ret = NULL;
-// 	cmd = init_command();
-// 	while (tokens != NULL)
-// 	{
-// 		token = *(t_token *)(tokens->content);
-// 		if (state == ARGV)
-// 		{
-// 			if (is_token_type_text(token))
-// 				ft_lstadd_back(&cmd->argv, ft_lstnew_str(token.str));
-// 			else if (is_token_type_redir(token))
-// 			{
-// 				redir_flag = (t_fileflags)token.type;
-// 				state = REDIR;
-// 			}
-// 			else if (token.type == PIPE)
-// 			{
-// 				ft_lstadd_back(&ret, null_exit(ft_lstnew(cmd)));
-// 				cmd = init_command();
-// 			}
-// 			else
-// 				return (parser_error(token.str, cmd, ret));
-// 		}
-// 		else if (state == REDIR)
-// 		{
-// 			if (is_token_type_text(token))
-// 				ft_lstadd_back(&cmd->files, null_exit(ft_lstnew(create_tfile(token.str, redir_flag))));
-// 			else
-// 				return (parser_error(token.str, cmd, ret));
-// 			state = ARGV;
-// 		}
-// 		tokens = tokens->next;
-// 	}
-// 	if (cmd->argv == NULL)
-// 		return (parser_error("newline", cmd, ret));
-// 	ft_lstadd_back(&ret, null_exit(ft_lstnew(cmd)));
-// 	return (ret);
-// }
