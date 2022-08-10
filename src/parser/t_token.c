@@ -1,7 +1,6 @@
 #include "minishell.h"
 #include "parser.h"
 #include "libft.h"
-#include <stdio.h>
 
 t_token	*init_token(void)
 {
