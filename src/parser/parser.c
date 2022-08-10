@@ -92,6 +92,8 @@ void	parse_exec(char *line)
 	update_token_list(&tokens, split_tokens);
 	commands = parse_tokens(tokens);
 	ft_lstclear(&tokens, ((void (*))(void *)destroy_token));
+	if (commands == NULL)
+		return ;
 	print_commands(commands);
 	execute_cmd(commands);
 }
