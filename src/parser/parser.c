@@ -47,7 +47,7 @@ void	print_commands(t_list *commands)
 	t_list *tmp;
 	t_file	*file;
 	t_command *cmd;
-	int	i;
+	int	i, j;
 
 	i = 1;
 	while(commands != NULL)
@@ -62,11 +62,11 @@ void	print_commands(t_list *commands)
 			tmp = tmp->next;
 		}
 		printf("\n    argv =");
-		tmp = cmd->argv_list;
-		while (tmp != NULL)
+		j = 0;
+		while (cmd->argv[j])
 		{
-			printf(" '%s'",(char *)tmp->content);
-			tmp = tmp->next;
+			printf(" '%s'", cmd->argv[j]);
+			j++;
 		}
 		printf("\n}\n");
 		i++;

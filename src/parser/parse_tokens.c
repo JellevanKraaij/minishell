@@ -15,6 +15,26 @@ static int	handle_file(t_command *cmd, t_token token, t_fileflags fileflags)
 	return (0);
 }
 
+static void	add_arg_to_cmd(const char *arg, t_command *cmd)
+{
+	size_t	len;
+
+	if (cmd->argv == NULL)
+	{
+		len = 0;
+		cmd->argv = null_exit(ft_calloc(len + 2, sizeof(char *)));
+	}
+	else
+	{
+		len = ft_dstrlen(cmd->argv);
+		cmd->argv = null_exit(ft_reallocf(cmd->argv, \
+			(len + 1) * sizeof(char *), \
+			(len + 2) * sizeof(char *)));
+	}
+	cmd->argv[len] = null_exit(ft_strdup(arg));
+	cmd->argv[len + 1] = NULL;
+}
+
 t_list	*parse_command(t_command *cmd, t_list *tokens)
 {
 	t_token			token;
@@ -35,8 +55,7 @@ t_list	*parse_command(t_command *cmd, t_list *tokens)
 		else if (token.type == PIPE)
 			break ;
 		else
-			ft_lstadd_back(&cmd->argv_list, \
-				null_exit(ft_lstnew(null_exit(ft_strdup(token.str)))));
+			add_arg_to_cmd(token.str, cmd);
 		tokens = tokens->next;
 	}
 	if (fileflags != INVALID)

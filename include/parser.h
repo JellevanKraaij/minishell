@@ -40,9 +40,8 @@ typedef struct s_file
 
 typedef struct s_command
 {
-	t_list	*argv_list;
+	char	**argv;
 	t_list	*files;
-	char	**argv_array;
 }	t_command;
 
 // add qoutes metadata to line and removes the unnecessary quotes 
