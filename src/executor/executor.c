@@ -4,46 +4,60 @@
 #include "libft.h"
 #include <stdio.h>
 
-// void	fork_error(void)
-// {
-// 	perror("Fork did not succeed\n");
-// }
+void	fork_error(pid_t pid)
+{
+	if (pid < 0)
+		perror("Fork did not succeed\n");
+}
 
 extern char	**environ;
 
-char	*get_cmd_path(char *cmd, char **paths)
+char	*exec_cmd(char *cmd)
 {
 	int		i;
 	char	*cmd_path;
+	char	**paths;
 
+	paths = env_paths(); //add jelle function
 	i = 0;
 	while (paths[i])
 	{
 		cmd_path = ft_strjoin(paths[i], cmd);
 		if (access(cmd_path, 0) == 0)
-			return (cmd_path);
+			if(execve(cmd_path, ) - 1) //add correct input
+				//execve error
 		i++;
 	}
 	print_error("minishell", cmd, "command not found");
 }
 
-char	**argv_array(t_list *lst)
+int	single_command(t_command *cmd)
 {
-	int		length;
-	char	**commands;
-	int		counter;
+	pid_t	child_id;
 
-	length = ft_lstsize(lst);
-	counter = 0;
-	commands = null_exit((char **)malloc(sizeof(char *) * (length + 1)));
-	while (lst)
+	builtin_process(cmd->argv);
+	child_id = fork_check(fork());	//what type of error forking?
+	if (child_id == 0)
+		exec_cmd(cmd->argv[0]);
+
+}
+
+int	multiple_commands(t_list *commands, int cmd_count, t_childs *childs)
+{
+	char	*path;
+	int		pipe_tot;
+	int		i;
+
+	i = 0;
+	pipe_tot = ft_lstsize(commands);
+	if (cmd_count < pipe_tot)
 	{
-		commands[counter] = null_exit(ft_strdup(lst->content));
-		lst = lst->next;
-		counter++;
+		pipe(childs->pipe_fd[i]);
+		cmd_count++;
 	}
-	commands[counter] = NULL;
-	return (commands);
+	fork();
+
+
 }
 
 int	builtin_process(char **argv_array)
@@ -65,45 +79,26 @@ int	builtin_process(char **argv_array)
 	return (0);
 }
 
-// geen pipe bij 1 command, wel altijd forken
+// geen pipe bij 1 command, wel fork. als pipe dan eerst fork. 
 
-void	fork_process(t_list *commands)
+void	execute_cmd(t_list *commands)
 {
-	char		*path;
 	t_command	*cmd;
-	int			pipe_flag;
-	// t_childs	childs;
-	//forking
+	t_childs	*childs; // make sure that every child can get to all info.
+	int			cmd_count;
 
-	pipe_flag = 0;
-	if (commands->next)
-		pipe_flag = 1;
-	while (commands)
+	cmd_count = 0;
+	cmd = ((t_command *)commands->content);
+	if (!commands->next)
+		single_command(cmd);
+	else
 	{
-		cmd = ((t_command *)commands->content);
-		if (!pipe_flag)
-			builtin_process(cmd->argv_array);
-		path = get_cmd_path(cmd->argv_array[0], cmd->cmd_paths);
-		// fork
-		// child_process();
-		// open_files(cmd->files);
-		commands = commands->next;
+		while (commands)
+		{
+			multiple_commands(commands, cmd_count, &childs);
+			commands = commands->next;
+			cmd_count++;
+		}
 	}
-
 }
 
-void execute_cmd(t_list	*commands)
-{
-	t_command	*cmd;
-	t_list		*tmp;
-
-	tmp = commands;
-    while (tmp)
-    {
-		cmd = ((t_command *)tmp->content);
-        cmd->argv_array = argv_array(cmd->argv_list);
-        tmp = tmp->next;
-    }
-    fork_process(commands);
-    // exec_process();
-}

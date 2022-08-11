@@ -15,7 +15,7 @@ typedef struct s_childs
 {
 	int		child_count;
 	pid_t	child;
-	int		pipe_end[2][2];
+	int		pipe_fd[2][2];
 }	t_childs;
 
 void	builtin_exit(const char **argv, const char **envp);
