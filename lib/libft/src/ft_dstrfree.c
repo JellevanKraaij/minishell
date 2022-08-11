@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_dstrlen.c                                       :+:    :+:            */
+/*   ft_dstrfree.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvna-kra <jvan-kra@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/09 15:55:21 by jvna-kra      #+#    #+#                 */
-/*   Updated: 2022/08/09 15:55:21 by jvna-kra      ########   odam.nl         */
+/*   Created: 2022/08/11 11:30:08 by jvna-kra      #+#    #+#                 */
+/*   Updated: 2022/08/11 11:30:08 by jvna-kra      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_dstrlen(char **str)
+void	ft_dstrfree(char **str)
 {
-	size_t	len;
+	size_t	i;
 
-	len = 0;
-	while (str[len] != NULL)
-		len++;
-	return (len);
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 }

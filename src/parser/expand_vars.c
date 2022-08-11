@@ -57,7 +57,6 @@ t_token	*expand_vars(t_token *input)
 	static int		start = 0;
 	size_t			i;
 	size_t			varlen;
-	char			*str;
 
 	if (start != 0)
 	{
@@ -68,15 +67,15 @@ t_token	*expand_vars(t_token *input)
 	if (input->type != DEFAULT && input->type != DOUBLE_QUOTED)
 		return (create_token(input->str, ft_strlen(input->str), input->type));
 	i = 0;
-	str = input->str;
 	while (input->str[i] != '\0')
 	{
 		if (input->str[i] == '$')
 		{
-			replace_var(&str, i, &varlen);
+			replace_var(&input->str, i, &varlen);
 			i += varlen;
 		}
-		i++;
+		else
+			i++;
 	}
-	return (create_token(str, ft_strlen(str), input->type));
+	return (create_token(input->str, ft_strlen(input->str), input->type));
 }

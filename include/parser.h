@@ -40,7 +40,7 @@ typedef struct s_file
 
 typedef struct s_command
 {
-	t_list	*argv;
+	char	**argv;
 	t_list	*files;
 }	t_command;
 
