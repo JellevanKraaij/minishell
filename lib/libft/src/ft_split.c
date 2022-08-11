@@ -14,15 +14,7 @@
 
 void	ft_split_free(char **str)
 {
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
+	ft_dstrfree(str);
 }
 
 static size_t	ft_split_count(char const *s, char c)
