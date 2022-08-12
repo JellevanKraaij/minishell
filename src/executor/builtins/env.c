@@ -6,7 +6,7 @@
 
 extern char	**environ;
 
-void	builtin_env(const char **argv, const char **envp)
+int	builtin_env(const char **argv, const char **envp)
 {
 	size_t	i;
 

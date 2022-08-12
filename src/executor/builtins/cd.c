@@ -4,7 +4,7 @@
 #include <errno.h>
 #include <string.h>
 
-void	builtin_cd(const char **argv, const char **envp)
+int	builtin_cd(const char **argv, const char **envp)
 {
 	const char	*tmp;
 

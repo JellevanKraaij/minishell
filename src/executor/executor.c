@@ -2,62 +2,86 @@
 #include "executor.h"
 #include "parser.h"
 #include "libft.h"
+#include "environment.h"
 #include <stdio.h>
-
-void	fork_error(pid_t pid)
-{
-	if (pid < 0)
-		perror("Fork did not succeed\n");
-}
 
 extern char	**environ;
 
-char	*exec_cmd(char *cmd)
+char	*exec_cmd(char *cmd_path, t_command *cmd)
 {
+	pid_t	fork_id;
+	int		stat;
+
+	fork_id = fork();
+	if (fork_id == 0)
+	{
+		if (execve(cmd_path, cmd->argv, ft_getenviron()) < 0)
+			exit(errno);
+	}
+	else
+		waitpid(fork_id, &stat, 0);
+}
+
+char	*find_path(char **cmd)
+{	
 	int		i;
 	char	*cmd_path;
 	char	**paths;
+	char	**paths_tmp;
+	char	*ret_path;
 
-	paths = env_paths(); //add jelle function
+	paths_tmp = ft_getenv("PATH");
+	paths = null_exit(ft_split(paths_tmp, ":"));
+	free(paths_tmp);
 	i = 0;
+	ret_path = NULL;
 	while (paths[i])
 	{
-		cmd_path = ft_strjoin(paths[i], cmd);
+		cmd_path = null_exit(ft_strjoin3(paths[i], "/", cmd));
 		if (access(cmd_path, 0) == 0)
-			if(execve(cmd_path, ) - 1) //add correct input
-				//execve error
+		{
+			ret_path = cmd_path;
+			break ;
+		}
+		free(cmd_path);
 		i++;
 	}
-	print_error("minishell", cmd, "command not found");
+	ft_dstrfree(paths);
+	return (ret_path);
 }
 
 int	single_command(t_command *cmd)
 {
-	pid_t	child_id;
+	char	*path;
 
-	builtin_process(cmd->argv);
-	child_id = fork_check(fork());	//what type of error forking?
-	if (child_id == 0)
-		exec_cmd(cmd->argv[0]);
+	if (!builtin_process(cmd->argv))
+	{
+		path = find_path(cmd->argv);
+		if (path == NULL)
+			print_error("minishell", cmd, "command not found");
+		exec_cmd(cmd->argv[0], cmd);
+	}
 
 }
 
 int	multiple_commands(t_list *commands, int cmd_count, t_childs *childs)
 {
-	char	*path;
-	int		pipe_tot;
-	int		i;
+	char		*path;
+	int			pipe_tot;
+	static int	flip = 1;
+	t_command	*cmd;
 
-	i = 0;
+	cmd = ((t_command *)commands->content);
+	flip = !flip;
 	pipe_tot = ft_lstsize(commands);
-	if (cmd_count < pipe_tot)
+	if (pipe(childs->pipe_fd[flip]) < 0);
 	{
-		pipe(childs->pipe_fd[i]);
-		cmd_count++;
+		//pipe_error
 	}
-	fork();
-
-
+	path = find_path(cmd->argv[0]);
+	if (path == NULL)
+		print_error("minishell", cmd, "command not found");
+	exec_cmd(path, cmd);
 }
 
 int	builtin_process(char **argv_array)
@@ -79,12 +103,11 @@ int	builtin_process(char **argv_array)
 	return (0);
 }
 
-// geen pipe bij 1 command, wel fork. als pipe dan eerst fork. 
-
+// Builtins have to return -1 if not succeeded ??
 void	execute_cmd(t_list *commands)
 {
 	t_command	*cmd;
-	t_childs	*childs; // make sure that every child can get to all info.
+	t_childs	*childs;
 	int			cmd_count;
 
 	cmd_count = 0;

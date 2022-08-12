@@ -3,7 +3,7 @@
 #include <libft.h>
 #include <stdlib.h>
 
-void	builtin_exit(const char **argv, const char **envp)
+int	builtin_exit(const char **argv, const char **envp)
 {
 	(void)envp;
 	if (ft_dstrlen(argv) > 1)

@@ -3,7 +3,7 @@
 #include <libft.h>
 #include <stdio.h>
 
-void	builtin_echo(const char **argv, const char **envp)
+int	builtin_echo(const char **argv, const char **envp)
 {
 	int	i;
 	int	flag_n;
