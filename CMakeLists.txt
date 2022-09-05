@@ -19,6 +19,7 @@ set (UTIL_SRCS
 	src/environment/ft_getenv.c
 	src/environment/ft_environ.c
 	src/environment/ft_unsetenv.c
+	src/environment/ft_setenv.c
 )
 set (EXEC_NAME minishell)
 

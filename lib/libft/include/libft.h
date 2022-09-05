@@ -73,6 +73,7 @@ void	ft_putnbr_fd(int n, int fd);
 int		ft_abs(int num);
 double	ft_pow(double x, double y);
 void	*ft_reallocf(void *old, size_t oldsize, size_t newsize);
+void	*ft_realloc(void *old, size_t oldsize, size_t newsize);
 
 char	*ft_strntrim(char const *s1, char const *set, size_t n);
 char	*ft_strchrset(const char *s, const char *set);
