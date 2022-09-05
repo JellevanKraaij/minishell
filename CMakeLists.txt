@@ -16,6 +16,10 @@ set (UTIL_SRCS
 	src/parser/expand_vars.c
 	src/parser/split_tokens.c
 	src/parser/parse_tokens.c
+	src/environment/ft_getenv.c
+	src/environment/ft_environ.c
+	src/environment/ft_unsetenv.c
+	src/environment/ft_setenv.c
 )
 set (EXEC_NAME minishell)
 
