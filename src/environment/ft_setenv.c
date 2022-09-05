@@ -23,7 +23,7 @@ void	ft_setenv(const char *name, const char *value, int overwrite)
 	if (value != NULL)
 		ep[ep_len] = null_exit(ft_strjoin3(name, ENV_SEP, value));
 	else
-		ep[ep_len] = null_exit(ft_strjoin(name, value));
+		ep[ep_len] = null_exit(ft_strdup(name));
 	ep[ep_len + 1] = NULL;
 	ft_setenviron(ep);
 }
