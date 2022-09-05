@@ -1,7 +1,7 @@
 #ifndef ENVIRONMENT_H
 # define ENVIRONMENT_H
 
-# define ENV_SEP	'='
+# define ENV_SEP	"="
 
 char	*ft_getenv(const char *name);
 char	**ft_getenviron(void);
