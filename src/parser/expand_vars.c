@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "environment.h"
 #include "parser.h"
 #include "libft.h"
 
@@ -10,7 +11,7 @@ void	lookup_var(char **var)
 		ret = null_exit(ft_strdup("0"));
 	else
 	{
-		ret = getenv(*var);
+		ret = ft_getenv(*var);
 		if (ret == NULL)
 			ret = null_exit(ft_strdup(""));
 		else
