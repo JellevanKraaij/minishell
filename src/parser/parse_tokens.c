@@ -86,7 +86,7 @@ t_list	*parse_tokens(t_list *tokens)
 		cmd = init_command();
 		tokens = parse_command(cmd, tokens);
 		ft_lstadd_back(&ret, null_exit(ft_lstnew(cmd)));
-		if (cmd->argv_list == NULL && cmd->files == NULL)
+		if (cmd->argv == NULL && cmd->files == NULL)
 		{
 			ft_lstclear(&ret, ((void (*))(void *)destroy_command));
 			return (parser_error(tokens));

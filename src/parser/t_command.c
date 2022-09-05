@@ -7,7 +7,7 @@ t_command	*init_command(void)
 	t_command	*ret;
 
 	ret = null_exit(malloc(sizeof(t_command)));
-	ret->argv_list = NULL;
+	ret->argv = NULL;
 	ret->files = NULL;
 	return (ret);
 }

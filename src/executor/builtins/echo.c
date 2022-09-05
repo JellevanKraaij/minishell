@@ -19,8 +19,11 @@ int	builtin_echo(const char **argv, const char **envp)
 	while (argv[i])
 	{
 		printf("%s", argv[i]);
+		if (argv[i + 1])
+			printf(" ");
 		i++;
 	}
 	if (!flag_n)
 		printf("\n");
+	return (0);
 }

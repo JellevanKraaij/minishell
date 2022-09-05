@@ -13,4 +13,5 @@ int	builtin_pwd(const char **argv, const char **envp)
 	wd = null_exit(getcwd(NULL, 0));
 	printf("%s\n", wd);
 	free(wd);
+	return (0);
 }

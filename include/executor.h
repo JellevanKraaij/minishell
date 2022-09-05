@@ -18,10 +18,14 @@ typedef struct s_childs
 	int		pipe_fd[2][2];
 }	t_childs;
 
-void	builtin_exit(const char **argv, const char **envp);
-void	builtin_pwd(const char **argv, const char **envp);
-void	builtin_echo(const char **argv, const char **envp);
-void	builtin_cd(const char **argv, const char **envp);
-void	builtin_env(const char **argv, const char **envp);
+int		builtin_exit(const char **argv, const char **envp);
+int		builtin_pwd(const char **argv, const char **envp);
+int		builtin_echo(const char **argv, const char **envp);
+int		builtin_cd(const char **argv, const char **envp);
+int		builtin_env(const char **argv, const char **envp);
+int		builtin_export(const char **argv, const char **envp);
+int		builtin_unset(const char **argv, const char **envp);
+void	ft_setenv(const char *name, const char *value, int overwrite);
+void	ft_unsetenv(const char *name);
 
 #endif

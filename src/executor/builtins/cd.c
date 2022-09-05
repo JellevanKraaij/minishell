@@ -9,10 +9,10 @@ int	builtin_cd(const char **argv, const char **envp)
 	const char	*tmp;
 
 	(void)envp;
-	if (ft_dstrlen(argv) > 2)
+	if (ft_dstrlen((char **)argv) > 2)
 	{
 		print_error("minishell", "cd", "too many arguments");
-		return ;
+		return (1);
 	}
 	tmp = argv[1];
 	if (!tmp)
@@ -20,6 +20,7 @@ int	builtin_cd(const char **argv, const char **envp)
 	if (chdir(tmp) < 0)
 	{
 		print_error("minishell", "cd", strerror(errno));
-		return ;
+		return (1);
 	}
+	return (0);
 }
