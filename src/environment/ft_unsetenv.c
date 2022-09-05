@@ -2,6 +2,12 @@
 #include "environment.h"
 #include <libft.h>
 
+/**
+ * @brief remove variable \p from process environment
+ * 
+ * @param name variable to remove
+ */
+
 void	ft_unsetenv(const char *name)
 {
 	size_t	len;
@@ -24,4 +30,5 @@ void	ft_unsetenv(const char *name)
 		}
 		ep++;
 	}
+	ft_setenviron(ft_getenviron());
 }

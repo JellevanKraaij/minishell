@@ -7,12 +7,14 @@ extern char	**environ;
 static char	**_environ(char **new_env)
 {
 	static char	**env = NULL;
+	char		**env_old;
 
 	if (new_env != NULL)
 	{
-		if (env != NULL)
-			ft_dstrfree(env);
+		env_old = env;
 		env = null_exit(ft_dstrdup(new_env));
+		if (env_old != NULL)
+			ft_dstrfree(env_old);
 	}
 	if (env == NULL)
 		env = null_exit(ft_dstrdup(environ));
@@ -20,7 +22,7 @@ static char	**_environ(char **new_env)
 }
 
 /**
- * @brief get copy of process environment
+ * @brief get pointer to process environment
  * 
  * @return char** pointer to environment
  */
