@@ -63,7 +63,7 @@ void	print_commands(t_list *commands)
 		}
 		printf("\n    argv =");
 		j = 0;
-		while (cmd->argv[j])
+		while (cmd->argv && cmd->argv[j])
 		{
 			printf(" '%s'", cmd->argv[j]);
 			j++;
