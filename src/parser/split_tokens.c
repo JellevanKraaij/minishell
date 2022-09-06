@@ -5,28 +5,28 @@
 t_token	*split_tokens(t_token *input)
 {
 	static size_t	pos = 0;
+	static int		done = 0;
+	char			**parts;
 	t_token			*ret;
-	size_t			loc;
 
-	if (input->str[pos] == '\0')
+	if (done == 1)
 	{
-		pos = 0;
+		done = 0;
 		return (NULL);
 	}
 	if (input->type != DEFAULT)
 	{
-		pos = ft_strlen(input->str);
-		return (create_token(input->str, pos, input->type));
+		done = 1;
+		return (create_token(input->str, ft_strlen(input->str), input->type));
 	}
-	loc = (size_t)ft_strchrset(&input->str[pos], WHITESPACE);
-	if (loc == 0)
+	parts = null_exit(ft_splitset(input->str, WHITESPACE));
+	if (parts[pos] == NULL)
 	{
-		ret = create_token(&input->str[pos], ft_strlen(&input->str[pos]), input->type);
-		pos += ft_strlen(&input->str[pos]);
-		return (ret);
+		pos = 0;
+		return (NULL);
 	}
-	loc = loc - (size_t) & input->str[pos];
-	ret = create_token(&input->str[pos], loc, input->type);
-	pos += loc + 1;
+	ret = create_token(parts[pos], ft_strlen(parts[pos]), DEFAULT);
+	ft_split_free(parts);
+	pos++;
 	return (ret);
 }

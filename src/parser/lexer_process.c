@@ -48,11 +48,6 @@ static int	unclosed_quote(char *line, int i, t_token *token)
 {	
 	int		current_pos;
 
-	if (!line[i + 1])
-	{
-		token->str = NULL;
-		return (1);
-	}
 	current_pos = i;
 	while (line[i])
 		i++;
