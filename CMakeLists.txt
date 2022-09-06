@@ -24,6 +24,9 @@ set (UTIL_SRCS
 	src/executor/builtins/export.c
 	src/executor/builtins/pwd.c
 	src/executor/builtins/unset.c
+	src/executor/single_cmd.c
+	src/executor/multiple_cmd.c
+	src/executor/open_files.c
 	src/environment/ft_getenv.c
 	src/environment/ft_environ.c
 	src/environment/ft_unsetenv.c

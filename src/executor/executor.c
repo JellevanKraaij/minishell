@@ -5,9 +5,7 @@
 #include "environment.h"
 #include <stdio.h>
 
-extern char	**environ;
-
-static int	builtin_process(char **argv_array)
+int	builtin_process(char **argv_array)
 {
 	if (!ft_strncmp(argv_array[0], "exit", 5))
 		return ((!builtin_exit((const char **)argv_array, NULL)));
@@ -28,7 +26,7 @@ static int	builtin_process(char **argv_array)
 	return (-1);
 }
 
-static char	*find_path(char *cmd)
+char	*find_path(char *cmd)
 {	
 	int		i;
 	char	*cmd_path;
@@ -55,74 +53,25 @@ static char	*find_path(char *cmd)
 	return (ret_path);
 }
 
-static void	exec_cmd(char *cmd_path, t_command *cmd)
-{
-	pid_t	fork_id;
-	int		stat;
-
-	fork_id = fork();
-	if (fork_id == 0)
-	{
-		if (execve(cmd_path, cmd->argv, ft_getenviron()) < 0)
-			exit(0);
-	}
-	else
-		waitpid(fork_id, &stat, 0);
-}
-
-static int	single_command(t_command *cmd)
-{
-	char	*path;
-
-	if (builtin_process(cmd->argv) < 0)
-	{
-		printf("this is not a builtin\n");
-		path = find_path(cmd->argv[0]);
-		if (path == NULL)
-			print_error("minishell", cmd->argv[0], "command not found");
-		exec_cmd(path, cmd);
-	}
-	return (0);
-}
-
-static int	multiple_commands(t_list *commands, t_childs *childs)
-{
-	char		*path;
-	int			pipe_tot;
-	static int	flip = 1;
-	t_command	*cmd;
-
-	cmd = ((t_command *)commands->content);
-	flip = !flip;
-	pipe_tot = ft_lstsize(commands);
-	if (pipe(childs->pipe_fd[flip]) < 0)
-	{
-		//pipe_error
-		printf("ERRROORRRRR\n");
-	}
-	path = find_path(cmd->argv[0]);
-	if (path == NULL)
-		print_error("minishell", cmd->argv[0], "command not found");
-	exec_cmd(path, cmd);
-	return (0);
-}
-
 void	execute_cmd(t_list *commands)
 {
 	t_command	*cmd;
 	t_childs	childs;
+	int			last_cmd;
 
+	last_cmd = 0;
 	cmd = ((t_command *)commands->content);
 	if (!commands->next)
 		single_command(cmd);
 	else
 	{
-		printf("more cmds\n");
 		childs.child_count = 0;
 		while (commands)
 		{
-			multiple_commands(commands, &childs);
+			multiple_commands(commands->content, &childs, last_cmd);
 			commands = commands->next;
+			if (!commands->next)
+				last_cmd = 1;
 			childs.child_count++;
 		}
 	}

@@ -1,6 +1,7 @@
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
 
+# include "parser.h"
 # include <libft.h>
 
 # define WHITESPACE " "
@@ -27,5 +28,10 @@ int		builtin_export(const char **argv, const char **envp);
 int		builtin_unset(const char **argv, const char **envp);
 void	ft_setenv(const char *name, const char *value, int overwrite);
 void	ft_unsetenv(const char *name);
+int		single_command(t_command *cmd);
+void	open_dup_file(void *file_pointer);
+int		multiple_commands(t_command *cmd, t_childs *childs, int last_cmd);
+int		builtin_process(char **argv_array);
+char	*find_path(char *cmd);
 
 #endif

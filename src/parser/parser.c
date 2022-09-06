@@ -22,7 +22,7 @@ static const char	*type_to_string(t_type type)
 	return (type_str[type]);
 }
 
-static const char 	*flag_to_string(t_fileflags flag)
+static const char	*flag_to_string(t_fileflags flag)
 {
 	const char	*flag_str[] = {
 	[INPUT] = "input",
