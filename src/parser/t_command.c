@@ -15,7 +15,8 @@ t_command	*init_command(void)
 t_command	*destroy_command(t_command *cmd)
 {
 	ft_lstclear(&cmd->files, ((void (*))(void *)destroy_tfile));
-	ft_dstrfree(cmd->argv);
+	if (cmd->argv)
+		ft_dstrfree(cmd->argv);
 	free(cmd);
 	return (NULL);
 }

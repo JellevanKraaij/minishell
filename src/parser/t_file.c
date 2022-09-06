@@ -24,7 +24,7 @@ t_file	*create_tfile(char *name, t_fileflags flag)
 	t_file	*ret;
 
 	ret = init_tfile();
-	ret->name = name;
+	ret->name = null_exit(ft_strdup(name));
 	ret->flag = flag;
 	return (ret);
 }
