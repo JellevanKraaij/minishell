@@ -28,6 +28,7 @@ typedef enum e_fileflags
 {
 	INVALID = -1,
 	INPUT,
+	INPUT_HEREDOC,
 	OUTPUT,
 	OUTPUT_APP
 }	t_fileflags;

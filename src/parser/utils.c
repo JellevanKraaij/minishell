@@ -23,7 +23,7 @@ int	is_token_type_text(t_token token)
 int	is_token_type_redir(t_token token)
 {
 	if (token.type == REDIR_INPUT || token.type == REDIR_OUTPUT || \
-	token.type == REDIR_OUTPUT_APPEND)
+	token.type == REDIR_OUTPUT_APPEND || token.type == HEREDOC)
 		return (1);
 	return (0);
 }
@@ -36,5 +36,7 @@ t_fileflags	token_to_fileflag(t_token token)
 		return (OUTPUT);
 	if (token.type == REDIR_OUTPUT_APPEND)
 		return (OUTPUT_APP);
+	if (token.type == HEREDOC)
+		return (INPUT_HEREDOC);
 	return (-1);
 }
