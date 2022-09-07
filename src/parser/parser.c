@@ -95,5 +95,5 @@ void	parse_exec(char *line)
 	if (commands == NULL)
 		return ;
 	print_commands(commands);
-	execute_cmd(commands);
+	printf("ret: %d\n", execute_cmd(commands));
 }

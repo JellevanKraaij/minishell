@@ -4,35 +4,51 @@
 #include "libft.h"
 #include "environment.h"
 #include <stdio.h>
+#include <sys/wait.h>
 
-extern char	**environ;
-
-static void	exec_single_cmd(char *cmd_path, t_command *cmd)
+static int	exec_single_cmd(t_command *cmd)
 {
 	pid_t	fork_id;
-	int		stat;
+	int		status;
+	char	*path;
 
 	fork_id = fork();
+	if (fork_id < 0)
+		perror_exit("minishell", EXIT_FAILURE);
 	if (fork_id == 0)
 	{
+		path = find_path(cmd->argv[0]);
+		if (path == NULL)
+		{
+			print_error("minishell", cmd->argv[0], "command not found");
+			exit(127);
+		}
 		ft_lstiter(cmd->files, open_dup_file);
-		if (execve(cmd_path, cmd->argv, ft_getenviron()) < 0)
-			exit(0);
+		if (execve(path, cmd->argv, ft_getenviron()) < 0)
+			perror_exit("minishell", EXIT_FAILURE);
 	}
 	else
-		waitpid(fork_id, &stat, 0);
+	{
+		while (1)
+		{
+			waitpid(fork_id, &status, 0);
+			if (WIFEXITED(status))
+				return (WEXITSTATUS(status));
+			else if (WIFSIGNALED(status))
+				return (WTERMSIG(status) + 128);
+		}
+	}
+	return (0);
 }
 
 int	single_command(t_command *cmd)
 {
-	char	*path;
+	int		ret_value;
 
-	if (builtin_process(cmd->argv) < 0)
+	ret_value = builtin_process(cmd->argv);
+	if (ret_value < 0)
 	{
-		path = find_path(cmd->argv[0]);
-		if (path == NULL)
-			print_error("minishell", cmd->argv[0], "command not found");
-		exec_single_cmd(path, cmd);
+		ret_value = exec_single_cmd(cmd);
 	}
-	return (0);
+	return (ret_value);
 }

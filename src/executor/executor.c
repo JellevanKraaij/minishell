@@ -4,6 +4,7 @@
 #include "libft.h"
 #include "environment.h"
 #include <stdio.h>
+#include <sys/wait.h>
 
 int	builtin_process(char **argv_array)
 {
@@ -53,26 +54,53 @@ char	*find_path(char *cmd)
 	return (ret_path);
 }
 
-void	execute_cmd(t_list *commands)
+static int	wait_for_childs(int child_count, int last_pid)
+{
+	int	i;
+	int	exit_code;
+	int	status;
+
+	i = 0;
+	exit_code = 1;
+	while (i < child_count)
+	{
+		if (waitpid(-1, &status, 0) == last_pid)
+		{
+			if (WIFEXITED(status))
+				exit_code = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				exit_code = WTERMSIG(status) + 128;
+		}
+		if (WIFEXITED(status) || WIFSIGNALED(status))
+			i++;
+	}
+	return (exit_code);
+}
+
+int	execute_cmd(t_list *commands)
 {
 	t_command	*cmd;
 	t_childs	childs;
 	int			last_cmd;
+	int			last_pid;
+	int			ret_value;
 
 	last_cmd = 0;
 	cmd = ((t_command *)commands->content);
 	if (!commands->next)
-		single_command(cmd);
+		ret_value = single_command(cmd);
 	else
 	{
 		childs.child_count = 0;
 		while (commands)
 		{
-			multiple_commands(commands->content, &childs, last_cmd);
-			commands = commands->next;
 			if (!commands->next)
 				last_cmd = 1;
+			last_pid = multiple_commands(commands->content, &childs, last_cmd);
+			commands = commands->next;
 			childs.child_count++;
 		}
+		ret_value = wait_for_childs(childs.child_count, last_pid);
 	}
+	return (ret_value);
 }
