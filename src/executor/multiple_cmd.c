@@ -8,10 +8,14 @@
 static void	exec_multiple_cmd(t_command *cmd)
 {
 	char	*path;
+	int		ret_value;
 
 	ft_lstiter(cmd->files, open_dup_file);
+	ret_value = builtin_process(cmd->argv);
+	if (ret_value >= 0)
+		exit(ret_value);
 	path = find_path(cmd->argv[0]);
-	if (path == NULL) //builtins
+	if (path == NULL)
 	{
 		print_error("minishell", cmd->argv[0], "command not found");
 		exit(127);

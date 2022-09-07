@@ -17,13 +17,13 @@ static int	exec_single_cmd(t_command *cmd)
 		perror_exit("minishell", EXIT_FAILURE);
 	if (fork_id == 0)
 	{
+		ft_lstiter(cmd->files, open_dup_file);
 		path = find_path(cmd->argv[0]);
 		if (path == NULL)
 		{
 			print_error("minishell", cmd->argv[0], "command not found");
 			exit(127);
 		}
-		ft_lstiter(cmd->files, open_dup_file);
 		if (execve(path, cmd->argv, ft_getenviron()) < 0)
 			perror_exit("minishell", EXIT_FAILURE);
 	}
