@@ -7,13 +7,13 @@
 
 static void	exec_multiple_cmd(t_command *cmd)
 {
-	char	*path;
-	int		ret_value;
+	char		*path;
+	t_builtin_f	builtin_function;
 
 	ft_lstiter(cmd->files, open_dup_file);
-	ret_value = builtin_process(cmd->argv);
-	if (ret_value >= 0)
-		exit(ret_value);
+	builtin_function = lookup_builtin(cmd->argv[0]);
+	if (builtin_function != NULL)
+		exit(execute_builtin(cmd, builtin_function));
 	path = find_path(cmd->argv[0]);
 	if (path == NULL)
 	{

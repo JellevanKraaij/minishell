@@ -9,7 +9,6 @@
 static int	exec_single_cmd(t_command *cmd)
 {
 	pid_t	fork_id;
-	int		status;
 	char	*path;
 
 	fork_id = fork();
@@ -27,28 +26,17 @@ static int	exec_single_cmd(t_command *cmd)
 		if (execve(path, cmd->argv, ft_getenviron()) < 0)
 			perror_exit("minishell", EXIT_FAILURE);
 	}
-	else
-	{
-		while (1)
-		{
-			waitpid(fork_id, &status, 0);
-			if (WIFEXITED(status))
-				return (WEXITSTATUS(status));
-			else if (WIFSIGNALED(status))
-				return (WTERMSIG(status) + 128);
-		}
-	}
-	return (0);
+	return (fork_id);
 }
 
 int	single_command(t_command *cmd)
 {
-	int		ret_value;
+	pid_t		child_pid;
+	t_builtin_f	builtin_function;
 
-	ret_value = builtin_process(cmd->argv);
-	if (ret_value < 0)
-	{
-		ret_value = exec_single_cmd(cmd);
-	}
-	return (ret_value);
+	builtin_function = lookup_builtin(cmd->argv[0]);
+	if (builtin_function != NULL)
+		return (execute_builtin(cmd, builtin_function));
+	child_pid = exec_single_cmd(cmd);
+	return (wait_for_childs(1, child_pid));
 }

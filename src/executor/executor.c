@@ -6,25 +6,34 @@
 #include <stdio.h>
 #include <sys/wait.h>
 
-int	builtin_process(char **argv_array)
+const static t_builtin	g_builtins[] = {
+{.name = "exit", .function = builtin_exit},
+{.name = "echo", .function = builtin_echo},
+{.name = "cd", .function = builtin_cd},
+{.name = "env", .function = builtin_env},
+{.name = "pwd", .function = builtin_pwd},
+{.name = "export", .function = builtin_export},
+{.name = "unset", .function = builtin_unset}
+};
+
+t_builtin_f	lookup_builtin(char *cmd)
 {
-	if (!ft_strncmp(argv_array[0], "exit", 5))
-		return ((!builtin_exit((const char **)argv_array, NULL)));
-	if (!ft_strncmp(argv_array[0], "echo", 5))
-		return (builtin_echo((const char **)argv_array, NULL));
-	else if (!ft_strncmp(argv_array[0], "cd", 3))
-		return (builtin_cd((const char **)argv_array, NULL));
-	else if (!ft_strncmp(argv_array[0], "env", 4))
-		return (builtin_env((const char **)argv_array, NULL));
-	else if (!ft_strncmp(argv_array[0], "pwd", 3))
-		return (builtin_pwd((const char **)argv_array, NULL));
-	else if (!ft_strncmp(argv_array[0], "export", 7))
-		return (builtin_export((const char **)argv_array, \
-		(const char **)ft_getenviron()));
-	else if (!ft_strncmp(argv_array[0], "unset", 6))
-		return (builtin_unset((const char **)argv_array, \
-		(const char **)ft_getenviron()));
-	return (-1);
+	size_t	i;
+
+	i = 0;
+	while (i < sizeof(g_builtins) / sizeof(t_builtin))
+	{
+		if (ft_strcmp(cmd, g_builtins[i].name) == 0)
+			return (g_builtins[i].function);
+		i++;
+	}
+	return (NULL);
+}
+
+int	execute_builtin(t_command *cmd, t_builtin_f builtin_function)
+{
+	//file handling EHHHH
+	return (builtin_function((const char **)cmd->argv, (const char **)ft_getenviron()));
 }
 
 char	*find_path(char *cmd)
@@ -54,7 +63,7 @@ char	*find_path(char *cmd)
 	return (ret_path);
 }
 
-static int	wait_for_childs(int child_count, int last_pid)
+int	wait_for_childs(int child_count, int last_pid)
 {
 	int	i;
 	int	exit_code;
@@ -79,16 +88,16 @@ static int	wait_for_childs(int child_count, int last_pid)
 
 int	execute_cmd(t_list *commands)
 {
-	t_command	*cmd;
 	t_childs	childs;
+	size_t		cmd_count;
 	int			last_cmd;
 	int			last_pid;
 	int			ret_value;
 
 	last_cmd = 0;
-	cmd = ((t_command *)commands->content);
-	if (!commands->next)
-		ret_value = single_command(cmd);
+	cmd_count = ft_lstsize(commands);
+	if (cmd_count == 1)
+		ret_value = single_command(commands->content);
 	else
 	{
 		childs.child_count = 0;
