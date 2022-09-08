@@ -27,6 +27,17 @@ typedef struct s_builtin
 	t_builtin_f	function;
 }	t_builtin;
 
+int			single_command(t_command *cmd);
+int			multiple_commands(t_command *cmd, t_childs *childs, int last_cmd);
+
+int			wait_for_childs(int child_count, int last_pid);
+char		*find_path(char *cmd);
+void		open_dup_file(void *file_pointer);
+int			isvalid_key(char *name);
+
+t_builtin_f	lookup_builtin(char *cmd);
+int			execute_builtin(t_command *cmd, t_builtin_f builtin_function);
+
 int			builtin_exit(const char **argv, const char **envp);
 int			builtin_pwd(const char **argv, const char **envp);
 int			builtin_echo(const char **argv, const char **envp);
@@ -34,13 +45,5 @@ int			builtin_cd(const char **argv, const char **envp);
 int			builtin_env(const char **argv, const char **envp);
 int			builtin_export(const char **argv, const char **envp);
 int			builtin_unset(const char **argv, const char **envp);
-int			isvalid_key(char *name);
-int			single_command(t_command *cmd);
-void		open_dup_file(void *file_pointer);
-int			multiple_commands(t_command *cmd, t_childs *childs, int last_cmd);
-t_builtin_f	lookup_builtin(char *cmd);
-char		*find_path(char *cmd);
-int			wait_for_childs(int child_count, int last_pid);
-int			execute_builtin(t_command *cmd, t_builtin_f builtin_function);
 
 #endif
