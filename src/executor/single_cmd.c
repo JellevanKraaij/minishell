@@ -15,6 +15,7 @@ static int	exec_single_cmd(t_command *cmd)
 		perror_exit("minishell", EXIT_FAILURE);
 	if (fork_id == 0)
 	{
+		disabler_signals();
 		ft_lstiter(cmd->files, open_dup_file);
 		path = find_path(cmd->argv[0]);
 		if (path == NULL)

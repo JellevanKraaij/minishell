@@ -10,6 +10,7 @@ static void	exec_multiple_cmd(t_command *cmd)
 	char		*path;
 	t_builtin_f	builtin_function;
 
+	disabler_signals();
 	ft_lstiter(cmd->files, open_dup_file);
 	builtin_function = lookup_builtin(cmd->argv[0]);
 	if (builtin_function != NULL)
