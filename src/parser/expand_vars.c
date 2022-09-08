@@ -46,7 +46,7 @@ void	replace_var(char **str, size_t start, size_t *len)
 	after = null_exit(ft_strdup(&(*str)[start + varlen]));
 	lookup_var(&var);
 	free(*str);
-	*str = ft_strjoin3(before, var, after);
+	*str = null_exit(ft_strjoin3(before, var, after));
 	free(before);
 	free(after);
 	*len = ft_strlen(var);

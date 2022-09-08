@@ -14,8 +14,8 @@ set (UTIL_SRCS
 	src/parser/lexer_process.c
 	src/parser/utils.c
 	src/parser/expand_vars.c
-	src/parser/split_tokens.c
 	src/parser/parse_tokens.c
+	src/parser/combine_tokens.c
 	src/environment/ft_getenv.c
 	src/environment/ft_environ.c
 	src/environment/ft_unsetenv.c
