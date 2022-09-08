@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include "executor.h"
+#include "libft.h"
 #include <stdio.h>
 
 int	arr_count(char **arr)
@@ -68,27 +69,28 @@ static int	print_exp(const char **envp)
 	return (0);
 }
 
-int	builtin_export(const char **argv, const char **envp)
+static int	check_first_char(const char *argv)
+{
+	if (!ft_isalpha(argv[0]) && argv[0] != '_')
+		return (1);
+	return (0);
+}
+
+static void	export_multiple_arg(const char **argv)
 {
 	char	*name;
 	char	*value;
-	size_t	len;
 	char	*index_p;
 	size_t	index;
 
-	len = ft_dstrlen((char **)argv);
-	if (len > 2)
-	{
-		print_error("minishell", "export", "too many arguments");
-		return (1);
-	}
-	if (len == 1)
-		return (print_exp(envp));
+	check_first_char(argv[1]);
+	if (check_first_char(argv[1]))
+		print_error("minishell: export", (char *)argv[1], "not a valid identifier");
 	index_p = ft_strchr(argv[1], '=');
 	if (index_p == NULL)
 	{
 		ft_setenv(argv[1], NULL, 0);
-		return (0);
+		return ;
 	}
 	index = index_p - argv[1];
 	name = ft_strndup(argv[1], index);
@@ -96,5 +98,20 @@ int	builtin_export(const char **argv, const char **envp)
 	ft_setenv(name, value, 1);
 	free(name);
 	free(value);
+}
+
+int	builtin_export(const char **argv, const char **envp)
+{
+	size_t	len;
+
+	len = ft_dstrlen((char **)argv);
+	if (len > 2)
+	{
+		print_error("minishell", (char *)argv[0], "too many arguments");
+		return (1);
+	}
+	if (len == 1)
+		return (print_exp(envp));
+	export_multiple_arg(argv);
 	return (0);
 }

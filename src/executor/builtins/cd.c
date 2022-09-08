@@ -11,7 +11,7 @@ int	builtin_cd(const char **argv, const char **envp)
 	(void)envp;
 	if (ft_dstrlen((char **)argv) > 2)
 	{
-		print_error("minishell", "cd", "too many arguments");
+		print_error("minishell", (char *)argv[0], "too many arguments");
 		return (1);
 	}
 	tmp = argv[1];
@@ -19,7 +19,7 @@ int	builtin_cd(const char **argv, const char **envp)
 		tmp = (getenv("HOME"));
 	if (chdir(tmp) < 0)
 	{
-		print_error("minishell", "cd", strerror(errno));
+		print_error("minishell", (char *)argv[0], strerror(errno));
 		return (1);
 	}
 	return (0);
