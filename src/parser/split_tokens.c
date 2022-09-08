@@ -19,7 +19,7 @@ static void	split_default(t_list **lst, char *str)
 		ft_lstnew(create_token(split[i], DEFAULT))));
 		if (split[i + 1])
 			ft_lstadd_back(lst, null_exit(\
-			ft_lstnew(create_token("", SEPERATOR))));
+			ft_lstnew(create_token(" ", SEPERATOR))));
 		i++;
 	}
 }

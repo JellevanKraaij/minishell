@@ -14,10 +14,12 @@ char	*ft_getenv(const char *name)
 	char	**ep;
 
 	len = ft_strlen(name);
+	if (len < 1)
+		return (NULL);
 	ep = ft_getenviron();
 	while (*ep)
 	{
-		if (ft_strncmp(*ep, name, len) == 0)
+		if (ft_strcmp(*ep, name) == 0)
 			return (&(*ep)[len + 1]);
 		ep++;
 	}

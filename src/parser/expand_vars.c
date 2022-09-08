@@ -3,7 +3,7 @@
 #include "parser.h"
 #include "libft.h"
 
-void	lookup_var(char **var)
+static void	lookup_var(char **var)
 {
 	char	*ret;
 
@@ -21,7 +21,7 @@ void	lookup_var(char **var)
 	*var = ret;
 }
 
-size_t	calc_varlen(char *var)
+static size_t	calc_varlen(char *var)
 {
 	size_t	i;
 
@@ -33,7 +33,7 @@ size_t	calc_varlen(char *var)
 	return (i);
 }
 
-void	replace_var(char **str, size_t start, size_t *len)
+static void	replace_var(char **str, size_t start, size_t *len)
 {
 	char	*before;
 	char	*var;
@@ -53,6 +53,13 @@ void	replace_var(char **str, size_t start, size_t *len)
 	free(var);
 }
 
+static	int	var_is_valid_first(int c)
+{
+	if (c == '?' || c == '_' || ft_isalpha(c))
+		return (1);
+	return (0);
+}
+
 t_token	*expand_vars(t_token *input)
 {
 	static int		start = 0;
@@ -70,7 +77,7 @@ t_token	*expand_vars(t_token *input)
 	i = 0;
 	while (input->str[i] != '\0')
 	{
-		if (input->str[i] == '$')
+		if (input->str[i] == '$' && var_is_valid_first(input->str[i + 1]))
 		{
 			replace_var(&input->str, i, &varlen);
 			i += varlen;

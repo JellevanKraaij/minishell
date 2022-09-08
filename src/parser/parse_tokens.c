@@ -84,6 +84,8 @@ t_list	*parse_tokens(t_list *tokens)
 	t_command	*cmd;
 
 	ret = NULL;
+	if (tokens == NULL)
+		return (NULL);
 	if (((t_token *)ft_lstlast(tokens)->content)->type == UNCLOSED)
 		return (parser_error(NULL));
 	while (tokens != NULL)
