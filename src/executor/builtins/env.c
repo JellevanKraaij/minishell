@@ -1,8 +1,6 @@
 #include "minishell.h"
 #include "executor.h"
 #include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 
 int	builtin_env(const char **argv, const char **envp)
 {

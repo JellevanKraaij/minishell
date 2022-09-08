@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include "executor.h"
+#include "environment.h"
 
 int	builtin_unset(const char **argv, const char **envp)
 {

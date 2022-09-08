@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include "executor.h"
+#include "environment.h"
 #include "libft.h"
 #include <stdio.h>
 

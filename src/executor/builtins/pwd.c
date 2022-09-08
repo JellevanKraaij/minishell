@@ -1,7 +1,6 @@
 #include "minishell.h"
 #include "executor.h"
 #include <libft.h>
-#include <limits.h>
 #include <stdio.h>
 
 int	builtin_pwd(const char **argv, const char **envp)

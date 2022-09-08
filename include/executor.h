@@ -35,8 +35,6 @@ int			builtin_env(const char **argv, const char **envp);
 int			builtin_export(const char **argv, const char **envp);
 int			builtin_unset(const char **argv, const char **envp);
 int			isvalid_key(char *name);
-void		ft_setenv(const char *name, const char *value, int overwrite);
-void		ft_unsetenv(const char *name);
 int			single_command(t_command *cmd);
 void		open_dup_file(void *file_pointer);
 int			multiple_commands(t_command *cmd, t_childs *childs, int last_cmd);

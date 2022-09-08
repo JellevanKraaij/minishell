@@ -4,7 +4,6 @@
 #include "libft.h"
 #include "environment.h"
 #include <stdio.h>
-#include <sys/wait.h>
 
 static int	exec_single_cmd(t_command *cmd)
 {

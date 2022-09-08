@@ -3,7 +3,6 @@
 #include "parser.h"
 #include "libft.h"
 #include "environment.h"
-#include <stdio.h>
 #include <sys/wait.h>
 
 const static t_builtin	g_builtins[] = {
