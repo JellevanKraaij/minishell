@@ -32,8 +32,8 @@ t_builtin_f	lookup_builtin(char *cmd)
 
 int	execute_builtin(t_command *cmd, t_builtin_f builtin_function)
 {
-	//file handling EHHHH
-	return (builtin_function((const char **)cmd->argv, (const char **)ft_getenviron()));
+	return (builtin_function((const char **)cmd->argv, \
+		(const char **)ft_getenviron()));
 }
 
 char	*find_path(char *cmd)
