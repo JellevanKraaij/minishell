@@ -49,12 +49,12 @@ typedef struct s_command
 
 t_token		*lexer_process(t_token *input);
 t_token		*expand_vars(t_token *input);
-t_token		*split_tokens(t_token *input);
+t_list		*split_tokens(t_list *tokens);
 t_list		*combine_tokens(t_list *tokens);
 
 t_token		*init_token(void);
 t_token		*destroy_token(t_token *token);
-t_token		*create_token(char *str, size_t len, t_type type);
+t_token		*create_token(char *str, t_type type);
 void		update_token_list(t_list **lst, t_token *(*token_f)(t_token *));
 size_t		find_token_len(char *str, char *set);
 

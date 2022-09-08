@@ -66,7 +66,7 @@ t_token	*expand_vars(t_token *input)
 	}
 	start = 1;
 	if (input->type != DEFAULT && input->type != DOUBLE_QUOTED)
-		return (create_token(input->str, ft_strlen(input->str), input->type));
+		return (create_token(input->str, input->type));
 	i = 0;
 	while (input->str[i] != '\0')
 	{
@@ -78,5 +78,5 @@ t_token	*expand_vars(t_token *input)
 		else
 			i++;
 	}
-	return (create_token(input->str, ft_strlen(input->str), input->type));
+	return (create_token(input->str, input->type));
 }

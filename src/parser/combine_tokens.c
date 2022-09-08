@@ -39,7 +39,7 @@ static t_token	*try_combine(t_list **tokens)
 		}
 		*tokens = (*tokens)->next;
 	}
-	ret = create_token(combine, ft_strlen(combine), type);
+	ret = create_token(combine, type);
 	free(combine);
 	return (ret);
 }
@@ -57,8 +57,7 @@ t_list	*combine_tokens(t_list *tokens)
 		&& to_token(tokens)->type != SEPERATOR)
 		{
 			ft_lstadd_back(&ret, null_exit(ft_lstnew(\
-			create_token(to_token(tokens)->str, ft_strlen(\
-			to_token(tokens)->str), to_token(tokens)->type))));
+			create_token(to_token(tokens)->str, to_token(tokens)->type))));
 			tokens = tokens->next;
 		}
 		else

@@ -90,9 +90,10 @@ void	parse_exec(char *line)
 	}
 	if (*line == '\0')
 		return ;
-	tokens = null_exit(ft_lstnew(create_token(line, ft_strlen(line), DEFAULT)));
+	tokens = null_exit(ft_lstnew(create_token(line, DEFAULT)));
 	update_token_list(&tokens, lexer_process);
 	update_token_list(&tokens, expand_vars);
+	tokens = split_tokens(tokens);
 	combined_tokens = combine_tokens(tokens);
 	ft_lstclear(&tokens, ((void (*))(void *)destroy_token));
 	commands = parse_tokens(combined_tokens);

@@ -19,16 +19,16 @@ t_token	*destroy_token(t_token *token)
 	return (NULL);
 }
 
-t_token	*create_token(char *str, size_t len, t_type type)
+t_token	*create_token(char *str, t_type type)
 {
 	t_token	*token;
 
 	token = init_token();
 	token->type = type;
-	if (type == DEFAULT)
-		token->str = null_exit(ft_strntrim(str, WHITESPACE, len));
+	if (str == NULL)
+		token->str = NULL;
 	else
-		token->str = null_exit(ft_strndup(str, len));
+		token->str = null_exit(ft_strdup(str));
 	return (token);
 }
 
