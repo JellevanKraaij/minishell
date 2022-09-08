@@ -2,7 +2,6 @@
 # define EXECUTOR_H
 
 # include "parser.h"
-# include <libft.h>
 
 # define WHITESPACE " "
 
