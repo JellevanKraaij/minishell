@@ -24,6 +24,7 @@ set (UTIL_SRCS
 	src/executor/builtins/export.c
 	src/executor/builtins/pwd.c
 	src/executor/builtins/unset.c
+	src/executor/builtins/builtin_utils.c
 	src/executor/single_cmd.c
 	src/executor/multiple_cmd.c
 	src/executor/open_files.c

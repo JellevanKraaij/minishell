@@ -69,22 +69,6 @@ static int	print_exp(const char **envp)
 	return (0);
 }
 
-static int	check_first_char(char *name)
-{
-	int	i;
-
-	i = 1;
-	if (!ft_isalpha(name[0]) && name[0] != '_')
-		return (1);
-	while (name[i])
-	{
-		if (!ft_isalpha(name[i]) && name[i] != '_' && !ft_isalnum(name[i]))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 static void	export_multiple_arg(const char **argv)
 {
 	char	*name;
@@ -100,7 +84,7 @@ static void	export_multiple_arg(const char **argv)
 	}
 	index = index_p - argv[1];
 	name = ft_strndup(argv[1], index);
-	if (check_first_char(name))
+	if (isvalid_key(name))
 	{
 		print_error("minishell: export", (char *)argv[1], \
 					"not a valid identifier");

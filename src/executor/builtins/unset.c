@@ -10,6 +10,11 @@ int	builtin_unset(const char **argv, const char **envp)
 		return (1);
 	}
 	if (argv[1])
+	{
+		if (isvalid_key((char *)argv[1]))
+			print_error("minishell: export", (char *)argv[1], \
+						"not a valid identifier");
 		ft_unsetenv(argv[1]);
+	}
 	return (0);
 }
