@@ -43,6 +43,8 @@ char	*find_path(char *cmd)
 	char	*paths_tmp;
 	char	*ret_path;
 
+	if (cmd[0] == '/' || cmd[0] == '.')
+		return (null_exit(ft_strdup(cmd)));
 	paths_tmp = ft_getenv("PATH");
 	paths = null_exit(ft_split(paths_tmp, ':'));
 	i = 0;
