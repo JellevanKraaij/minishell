@@ -69,10 +69,19 @@ static int	print_exp(const char **envp)
 	return (0);
 }
 
-static int	check_first_char(const char *argv)
+static int	check_first_char(char *name)
 {
-	if (!ft_isalpha(argv[0]) && argv[0] != '_')
+	int	i;
+
+	i = 1;
+	if (!ft_isalpha(name[0]) && name[0] != '_')
 		return (1);
+	while (name[i])
+	{
+		if (!ft_isalpha(name[i]) && name[i] != '_' && !ft_isalnum(name[i]))
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
@@ -83,9 +92,6 @@ static void	export_multiple_arg(const char **argv)
 	char	*index_p;
 	size_t	index;
 
-	check_first_char(argv[1]);
-	if (check_first_char(argv[1]))
-		print_error("minishell: export", (char *)argv[1], "not a valid identifier");
 	index_p = ft_strchr(argv[1], '=');
 	if (index_p == NULL)
 	{
@@ -94,6 +100,13 @@ static void	export_multiple_arg(const char **argv)
 	}
 	index = index_p - argv[1];
 	name = ft_strndup(argv[1], index);
+	if (check_first_char(name))
+	{
+		print_error("minishell: export", (char *)argv[1], \
+					"not a valid identifier");
+		free(name);
+		return ;
+	}
 	value = ft_strdup(&argv[1][index + 1]);
 	ft_setenv(name, value, 1);
 	free(name);

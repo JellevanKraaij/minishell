@@ -11,10 +11,10 @@ int	builtin_echo(const char **argv, const char **envp)
 	flag_n = 0;
 	i = 1;
 	(void)envp;
-	if (argv[1] && !ft_strncmp(argv[1], "-n", 3))
+	while (argv[i] && !ft_strcmp(argv[i], "-n"))
 	{
-		i++;
 		flag_n = 1;
+		i++;
 	}
 	while (argv[i])
 	{
