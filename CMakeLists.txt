@@ -57,31 +57,3 @@ target_include_directories(${EXEC_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/incl
 
 # add libs to executable
 target_link_libraries(${EXEC_NAME} readline termcap ft)
-
-# ------------------------------------- TESTING ----------------------------------- #
-# include gtest testing framework
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/gtest.cmake)
-
-# create executable form source files for testing
-add_executable(
-	minishell_tests
-	test/minishell_tests.cpp
-	${UTIL_SRCS}
-)
-
-# add project include to executable
-target_include_directories(minishell_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
-
-# add libs to executable
-target_link_libraries(
-	minishell_tests
-	gtest_main
-	gmock_main
-	ft
-	readline
-	termcap
-)
-
-# enable ctest
-gtest_discover_tests(minishell_tests)
-enable_testing()

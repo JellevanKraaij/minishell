@@ -81,6 +81,8 @@ t_list	*parse_tokens(t_list *tokens)
 	t_command	*cmd;
 
 	ret = NULL;
+	if (((t_token *)ft_lstlast(tokens)->content)->type == UNCLOSED)
+		return (parser_error(NULL));
 	while (tokens != NULL)
 	{
 		cmd = init_command();
@@ -92,13 +94,9 @@ t_list	*parse_tokens(t_list *tokens)
 			return (parser_error(tokens));
 		}
 		if (tokens == NULL)
-			break ;
+			return (ret);
 		tokens = tokens->next;
-		if (tokens == NULL)
-		{
-			ft_lstclear(&ret, ((void (*))(void *)destroy_command));
-			return (parser_error(tokens));
-		}
 	}
-	return (ret);
+	ft_lstclear(&ret, ((void (*))(void *)destroy_command));
+	return (parser_error(tokens));
 }

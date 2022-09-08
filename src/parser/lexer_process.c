@@ -34,7 +34,7 @@ static size_t	tokenize_sym(char *line, int i, t_token *token)
 	if (line[i] == '>' && line[i + 1] == '>')
 		return (fill_token(REDIR_OUTPUT_APPEND, ">>", token));
 	if (line[i] == '<' && line[i + 1] == '<')
-		return (fill_token(REDIR_OUTPUT_APPEND, "<<", token));
+		return (fill_token(HEREDOC, "<<", token));
 	if (line[i] == '<')
 		return (fill_token(REDIR_INPUT, "<", token));
 	if (line[i] == '>')
@@ -48,11 +48,6 @@ static int	unclosed_quote(char *line, int i, t_token *token)
 {	
 	int		current_pos;
 
-	if (!line[i + 1])
-	{
-		token->str = NULL;
-		return (1);
-	}
 	current_pos = i;
 	while (line[i])
 		i++;

@@ -26,6 +26,7 @@ static const char	*flag_to_string(t_fileflags flag)
 {
 	const char	*flag_str[] = {
 	[INPUT] = "input",
+	[INPUT_HEREDOC] = "heredoc",
 	[OUTPUT] = "output",
 	[OUTPUT_APP] = "output app",
 	};
@@ -63,7 +64,7 @@ void	print_commands(t_list *commands)
 		}
 		printf("\n    argv =");
 		j = 0;
-		while (cmd->argv[j])
+		while (cmd->argv && cmd->argv[j])
 		{
 			printf(" '%s'", cmd->argv[j]);
 			j++;
@@ -90,6 +91,7 @@ void	parse_exec(char *line)
 	update_token_list(&tokens, lexer_process);
 	update_token_list(&tokens, expand_vars);
 	update_token_list(&tokens, split_tokens);
+	ft_lstiter(tokens, fprint_token);
 	commands = parse_tokens(tokens);
 	ft_lstclear(&tokens, ((void (*))(void *)destroy_token));
 	if (commands == NULL)
