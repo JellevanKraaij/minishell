@@ -5,7 +5,7 @@
 #include "environment.h"
 #include <sys/wait.h>
 
-const static t_builtin	g_builtins[] = {
+static const t_builtin	g_builtins[] = {
 {.name = "exit", .function = builtin_exit},
 {.name = "echo", .function = builtin_echo},
 {.name = "cd", .function = builtin_cd},
