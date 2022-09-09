@@ -1,7 +1,6 @@
 #include "minishell.h"
 #include "parser.h"
 #include "libft.h"
-#include <stdio.h>
 
 static void	split_default(t_list **lst, char *str)
 {
@@ -14,7 +13,6 @@ static void	split_default(t_list **lst, char *str)
 		return ;
 	while (split[i])
 	{
-		printf("split='%s'\n", split[i]);
 		ft_lstadd_back(lst, null_exit(\
 		ft_lstnew(create_token(split[i], DEFAULT))));
 		if (split[i + 1])

@@ -1,7 +1,6 @@
 #include "minishell.h"
 #include "parser.h"
 #include <libft.h>
-#include <stdio.h>
 
 static	t_token	*to_token(t_list *node)
 {

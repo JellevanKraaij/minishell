@@ -1,7 +1,6 @@
 #include "minishell.h"
 #include "parser.h"
 #include "libft.h"
-#include <stdio.h>
 
 static int	handle_file(t_command *cmd, t_token token, t_fileflags fileflags)
 {
