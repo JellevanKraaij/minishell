@@ -15,8 +15,17 @@ static void	sigint_handler(int sig)
 	rl_redisplay();
 }
 
-void	init_signals(void)
+void	enable_signals(int print_promt)
 {
-	signal(SIGINT, sigint_handler);
-	// signal(SIGQUIT, SIG_IGN);
+	if (print_promt)
+		signal(SIGINT, sigint_handler);
+	else
+		signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	disabler_signals(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }

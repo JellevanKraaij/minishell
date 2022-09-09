@@ -22,7 +22,7 @@ static const char	*type_to_string(t_type type)
 	return (type_str[type]);
 }
 
-static const char 	*flag_to_string(t_fileflags flag)
+static const char	*flag_to_string(t_fileflags flag)
 {
 	const char	*flag_str[] = {
 	[INPUT] = "input",
@@ -94,5 +94,8 @@ void	parse_exec(char *line)
 	ft_lstiter(tokens, fprint_token);
 	commands = parse_tokens(tokens);
 	ft_lstclear(&tokens, ((void (*))(void *)destroy_token));
+	if (commands == NULL)
+		return ;
 	print_commands(commands);
+	printf("ret: %d\n", execute_cmd(commands));
 }

@@ -16,6 +16,18 @@ set (UTIL_SRCS
 	src/parser/expand_vars.c
 	src/parser/split_tokens.c
 	src/parser/parse_tokens.c
+	src/executor/executor.c
+	src/executor/builtins/cd.c
+	src/executor/builtins/echo.c
+	src/executor/builtins/env.c
+	src/executor/builtins/exit.c
+	src/executor/builtins/export.c
+	src/executor/builtins/pwd.c
+	src/executor/builtins/unset.c
+	src/executor/builtins/builtin_utils.c
+	src/executor/single_cmd.c
+	src/executor/multiple_cmd.c
+	src/executor/open_files.c
 	src/environment/ft_getenv.c
 	src/environment/ft_environ.c
 	src/environment/ft_unsetenv.c
