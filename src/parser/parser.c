@@ -96,6 +96,9 @@ void	parse_exec(char *line)
 	repalce_token_list(&tokens, split_tokens);
 	repalce_token_list(&tokens, combine_tokens);
 	commands = parse_tokens(tokens);
-	ft_lstclear(&combined_tokens, ((void (*))(void *)destroy_token));
+	ft_lstclear(&tokens, ((void (*))(void *)destroy_token));
+	if (commands == NULL)
+		return ;
 	print_commands(commands);
+	printf("ret: %d\n", execute_cmd(commands));
 }
