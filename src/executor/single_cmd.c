@@ -17,6 +17,8 @@ static int	exec_single_cmd(t_command *cmd)
 	{
 		disabler_signals();
 		ft_lstiter(cmd->files, open_dup_file);
+		if (!cmd->argv)
+			exit(0);
 		path = find_path(cmd->argv[0]);
 		if (path == NULL)
 		{
@@ -51,15 +53,20 @@ int	single_command(t_command *cmd)
 	int			backup_fd[2];
 	int			ret;
 
-	builtin_function = lookup_builtin(cmd->argv[0]);
-	if (builtin_function != NULL)
+	if (cmd->argv)
 	{
-		backup_fds(backup_fd);
-		ft_lstiter(cmd->files, open_dup_file);
-		ret = execute_builtin(cmd, builtin_function);
-		restore_fds(backup_fd);
-		return (ret);
+		builtin_function = lookup_builtin(cmd->argv[0]);
+		if (builtin_function != NULL)
+		{
+			backup_fds(backup_fd);
+			ft_lstiter(cmd->files, open_dup_file);
+			ret = execute_builtin(cmd, builtin_function);
+			restore_fds(backup_fd);
+			return (ret);
+		}
 	}
 	child_pid = exec_single_cmd(cmd);
 	return (wait_for_childs(1, child_pid));
 }
+
+// single cmd txt.txt
