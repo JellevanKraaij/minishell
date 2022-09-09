@@ -83,7 +83,7 @@ t_token	*expand_vars(t_token *input)
 	while (input->str[i] != '\0')
 	{
 		if ((input->str[i] == '$' && var_is_valid_first(input->str[i + 1])) \
-		|| input->str[i] == '~')
+		|| (input->str[i] == '~' && input->type == DEFAULT))
 		{
 			replace_var(&input->str, i, &varlen);
 			i += varlen;

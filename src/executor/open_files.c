@@ -1,7 +1,6 @@
 #include "minishell.h"
 #include "executor.h"
 #include "parser.h"
-#include <stdio.h>
 #include <fcntl.h>
 
 static void	dup_file(int fd, int dir)
@@ -22,7 +21,7 @@ static int	check_fd(int fd, char *name)
 
 static int	fileflag_to_fd(t_fileflags flag)
 {
-	if (flag == INPUT)
+	if (flag == INPUT || flag == INPUT_HEREDOC || flag == INPUT_HEREDOC_LIT)
 		return (FILE_IN);
 	if (flag == OUTPUT)
 		return (FILE_OUT);
@@ -43,6 +42,8 @@ void	open_dup_file(void *file_pointer)
 	else if (file.flag == OUTPUT_APP)
 		fd = check_fd(open(file.name, O_CREAT | O_WRONLY | O_APPEND, 0644), \
 							file.name);
+	else if (file.flag == INPUT_HEREDOC || file.flag == INPUT_HEREDOC_LIT)
+		fd = handle_heredoc(file);
 	else
 	{
 		print_error("minishell", "invalid fileflag", NULL);

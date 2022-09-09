@@ -35,6 +35,7 @@ int			final_cmd(t_command *cmd, int pipe_in);
 int			wait_for_childs(int child_count, int last_pid);
 char		*find_path(char *cmd);
 void		open_dup_file(void *file_pointer);
+int			handle_heredoc(t_file file);
 int			isvalid_key(char *name);
 
 t_builtin_f	lookup_builtin(char *cmd);

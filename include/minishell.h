@@ -4,6 +4,7 @@
 # include <libft.h>
 
 # define SHELL_PROMPT "minishell$> "
+# define HEREDOC_PROMT "heredoc> "
 # define REPRINT_PROMT 1
 # define IGNORE_SIGNAL 0
 
