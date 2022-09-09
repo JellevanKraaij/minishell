@@ -1,32 +1,44 @@
 #include "minishell.h"
 #include "parser.h"
 #include "libft.h"
+#include <stdio.h>
 
-t_token	*split_tokens(t_token *input)
+static void	split_default(t_list **lst, char *str)
 {
-	static size_t	pos = 0;
-	static int		done = 0;
-	char			**parts;
-	t_token			*ret;
+	size_t	i;
+	char	**split;
 
-	if (done == 1)
+	i = 0;
+	split = null_exit(ft_splitset(str, WHITESPACE));
+	if (split[0] == NULL)
+		return ;
+	while (split[i])
 	{
-		done = 0;
-		return (NULL);
+		printf("split='%s'\n", split[i]);
+		ft_lstadd_back(lst, null_exit(\
+		ft_lstnew(create_token(split[i], DEFAULT))));
+		if (split[i + 1])
+			ft_lstadd_back(lst, null_exit(\
+			ft_lstnew(create_token(" ", SEPERATOR))));
+		i++;
 	}
-	if (input->type != DEFAULT)
+}
+
+t_list	*split_tokens(t_list *tokens)
+{
+	t_list	*ret;
+	t_token	*token;
+
+	ret = NULL;
+	while (tokens)
 	{
-		done = 1;
-		return (create_token(input->str, ft_strlen(input->str), input->type));
+		token = tokens->content;
+		if (token->type == DEFAULT)
+			split_default(&ret, token->str);
+		else
+			ft_lstadd_back(&ret, null_exit(\
+				ft_lstnew(create_token(token->str, token->type))));
+		tokens = tokens->next;
 	}
-	parts = null_exit(ft_splitset(input->str, WHITESPACE));
-	if (parts[pos] == NULL)
-	{
-		pos = 0;
-		return (NULL);
-	}
-	ret = create_token(parts[pos], ft_strlen(parts[pos]), DEFAULT);
-	ft_split_free(parts);
-	pos++;
 	return (ret);
 }

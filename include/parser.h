@@ -15,6 +15,7 @@ typedef enum e_type
 	REDIR_OUTPUT,
 	REDIR_OUTPUT_APPEND,
 	PIPE,
+	SEPERATOR,
 	UNCLOSED
 }	t_type;
 
@@ -29,6 +30,7 @@ typedef enum e_fileflags
 	INVALID = -1,
 	INPUT,
 	INPUT_HEREDOC,
+	INPUT_HEREDOC_LIT,
 	OUTPUT,
 	OUTPUT_APP
 }	t_fileflags;
@@ -45,15 +47,16 @@ typedef struct s_command
 	t_list	*files;
 }	t_command;
 
-// add qoutes metadata to line and removes the unnecessary quotes 
 t_token		*lexer_process(t_token *input);
 t_token		*expand_vars(t_token *input);
-t_token		*split_tokens(t_token *input);
+t_list		*split_tokens(t_list *tokens);
+t_list		*combine_tokens(t_list *tokens);
 
 t_token		*init_token(void);
 t_token		*destroy_token(t_token *token);
-t_token		*create_token(char *str, size_t len, t_type type);
+t_token		*create_token(char *str, t_type type);
 void		update_token_list(t_list **lst, t_token *(*token_f)(t_token *));
+void		repalce_token_list(t_list **lst, t_list *(*list_f)(t_list *));
 size_t		find_token_len(char *str, char *set);
 
 t_list		*parse_tokens(t_list *tokens);

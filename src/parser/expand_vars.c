@@ -3,7 +3,7 @@
 #include "parser.h"
 #include "libft.h"
 
-void	lookup_var(char **var)
+static void	lookup_var(char **var)
 {
 	char	*ret;
 
@@ -21,10 +21,12 @@ void	lookup_var(char **var)
 	*var = ret;
 }
 
-size_t	calc_varlen(char *var)
+static size_t	calc_varlen(char *var)
 {
 	size_t	i;
 
+	if (var[0] == '~')
+		return (1);
 	if (var[1] == '?')
 		return (2);
 	i = 1;
@@ -33,7 +35,7 @@ size_t	calc_varlen(char *var)
 	return (i);
 }
 
-void	replace_var(char **str, size_t start, size_t *len)
+static void	replace_var(char **str, size_t start, size_t *len)
 {
 	char	*before;
 	char	*var;
@@ -42,15 +44,25 @@ void	replace_var(char **str, size_t start, size_t *len)
 
 	varlen = calc_varlen(&(*str)[start]);
 	before = null_exit(ft_substr(*str, 0, start));
-	var = null_exit(ft_substr(*str, start + 1, varlen - 1));
+	if (*str[0] == '~')
+		var = ft_strdup("HOME");
+	else
+		var = null_exit(ft_substr(*str, start + 1, varlen - 1));
 	after = null_exit(ft_strdup(&(*str)[start + varlen]));
 	lookup_var(&var);
 	free(*str);
-	*str = ft_strjoin3(before, var, after);
+	*str = null_exit(ft_strjoin3(before, var, after));
 	free(before);
 	free(after);
 	*len = ft_strlen(var);
 	free(var);
+}
+
+static	int	var_is_valid_first(int c)
+{
+	if (c == '?' || c == '_' || ft_isalpha(c))
+		return (1);
+	return (0);
 }
 
 t_token	*expand_vars(t_token *input)
@@ -66,11 +78,12 @@ t_token	*expand_vars(t_token *input)
 	}
 	start = 1;
 	if (input->type != DEFAULT && input->type != DOUBLE_QUOTED)
-		return (create_token(input->str, ft_strlen(input->str), input->type));
+		return (create_token(input->str, input->type));
 	i = 0;
 	while (input->str[i] != '\0')
 	{
-		if (input->str[i] == '$')
+		if ((input->str[i] == '$' && var_is_valid_first(input->str[i + 1])) \
+		|| input->str[i] == '~')
 		{
 			replace_var(&input->str, i, &varlen);
 			i += varlen;
@@ -78,5 +91,5 @@ t_token	*expand_vars(t_token *input)
 		else
 			i++;
 	}
-	return (create_token(input->str, ft_strlen(input->str), input->type));
+	return (create_token(input->str, input->type));
 }

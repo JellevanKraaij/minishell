@@ -88,15 +88,24 @@ static int	tokenize_word(char *line, int i, t_token *token)
 	return (i);
 }
 
+static int  tokenize_space(char *line, int i, t_token *token)
+{
+	token->type = SEPERATOR;
+	token->str = null_exit(ft_strdup(" "));
+	while (ft_isspace(line[i]))
+		i++;
+	return (i);
+}
+
 t_token	*lexer_process(t_token *input)
 {
 	t_token		*token;
 	static int	i = 0;
 
 	token = init_token();
-	while (ft_isspace(input->str[i]))
-		i++;
-	if (input->str[i] == '\'' || input->str[i] == '\"')
+	if (ft_isspace(input->str[i]))
+		i = tokenize_space(input->str, i, token);
+	else if (input->str[i] == '\'' || input->str[i] == '\"')
 		i = i + tokenize_quoted(input->str, i, token);
 	else if (input->str[i] == '<' || input->str[i] == '>' \
 			|| input->str[i] == '|')

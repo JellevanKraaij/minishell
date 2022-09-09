@@ -10,6 +10,9 @@ static int	handle_file(t_command *cmd, t_token token, t_fileflags fileflags)
 		clear_command(cmd);
 		return (-1);
 	}
+	if (fileflags == INPUT_HEREDOC && \
+		(token.type == DOUBLE_QUOTED || token.type == SINGLE_QUOTED))
+		fileflags = INPUT_HEREDOC_LIT;
 	ft_lstadd_back(&cmd->files, \
 		null_exit(ft_lstnew(null_exit(create_tfile(token.str, fileflags)))));
 	return (0);
@@ -81,6 +84,8 @@ t_list	*parse_tokens(t_list *tokens)
 	t_command	*cmd;
 
 	ret = NULL;
+	if (tokens == NULL)
+		return (NULL);
 	if (((t_token *)ft_lstlast(tokens)->content)->type == UNCLOSED)
 		return (parser_error(NULL));
 	while (tokens != NULL)

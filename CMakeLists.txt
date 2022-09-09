@@ -16,6 +16,7 @@ set (UTIL_SRCS
 	src/parser/expand_vars.c
 	src/parser/split_tokens.c
 	src/parser/parse_tokens.c
+	src/parser/combine_tokens.c
 	src/executor/executor.c
 	src/executor/builtins/cd.c
 	src/executor/builtins/echo.c
