@@ -12,6 +12,8 @@ static void	exec_multiple_cmd(t_command *cmd)
 
 	disabler_signals();
 	ft_lstiter(cmd->files, open_dup_file);
+	if (!cmd->argv)
+		exit (0);
 	builtin_function = lookup_builtin(cmd->argv[0]);
 	if (builtin_function != NULL)
 		exit(execute_builtin(cmd, builtin_function));
