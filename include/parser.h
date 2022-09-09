@@ -56,6 +56,7 @@ t_token		*init_token(void);
 t_token		*destroy_token(t_token *token);
 t_token		*create_token(char *str, t_type type);
 void		update_token_list(t_list **lst, t_token *(*token_f)(t_token *));
+void		repalce_token_list(t_list **lst, t_list *(*list_f)(t_list *));
 size_t		find_token_len(char *str, char *set);
 
 t_list		*parse_tokens(t_list *tokens);

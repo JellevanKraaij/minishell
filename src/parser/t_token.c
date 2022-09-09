@@ -32,6 +32,15 @@ t_token	*create_token(char *str, t_type type)
 	return (token);
 }
 
+void	repalce_token_list(t_list **lst, t_list *(*list_f)(t_list *))
+{
+	t_list	*tmp;
+
+	tmp = list_f(*lst);
+	ft_lstclear(lst, ((void (*))(void *)destroy_token));
+	*lst = tmp;
+}
+
 void	update_token_list(t_list **lst, t_token *(*token_f)(t_token *))
 {
 	t_list	*lst_i;

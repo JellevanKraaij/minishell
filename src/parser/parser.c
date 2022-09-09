@@ -93,10 +93,9 @@ void	parse_exec(char *line)
 	tokens = null_exit(ft_lstnew(create_token(line, DEFAULT)));
 	update_token_list(&tokens, lexer_process);
 	update_token_list(&tokens, expand_vars);
-	tokens = split_tokens(tokens);
-	combined_tokens = combine_tokens(tokens);
-	ft_lstclear(&tokens, ((void (*))(void *)destroy_token));
-	commands = parse_tokens(combined_tokens);
+	repalce_token_list(&tokens, split_tokens);
+	repalce_token_list(&tokens, combine_tokens);
+	commands = parse_tokens(tokens);
 	ft_lstclear(&combined_tokens, ((void (*))(void *)destroy_token));
 	print_commands(commands);
 }
