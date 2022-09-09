@@ -80,7 +80,6 @@ void	print_commands(t_list *commands)
 void	parse_exec(char *line)
 {
 	t_list	*tokens;
-	t_list	*combined_tokens;
 	t_list	*commands;
 
 	if (line == NULL)
