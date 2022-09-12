@@ -4,6 +4,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+int	g_last_exit_code = 0;
+
 int	main(void)
 {
 	char	*line;
