@@ -8,10 +8,10 @@ static void	lookup_var(char **var)
 	char	*ret;
 
 	if (!ft_strncmp(*var, "?", 2))
-		ret = null_exit(ft_strdup("0"));
+		ret = null_exit(ft_itoa(g_last_exit_code));
 	else
 	{
-		ret = ft_getenv(*var);
+		ret = null_exit(ft_strdup(ft_getenv(*var)));
 		if (ret == NULL)
 			ret = null_exit(ft_strdup(""));
 		else

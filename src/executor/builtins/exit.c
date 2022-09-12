@@ -29,7 +29,7 @@ int	builtin_exit(const char **argv, const char **envp)
 	(void)envp;
 	printf("exit\n");
 	if (ft_dstrlen((char **)argv) == 1)
-		exit(0);
+		exit(g_last_exit_code);
 	if (parse_exit_num(argv[1], &num) < 0)
 	{
 		print_error("minishell: exit", (char *)argv[0], \

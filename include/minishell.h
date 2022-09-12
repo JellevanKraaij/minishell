@@ -7,6 +7,8 @@
 # define REPRINT_PROMT 1
 # define IGNORE_SIGNAL 0
 
+extern int	g_last_exit_code;
+
 //Errors
 void	perror_exit(const char *s, int error_code) __attribute__((noreturn));
 void	*null_exit(void	*ptr);
