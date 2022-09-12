@@ -34,6 +34,7 @@ int	multiple_commands(t_list *commands)
 	int			last_pid;
 	int			ret_value;
 
+	last_pid = 0;
 	last_cmd = 0;
 	childs.child_count = 0;
 	while (commands)
