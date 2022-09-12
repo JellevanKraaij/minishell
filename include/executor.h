@@ -27,7 +27,10 @@ typedef struct s_builtin
 }	t_builtin;
 
 int			single_command(t_command *cmd);
-int			multiple_commands(t_command *cmd, t_childs *childs, int last_cmd);
+int			multiple_commands(t_list *commands);
+void		first_cmd(t_command *cmd, int pipe_out[2]);
+void		mid_cmd(t_command *cmd, int pipe_in, int pipe_out[2]);
+int			final_cmd(t_command *cmd, int pipe_in);
 
 int			wait_for_childs(int child_count, int last_pid);
 char		*find_path(char *cmd);

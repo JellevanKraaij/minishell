@@ -28,6 +28,7 @@ set (UTIL_SRCS
 	src/executor/builtins/builtin_utils.c
 	src/executor/single_cmd.c
 	src/executor/multiple_cmd.c
+	src/executor/exec_multiple_cmd.c
 	src/executor/open_files.c
 	src/environment/ft_getenv.c
 	src/environment/ft_environ.c
