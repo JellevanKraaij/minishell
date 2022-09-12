@@ -2,28 +2,35 @@
 #include "executor.h"
 #include <libft.h>
 #include <stdio.h>
+#include <limits.h>
 
-static int	str_isnum(const char *str)
+int	parse_exit_num(const char *str, long *number)
 {
-	int	i;
+	unsigned long	ret;
 
-	i = 0;
-	while (str[i])
+	ret = 0;
+	while (ft_isdigit(*str))
 	{
-		if (ft_isalpha(str[i]) != 0)
-			return (0);
-		i++;
+		ret = (ret * 10) + (*str - '0');
+		if (ret > LONG_MAX)
+			return (-1);
+		str++;
 	}
-	return (1);
+	if (*str != '\0')
+		return (-1);
+	*number = (long)ret;
+	return (0);
 }
 
 int	builtin_exit(const char **argv, const char **envp)
 {
+	long	num;
+
 	(void)envp;
 	printf("exit\n");
 	if (ft_dstrlen((char **)argv) == 1)
 		exit(0);
-	if (!str_isnum(argv[1]))
+	if (parse_exit_num(argv[1], &num) < 0)
 	{
 		print_error("minishell: exit", (char *)argv[0], \
 					"numeric argument required");
@@ -34,5 +41,5 @@ int	builtin_exit(const char **argv, const char **envp)
 		print_error("minishell", (char *)argv[0], "too many arguments");
 		return (1);
 	}
-	exit(ft_atoi(argv[1]));
+	exit(num);
 }
