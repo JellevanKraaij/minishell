@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "environment.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <readline/readline.h>
@@ -6,10 +7,12 @@
 
 int	g_last_exit_code = 0;
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	char	*line;
 
+	(void)argc;
+	ft_setenv("SHELL", argv[0], 1);
 	while (1)
 	{
 		enable_signals(REPRINT_PROMT);

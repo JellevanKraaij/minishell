@@ -3,7 +3,8 @@
 
 # include <libft.h>
 
-# define SHELL_PROMPT "minishell$> "
+# define SHELL_PROMPT "minishell> "
+# define HEREDOC_PROMT "heredoc> "
 # define REPRINT_PROMT 1
 # define IGNORE_SIGNAL 0
 
@@ -16,6 +17,6 @@ void	print_error(char *name, char *error_desc, char *error);
 void	parse_exec(char *line);
 int		execute_cmd(t_list	*commands);
 void	enable_signals(int print_promt);
-void	disabler_signals(void);
+void	disable_signals(void);
 
 #endif
