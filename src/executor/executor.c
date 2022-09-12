@@ -89,28 +89,13 @@ int	wait_for_childs(int child_count, int last_pid)
 
 int	execute_cmd(t_list *commands)
 {
-	t_childs	childs;
 	size_t		cmd_count;
-	int			last_cmd;
-	int			last_pid;
 	int			ret_value;
 
-	last_cmd = 0;
 	cmd_count = ft_lstsize(commands);
 	if (cmd_count == 1)
 		ret_value = single_command(commands->content);
 	else
-	{
-		childs.child_count = 0;
-		while (commands)
-		{
-			if (!commands->next)
-				last_cmd = 1;
-			last_pid = multiple_commands(commands->content, &childs, last_cmd);
-			commands = commands->next;
-			childs.child_count++;
-		}
-		ret_value = wait_for_childs(childs.child_count, last_pid);
-	}
+		ret_value = multiple_commands(commands);
 	return (ret_value);
 }
