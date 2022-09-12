@@ -43,7 +43,7 @@ void	open_dup_file(void *file_pointer)
 		fd = check_fd(open(file.name, O_CREAT | O_WRONLY | O_APPEND, 0644), \
 							file.name);
 	else if (file.flag == INPUT_HEREDOC || file.flag == INPUT_HEREDOC_LIT)
-		fd = handle_heredoc(file);
+		fd = check_fd(open(file.name, O_RDONLY), file.name);
 	else
 	{
 		print_error("minishell", "invalid fileflag", NULL);

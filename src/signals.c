@@ -24,7 +24,7 @@ void	enable_signals(int print_promt)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	disabler_signals(void)
+void	disable_signals(void)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);

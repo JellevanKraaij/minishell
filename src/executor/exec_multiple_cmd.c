@@ -10,7 +10,7 @@ static void	exec_multiple_cmd(t_command *cmd)
 	char		*path;
 	t_builtin_f	builtin_function;
 
-	disabler_signals();
+	disable_signals();
 	g_last_exit_code = 0;
 	ft_lstiter(cmd->files, open_dup_file);
 	if (!cmd->argv)

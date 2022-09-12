@@ -11,6 +11,11 @@
 # define FILE_OUT 1
 # define FILE_IN 0
 
+# define HEREDOC_FILENAME "/tmp/minishell"
+
+# define HEREDOC_CREATE 0
+# define HEREDOC_DELETE 1
+
 typedef struct s_childs
 {
 	int		child_count;
@@ -32,10 +37,12 @@ void		first_cmd(t_command *cmd, int pipe_out[2]);
 void		mid_cmd(t_command *cmd, int pipe_in, int pipe_out[2]);
 int			final_cmd(t_command *cmd, int pipe_in);
 
+int			heredoc_exec(t_list *commands, t_list **created_files);
+void		delete_files(t_list **created_files);
+
 int			wait_for_childs(int child_count, int last_pid);
 char		*find_path(char *cmd);
 void		open_dup_file(void *file_pointer);
-int			handle_heredoc(t_file file);
 int			isvalid_key(char *name);
 
 t_builtin_f	lookup_builtin(char *cmd);

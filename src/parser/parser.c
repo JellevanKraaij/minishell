@@ -79,13 +79,14 @@ void	print_commands(t_list *commands)
 
 void	parse_exec(char *line)
 {
-	t_list	*tokens;
-	t_list	*commands;
+	t_list		*tokens;
+	t_list		*commands;
 
 	if (line == NULL)
 	{
 		rl_clear_history();
-		exit(0);
+		printf("exit\n");
+		exit (g_last_exit_code);
 	}
 	if (*line == '\0')
 		return ;
