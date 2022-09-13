@@ -5,6 +5,11 @@
 #include "environment.h"
 #include <sys/wait.h>
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+
 static const t_builtin	g_builtins[] = {
 {.name = "exit", .function = builtin_exit},
 {.name = "echo", .function = builtin_echo},
@@ -44,7 +49,22 @@ char	*find_path(char *cmd)
 	char	*ret_path;
 
 	if (cmd[0] == '/' || cmd[0] == '.')
+	{
+		struct stat statbuff;
+		if (stat(cmd, &statbuff) < 0)
+			perror_exit("minishell", 1);
+		if (S_ISDIR(statbuff.st_mode))
+		{
+			print_error("minishell", cmd, "is a directory");
+			exit(126);
+		}
+		if (access(cmd, X_OK) < 0)
+		{
+			print_error("minishell", cmd, "Permission denied");
+			exit(126);
+		}
 		return (null_exit(ft_strdup(cmd)));
+	}
 	paths_tmp = ft_getenv("PATH");
 	paths = null_exit(ft_split(paths_tmp, ':'));
 	i = 0;
