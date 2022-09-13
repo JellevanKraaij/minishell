@@ -7,29 +7,35 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <stdio.h>
 
 int	is_path(char *path)
 {
 	return (ft_strchr(path, '/') != NULL);
 }
 
-int	check_executable(char *path)
+void	check_executable(char *path)
 {
 	struct stat	statbuff;
 
+	if (access(path, F_OK) < 0)
+	{
+		print_error("minishell", path, "No such file or directory");
+		exit(127);
+	}
 	if (stat(path, &statbuff) < 0)
 		perror_exit("minishell", 1);
 	if (S_ISDIR(statbuff.st_mode))
 	{
 		print_error("minishell", path, "is a directory");
-		exit(-1);
+		exit(126);
 	}
+
 	if (access(path, X_OK) < 0)
 	{
 		print_error("minishell", path, "Permission denied");
-		return (-1);
+		exit(126);
 	}
-	return (0);
 }
 
 char	*lookup_executable(char *cmd)
@@ -38,9 +44,8 @@ char	*lookup_executable(char *cmd)
 
 	if (is_path(cmd))
 	{
-		path = cmd;
-		if (check_executable(path) < 0)
-			exit(126);
+		check_executable(cmd);
+		return (cmd);
 	}
 	else
 	{

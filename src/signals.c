@@ -1,3 +1,4 @@
+#include "minishell.h"
 #include <signal.h>
 #include <stdio.h>
 #include <readline/readline.h>
@@ -13,6 +14,7 @@ static void	sigint_handler(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_last_exit_code = 1;
 }
 
 void	enable_signals(int print_promt)
