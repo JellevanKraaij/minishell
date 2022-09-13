@@ -18,12 +18,7 @@ static void	exec_multiple_cmd(t_command *cmd)
 	builtin_function = lookup_builtin(cmd->argv[0]);
 	if (builtin_function != NULL)
 		exit(execute_builtin(cmd, builtin_function));
-	path = find_path(cmd->argv[0]);
-	if (path == NULL)
-	{
-		print_error("minishell", cmd->argv[0], "command not found");
-		exit(127);
-	}
+	path = lookup_executable(cmd->argv[0]);
 	if (execve(path, cmd->argv, ft_getenviron()) < 0)
 		perror_exit("minishell", EXIT_FAILURE);
 }
@@ -84,4 +79,3 @@ int	final_cmd(t_command *cmd, int pipe_in)
 	close(pipe_in);
 	return (fork_id);
 }
-
