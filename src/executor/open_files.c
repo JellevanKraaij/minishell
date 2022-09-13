@@ -23,7 +23,7 @@ static int	fileflag_to_fd(t_fileflags flag)
 {
 	if (flag == INPUT || flag == INPUT_HEREDOC || flag == INPUT_HEREDOC_LIT)
 		return (FILE_IN);
-	if (flag == OUTPUT)
+	if (flag == OUTPUT || flag == OUTPUT_APP)
 		return (FILE_OUT);
 	return (-1);
 }
