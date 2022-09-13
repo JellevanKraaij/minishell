@@ -11,7 +11,7 @@ static void	lookup_var(char **var)
 		ret = null_exit(ft_itoa(g_last_exit_code));
 	else
 	{
-		ret = null_exit(ft_strdup(ft_getenv(*var)));
+		ret = ft_getenv(*var);
 		if (ret == NULL)
 			ret = null_exit(ft_strdup(""));
 		else

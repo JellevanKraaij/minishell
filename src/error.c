@@ -7,7 +7,7 @@ void	*null_exit(void	*ptr)
 {
 	if (ptr != NULL)
 		return (ptr);
-	perror_exit("minishell:", 1);
+	perror_exit("minishell", 1);
 }
 
 void	perror_exit(const char *s, int error_code)
