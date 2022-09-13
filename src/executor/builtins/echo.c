@@ -7,7 +7,7 @@ static int	ft_isn(const char *str)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (str[i])
 	{
 		if (str[i] != 'n')
@@ -25,7 +25,7 @@ int	builtin_echo(const char **argv, const char **envp)
 	flag_n = 0;
 	i = 1;
 	(void)envp;
-	while (argv[i] && argv[i][0] == '-' && ft_isn(&argv[i][1]) == 0)
+	while (argv[i] && ft_strncmp(argv[i], "-n", 2) == 0 && ft_isn(argv[i]) == 0)
 	{
 		flag_n = 1;
 		i++;
