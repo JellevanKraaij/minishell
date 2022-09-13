@@ -27,7 +27,7 @@ int	builtin_exit(const char **argv, const char **envp)
 	long	num;
 
 	(void)envp;
-	printf("exit\n");
+	ft_putendl_fd("exit", STDERR_FILENO);
 	if (ft_dstrlen((char **)argv) == 1)
 		exit(g_last_exit_code);
 	if (parse_exit_num(argv[1], &num) < 0)

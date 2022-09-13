@@ -85,7 +85,7 @@ void	parse_exec(char *line)
 	if (line == NULL)
 	{
 		rl_clear_history();
-		printf("exit\n");
+		ft_putendl_fd("exit", STDERR_FILENO);
 		exit (g_last_exit_code);
 	}
 	if (*line == '\0')
