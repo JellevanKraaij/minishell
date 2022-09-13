@@ -41,6 +41,9 @@ int			heredoc_exec(t_list *commands, t_list **created_files);
 void		delete_files(t_list **created_files);
 
 int			wait_for_childs(int child_count, int last_pid);
+int			is_path(char *path);
+int			check_executable(char *path);
+char		*lookup_executable(char *cmd);
 char		*find_path(char *cmd);
 void		open_dup_file(void *file_pointer);
 int			isvalid_key(char *name);

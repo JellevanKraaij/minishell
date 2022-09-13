@@ -1,6 +1,37 @@
 #include "minishell.h"
 #include "executor.h"
 #include "libft.h"
+#include "environment.h"
+
+static const t_builtin	g_builtins[] = {
+{.name = "exit", .function = builtin_exit},
+{.name = "echo", .function = builtin_echo},
+{.name = "cd", .function = builtin_cd},
+{.name = "env", .function = builtin_env},
+{.name = "pwd", .function = builtin_pwd},
+{.name = "export", .function = builtin_export},
+{.name = "unset", .function = builtin_unset}
+};
+
+t_builtin_f	lookup_builtin(char *cmd)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < sizeof(g_builtins) / sizeof(t_builtin))
+	{
+		if (ft_strcmp(cmd, g_builtins[i].name) == 0)
+			return (g_builtins[i].function);
+		i++;
+	}
+	return (NULL);
+}
+
+int	execute_builtin(t_command *cmd, t_builtin_f builtin_function)
+{
+	return (builtin_function((const char **)cmd->argv, \
+		(const char **)ft_getenviron()));
+}
 
 int	isvalid_key(char *name)
 {

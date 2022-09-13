@@ -31,6 +31,7 @@ set (UTIL_SRCS
 	src/executor/exec_multiple_cmd.c
 	src/executor/open_files.c
 	src/executor/heredoc.c
+	src/executor/utils.c
 	src/environment/ft_getenv.c
 	src/environment/ft_environ.c
 	src/environment/ft_unsetenv.c
