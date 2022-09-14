@@ -56,6 +56,11 @@ char	*lookup_executable(char *cmd)
 		path = find_path(cmd);
 		if (path == NULL)
 			exit(127);
+		if (access(path, X_OK) < 0)
+		{
+			print_error("minishell", "path", "Permission denied");
+			exit(126);
+		}
 	}
 	return (path);
 }
@@ -72,10 +77,10 @@ char	*find_path(char *cmd)
 	paths = null_exit(ft_split(paths_tmp, ':'));
 	i = 0;
 	ret_path = NULL;
-	while (paths[i])
+	while (paths[i] && ft_strcmp(cmd, ".") && ft_strcmp(cmd, ".."))
 	{
 		cmd_path = null_exit(ft_strjoin3(paths[i], "/", cmd));
-		if (access(cmd_path, 0) == 0)
+		if (access(cmd_path, F_OK) == 0)
 		{
 			ret_path = cmd_path;
 			break ;
