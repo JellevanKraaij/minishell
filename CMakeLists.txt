@@ -23,6 +23,7 @@ set (UTIL_SRCS
 	src/executor/builtins/env.c
 	src/executor/builtins/exit.c
 	src/executor/builtins/export.c
+	src/executor/builtins/export_print.c
 	src/executor/builtins/pwd.c
 	src/executor/builtins/unset.c
 	src/executor/builtins/builtin_utils.c

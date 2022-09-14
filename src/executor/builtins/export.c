@@ -2,67 +2,9 @@
 #include "executor.h"
 #include "environment.h"
 #include "libft.h"
+#include <stdio.h>
 
-static void	sort_list(char **envp)
-{
-	int		count;
-	int		i;
-	int		j;
-	char	*tmp;
-
-	tmp = NULL;
-	count = ft_dstrlen(envp);
-	i = 0;
-	while (i < count)
-	{
-		j = i + 1;
-		while (j < count)
-		{
-			if (ft_strncmp(envp[i], envp[j], ft_strlen(envp[i])) > 0)
-			{
-				tmp = envp[i];
-				envp[i] = envp[j];
-				envp[j] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-static int	print_exp(char **envp)
-{
-	size_t	idx;
-	char	*name;
-	char	*value;
-	char	*loc;
-	int		i;
-
-	i = 0;
-	envp = ft_dstrdup(envp);
-	sort_list(envp);
-	while (envp[i])
-	{
-		loc = ft_strchr(envp[i], '=');
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		if (!loc)
-			ft_putendl_fd((char *)envp[i], STDOUT_FILENO);
-		else
-		{
-			idx = loc - envp[i];
-			name = ft_strndup(envp[i], idx);
-			value = ft_strdup(&envp[i][idx + 1]);
-			ft_putstr_fd(name, STDOUT_FILENO);
-			ft_putchar_fd('=', STDOUT_FILENO);
-			ft_putendl_fd(value, STDOUT_FILENO);
-			free(name);
-			free(value);
-		}
-		i++;
-	}
-	ft_dstrfree(envp);
-	return (0);
-}
+int	print_exp(char **envp);
 
 static void	export_multiple_arg(const char **argv)
 {
