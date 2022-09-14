@@ -42,7 +42,7 @@ static int	parse_heredoc(t_file file, int fd)
 	while (1)
 	{
 		line = readline(HEREDOC_PROMT);
-		if (line == NULL || ft_strcmp(line, file.name) == 0)
+		if (line == NULL)
 		{
 			free(line);
 			return (0);
@@ -51,7 +51,13 @@ static int	parse_heredoc(t_file file, int fd)
 			file_to_token(file.flag))));
 		free(line);
 		update_token_list(&token, expand_vars);
-		ft_putendl_fd(((t_token *)token->content)->str, fd);
+		line = ((t_token *)token->content)->str;
+		if (ft_strcmp(line, file.name) == 0)
+		{
+			ft_lstclear(&token, ((void (*))(void *)destroy_token));
+			return (0);
+		}
+		ft_putendl_fd(line, fd);
 		ft_lstclear(&token, ((void (*))(void *)destroy_token));
 	}
 }
