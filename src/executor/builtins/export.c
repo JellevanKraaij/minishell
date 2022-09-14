@@ -4,16 +4,6 @@
 #include "libft.h"
 #include <stdio.h>
 
-static int	arr_count(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
-
 static void	**sort_list(char **envp)
 {
 	int		count;
@@ -22,7 +12,7 @@ static void	**sort_list(char **envp)
 	char	*tmp;
 
 	tmp = NULL;
-	count = arr_count(envp);
+	count = ft_dstrlen(envp);
 	i = 0;
 	while (i < count)
 	{
@@ -39,7 +29,6 @@ static void	**sort_list(char **envp)
 		}
 		i++;
 	}
-	return (0);
 }
 
 static int	print_exp(const char **envp)
@@ -51,6 +40,7 @@ static int	print_exp(const char **envp)
 	int		i;
 
 	i = 0;
+	envp = ft_dstrdup(envp);
 	sort_list((char **)envp);
 	while (envp[i])
 	{
@@ -68,6 +58,7 @@ static int	print_exp(const char **envp)
 		}
 		i++;
 	}
+	ft_dstrfree(envp);
 	return (0);
 }
 
