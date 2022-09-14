@@ -1,17 +1,21 @@
 #include "minishell.h"
 #include "executor.h"
-#include "parser.h"
-#include "libft.h"
 #include "environment.h"
-#include <sys/wait.h>
-#include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 #include <stdio.h>
 
-int	is_path(char *path)
+void	delete_files(t_list **created_files)
 {
-	return (ft_strchr(path, '/') != NULL);
+	t_list	*iterate;
+
+	iterate = *created_files;
+	while (iterate)
+	{
+		if (unlink(iterate->content) < 0)
+			perror("minishell");
+		iterate = iterate->next;
+	}
+	ft_lstclear(created_files, free);
 }
 
 void	check_executable(char *path)
@@ -30,7 +34,6 @@ void	check_executable(char *path)
 		print_error("minishell", path, "is a directory");
 		exit(126);
 	}
-
 	if (access(path, X_OK) < 0)
 	{
 		print_error("minishell", path, "Permission denied");
@@ -42,7 +45,7 @@ char	*lookup_executable(char *cmd)
 {
 	char	*path;
 
-	if (is_path(cmd))
+	if (ft_strchr(path, '/') != NULL)
 	{
 		check_executable(cmd);
 		return (cmd);

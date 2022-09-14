@@ -38,6 +38,7 @@ void		mid_cmd(t_command *cmd, int pipe_in, int pipe_out[2]);
 int			final_cmd(t_command *cmd, int pipe_in);
 
 int			heredoc_exec(t_list *commands, t_list **created_files);
+int			handle_heredoc(t_file *file, t_list **created_files);
 void		delete_files(t_list **created_files);
 
 int			wait_for_childs(int child_count, int last_pid);
