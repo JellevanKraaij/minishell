@@ -2,6 +2,7 @@
 #include "executor.h"
 #include "environment.h"
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <stdio.h>
 
 void	delete_files(t_list **created_files)
@@ -45,7 +46,7 @@ char	*lookup_executable(char *cmd)
 {
 	char	*path;
 
-	if (ft_strchr(path, '/') != NULL)
+	if (ft_strchr(cmd, '/') != NULL)
 	{
 		check_executable(cmd);
 		return (cmd);
