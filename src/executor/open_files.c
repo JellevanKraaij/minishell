@@ -20,7 +20,7 @@ static int	fileflag_to_fd(t_fileflags flag)
 	return (-1);
 }
 
-static int	open_files(t_file file)
+static int	open_file(t_file file)
 {
 	int	fd;
 
@@ -40,7 +40,7 @@ static int	open_files(t_file file)
 	return (fd);
 }
 
-int	open_dup_file(t_list *files)
+int	open_dup_files(t_list *files)
 {
 	t_file	file;
 	int		fd;
@@ -48,7 +48,7 @@ int	open_dup_file(t_list *files)
 	while (files)
 	{
 		file = *(t_file *)files->content;
-		fd = open_files(file);
+		fd = open_file(file);
 		if (fd < 0)
 		{
 			print_error("minishell", file.name, strerror(errno));

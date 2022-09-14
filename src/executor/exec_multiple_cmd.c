@@ -12,7 +12,7 @@ static void	exec_multiple_cmd(t_command *cmd)
 
 	disable_signals();
 	g_last_exit_code = 0;
-	if (open_dup_file(cmd->files))
+	if (open_dup_files(cmd->files))
 		exit (1);
 	if (!cmd->argv)
 		exit (0);

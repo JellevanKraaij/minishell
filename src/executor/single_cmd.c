@@ -15,7 +15,7 @@ static int	exec_single_cmd(t_command *cmd)
 	if (fork_id == 0)
 	{
 		disable_signals();
-		if (open_dup_file(cmd->files))
+		if (open_dup_files(cmd->files))
 			exit (1);
 		if (!cmd->argv)
 			exit(0);
@@ -54,7 +54,7 @@ int	single_command(t_command *cmd)
 		if (builtin_function != NULL)
 		{
 			backup_fds(backup_fd);
-			if (open_dup_file(cmd->files))
+			if (open_dup_files(cmd->files))
 				return (1);
 			ret = execute_builtin(cmd, builtin_function);
 			restore_fds(backup_fd);

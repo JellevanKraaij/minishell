@@ -45,7 +45,7 @@ int			wait_for_childs(int child_count, int last_pid);
 void		check_executable(char *path);
 char		*lookup_executable(char *cmd);
 char		*find_path(char *cmd);
-int			open_dup_file(t_list *files);
+int			open_dup_files(t_list *files);
 int			isvalid_key(char *name);
 
 t_builtin_f	lookup_builtin(char *cmd);
