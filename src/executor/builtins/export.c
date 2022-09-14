@@ -4,7 +4,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-static void	**sort_list(char **envp)
+static void	sort_list(char **envp)
 {
 	int		count;
 	int		i;
@@ -31,7 +31,7 @@ static void	**sort_list(char **envp)
 	}
 }
 
-static int	print_exp(const char **envp)
+static int	print_exp(char **envp)
 {
 	size_t	idx;
 	char	*name;
@@ -41,7 +41,7 @@ static int	print_exp(const char **envp)
 
 	i = 0;
 	envp = ft_dstrdup(envp);
-	sort_list((char **)envp);
+	sort_list(envp);
 	while (envp[i])
 	{
 		loc = ft_strchr(envp[i], '=');
@@ -101,7 +101,7 @@ int	builtin_export(const char **argv, const char **envp)
 		return (1);
 	}
 	if (len == 1)
-		return (print_exp(envp));
+		return (print_exp((char **)envp));
 	export_multiple_arg(argv);
 	return (0);
 }
