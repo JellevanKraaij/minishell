@@ -19,7 +19,7 @@ static int	exec_single_cmd(t_command *cmd)
 		if (!cmd->argv)
 			exit(0);
 		path = lookup_executable(cmd->argv[0]);
-		if (execve(path, cmd->argv, ft_getenviron()) < 0)
+		if (execve(path, cmd->argv, ft_getenviron_value()) < 0)
 			perror_exit("minishell", EXIT_FAILURE);
 	}
 	return (fork_id);

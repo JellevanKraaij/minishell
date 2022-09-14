@@ -10,15 +10,15 @@
 
 void	ft_unsetenv(const char *name)
 {
-	size_t	len;
 	char	**ep;
 	char	**sp;
+	char	*tmp;
 
-	len = ft_strlen(name);
+	tmp = null_exit(ft_strjoin(name, "="));
 	ep = ft_getenviron();
 	while (*ep)
 	{
-		if (ft_strncmp(*ep, name, len) == 0)
+		if (ft_strcmp(*ep, tmp) == 0)
 		{
 			free(*ep);
 			sp = ep;
@@ -30,5 +30,6 @@ void	ft_unsetenv(const char *name)
 		}
 		ep++;
 	}
+	free(tmp);
 	ft_setenviron(ft_getenviron());
 }
