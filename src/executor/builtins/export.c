@@ -39,7 +39,7 @@ static int	print_exp(char **envp)
 	int		i;
 
 	i = 0;
-	envp = ft_dstrdup(envp);
+	envp = null_exit(ft_dstrdup(envp));
 	sort_list(envp);
 	while (envp[i])
 	{
