@@ -1,6 +1,6 @@
 #include "minishell.h"
 #include "executor.h"
-#include <stdio.h>
+#include "libft.h"
 
 int	builtin_env(const char **argv, const char **envp)
 {
@@ -14,7 +14,7 @@ int	builtin_env(const char **argv, const char **envp)
 	}
 	while (envp[i])
 	{
-		printf("%s\n", envp[i]);
+		ft_putendl_fd((char *)envp[i], STDOUT_FILENO);
 		i++;
 	}
 	return (0);

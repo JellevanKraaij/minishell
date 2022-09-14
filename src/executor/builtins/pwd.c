@@ -2,7 +2,6 @@
 #include "executor.h"
 #include "environment.h"
 #include <libft.h>
-#include <stdio.h>
 
 int	builtin_pwd(const char **argv, const char **envp)
 {
@@ -19,10 +18,10 @@ int	builtin_pwd(const char **argv, const char **envp)
 			print_error("minishell", (char *)argv[0], "pwd not found");
 			return (1);
 		}
-		printf("%s\n", wd);
+		ft_putendl_fd(wd, STDOUT_FILENO);
 		return (0);
 	}
-	printf("%s\n", wd);
+	ft_putendl_fd(wd, STDOUT_FILENO);
 	free(wd);
 	return (0);
 }

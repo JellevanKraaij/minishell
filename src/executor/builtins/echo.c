@@ -1,7 +1,6 @@
 #include "minishell.h"
 #include "executor.h"
 #include <libft.h>
-#include <stdio.h>
 
 static int	ft_isn(const char *str)
 {
@@ -32,12 +31,12 @@ int	builtin_echo(const char **argv, const char **envp)
 	}
 	while (argv[i])
 	{
-		printf("%s", argv[i]);
+		ft_putstr_fd((char *)argv[i], STDOUT_FILENO);
 		if (argv[i + 1])
-			printf(" ");
+			ft_putchar_fd(' ', STDOUT_FILENO);
 		i++;
 	}
 	if (!flag_n)
-		printf("\n");
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
 }

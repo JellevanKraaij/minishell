@@ -2,7 +2,6 @@
 #include "executor.h"
 #include "environment.h"
 #include "libft.h"
-#include <stdio.h>
 
 static int	arr_count(char **arr)
 {
@@ -55,14 +54,17 @@ static int	print_exp(const char **envp)
 	while (envp[i])
 	{
 		loc = ft_strchr(envp[i], '=');
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		if (!loc)
-			printf("declare -x %s\n", envp[i]);
+			ft_putendl_fd((char *)envp[i], STDOUT_FILENO);
 		else
 		{
 			idx = loc - envp[i];
 			name = ft_strndup(envp[i], idx);
 			value = ft_strdup(&envp[i][idx + 1]);
-			printf("declare -x %s=\"%s\"\n", name, value);
+			ft_putstr_fd(name, STDOUT_FILENO);
+			ft_putchar_fd('=', STDOUT_FILENO);
+			ft_putendl_fd(value, STDOUT_FILENO);
 			free(name);
 			free(value);
 		}
