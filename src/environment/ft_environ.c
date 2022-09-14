@@ -33,6 +33,37 @@ char	**ft_getenviron(void)
 }
 
 /**
+ * @brief get copy of process environment only with VALUE
+ * 
+ * @return char** 
+ */
+
+char	**ft_getenviron_value(void)
+{
+	char	**env;
+	char	**ep;
+	char	**sp;
+
+	env = null_exit(ft_dstrdup(ft_getenviron()));
+	ep = env;
+	while (*ep)
+	{
+		if (ft_strchrset(*ep, ENV_SEP) == NULL)
+		{
+			free(*ep);
+			sp = ep;
+			while (*sp)
+			{
+				*sp = *(sp + 1);
+				sp++;
+			}
+		}
+		ep++;
+	}
+	return (env);
+}
+
+/**
  * @brief copy given enviroment to process environment
  * 
  * @param env environment to copy

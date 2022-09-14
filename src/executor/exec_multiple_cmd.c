@@ -20,7 +20,7 @@ static void	exec_multiple_cmd(t_command *cmd)
 	if (builtin_function != NULL)
 		exit(execute_builtin(cmd, builtin_function));
 	path = lookup_executable(cmd->argv[0]);
-	if (execve(path, cmd->argv, ft_getenviron()) < 0)
+	if (execve(path, cmd->argv, ft_getenviron_value()) < 0)
 		perror_exit("minishell", EXIT_FAILURE);
 }
 

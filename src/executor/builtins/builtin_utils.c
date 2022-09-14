@@ -29,8 +29,14 @@ t_builtin_f	lookup_builtin(char *cmd)
 
 int	execute_builtin(t_command *cmd, t_builtin_f builtin_function)
 {
-	return (builtin_function((const char **)cmd->argv, \
-		(const char **)ft_getenviron()));
+	char	**env;
+	int		ret;
+
+	env = ft_getenviron_value();
+	ret = builtin_function((const char **)cmd->argv, \
+		(const char **)env);
+	ft_dstrfree(env);
+	return (ret);
 }
 
 int	isvalid_key(char *name)

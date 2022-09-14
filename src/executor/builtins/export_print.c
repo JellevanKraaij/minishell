@@ -2,6 +2,8 @@
 #include "executor.h"
 #include "libft.h"
 
+#define BASH_VAR_ESCAPE_CHARS "\"\\$"
+
 static void	sort_list(char **envp)
 {
 	int		count;
@@ -38,7 +40,7 @@ static char	*add_slash(char *value)
 	i = 0;
 	while (value[i])
 	{
-		if (value[i] == '\"')
+		if (ft_strchr(BASH_VAR_ESCAPE_CHARS, value[i]))
 		{
 			if (i == 0)
 				value = null_exit(ft_strjoin("\\", value));
