@@ -3,17 +3,7 @@
 #include "environment.h"
 #include "libft.h"
 
-static int	arr_count(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
-
-static void	**sort_list(char **envp)
+static void	sort_list(char **envp)
 {
 	int		count;
 	int		i;
@@ -21,7 +11,7 @@ static void	**sort_list(char **envp)
 	char	*tmp;
 
 	tmp = NULL;
-	count = arr_count(envp);
+	count = ft_dstrlen(envp);
 	i = 0;
 	while (i < count)
 	{
@@ -38,10 +28,9 @@ static void	**sort_list(char **envp)
 		}
 		i++;
 	}
-	return (0);
 }
 
-static int	print_exp(const char **envp)
+static int	print_exp(char **envp)
 {
 	size_t	idx;
 	char	*name;
@@ -50,7 +39,8 @@ static int	print_exp(const char **envp)
 	int		i;
 
 	i = 0;
-	sort_list((char **)envp);
+	envp = ft_dstrdup(envp);
+	sort_list(envp);
 	while (envp[i])
 	{
 		loc = ft_strchr(envp[i], '=');
@@ -70,6 +60,7 @@ static int	print_exp(const char **envp)
 		}
 		i++;
 	}
+	ft_dstrfree(envp);
 	return (0);
 }
 
@@ -112,7 +103,7 @@ int	builtin_export(const char **argv, const char **envp)
 		return (1);
 	}
 	if (len == 1)
-		return (print_exp(envp));
+		return (print_exp((char **)envp));
 	export_multiple_arg(argv);
 	return (0);
 }

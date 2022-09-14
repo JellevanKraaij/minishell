@@ -56,7 +56,7 @@ int			builtin_pwd(const char **argv, const char **envp);
 int			builtin_echo(const char **argv, const char **envp);
 int			builtin_cd(const char **argv, const char **envp);
 int			builtin_env(const char **argv, const char **envp);
-int			builtin_export(const char **argv, const char **envp);
 int			builtin_unset(const char **argv, const char **envp);
+int			builtin_export(const char **argv, const char **envp);
 
 #endif
