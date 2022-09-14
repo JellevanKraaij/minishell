@@ -1,14 +1,13 @@
 #include "minishell.h"
 #include "environment.h"
 #include "libft.h"
-#include <stdlib.h>
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
 int	g_last_exit_code = 0;
 
-void	set_sh(char **argv)
+void	set_shell_variables(char **argv)
 {
 	char	*shlvl;
 	int		level_count;
@@ -21,9 +20,9 @@ void	set_sh(char **argv)
 		ft_setenv("SHLVL", "1", 1);
 		return ;
 	}
-	level_count = atoi(shlvl);
+	level_count = ft_atoi(shlvl);
 	level_count ++;
-	temp_char = ft_itoa(level_count);
+	temp_char = null_exit(ft_itoa(level_count));
 	ft_setenv("SHLVL", temp_char, 1);
 	free(temp_char);
 }
@@ -33,7 +32,7 @@ int	main(int argc, char **argv)
 	char	*line;
 
 	(void)argc;
-	set_sh(argv);
+	set_shell_variables(argv);
 	while (1)
 	{
 		enable_signals(REPRINT_PROMT);
