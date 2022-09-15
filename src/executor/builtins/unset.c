@@ -4,21 +4,22 @@
 
 int	builtin_unset(const char **argv, const char **envp)
 {
+	size_t	i;
+	size_t	ret;
+
+	i = 1;
 	(void)envp;
-	if (ft_dstrlen((char **)argv) > 2)
+	ret = 0;
+	while (argv[i])
 	{
-		print_error("minishell", (char *)argv[0], "too many arguments");
-		return (1);
-	}
-	if (argv[1])
-	{
-		if (isvalid_key((char *)argv[1]))
+		if (isvalid_key((char *)argv[i]))
 		{
-			print_error("minishell: export", (char *)argv[1], \
+			print_error("minishell: unset", (char *)argv[i], \
 						"not a valid identifier");
-			return (1);
+			ret = 1;
 		}
-		ft_unsetenv(argv[1]);
+		ft_unsetenv(argv[i]);
+		i++;
 	}
-	return (0);
+	return (ret);
 }
