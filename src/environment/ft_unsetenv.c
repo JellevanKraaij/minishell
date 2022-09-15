@@ -18,7 +18,8 @@ void	ft_unsetenv(const char *name)
 	ep = ft_getenviron();
 	while (*ep)
 	{
-		if (ft_strcmp(*ep, tmp) == 0)
+		if (ft_strncmp(*ep, tmp, ft_strlen(tmp)) == 0 || \
+			ft_strcmp(*ep, name) == 0)
 		{
 			free(*ep);
 			sp = ep;
