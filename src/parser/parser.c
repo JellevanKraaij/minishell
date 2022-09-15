@@ -77,7 +77,7 @@ void	print_commands(t_list *commands)
 	}
 }
 
-void	parse_exec(char *line)
+t_list	*parse_exec(char *line)
 {
 	t_list		*tokens;
 	t_list		*commands;
@@ -89,7 +89,7 @@ void	parse_exec(char *line)
 		exit (g_last_exit_code);
 	}
 	if (*line == '\0')
-		return ;
+		return (NULL);
 	tokens = null_exit(ft_lstnew(create_token(line, DEFAULT)));
 	update_token_list(&tokens, lexer_process);
 	update_token_list(&tokens, expand_vars);
@@ -100,8 +100,8 @@ void	parse_exec(char *line)
 	if (commands == NULL)
 	{
 		g_last_exit_code = 258;
-		return ;
+		return (NULL);
 	}
 	print_commands(commands);
-	g_last_exit_code = execute_cmd(commands);
+	return (commands);
 }

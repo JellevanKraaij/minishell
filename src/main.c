@@ -30,6 +30,7 @@ void	set_shell_variables(char **argv)
 int	main(int argc, char **argv)
 {
 	char	*line;
+	t_list	*commands;
 
 	(void)argc;
 	set_shell_variables(argv);
@@ -38,7 +39,8 @@ int	main(int argc, char **argv)
 		enable_signals(REPRINT_PROMT);
 		line = readline(SHELL_PROMPT);
 		enable_signals(IGNORE_SIGNAL);
-		parse_exec(line);
+		commands = parse_exec(line);
+		g_last_exit_code = execute_cmd(commands);
 		if (*line)
 			add_history(line);
 		free(line);
