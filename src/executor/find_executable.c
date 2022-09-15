@@ -2,7 +2,6 @@
 #include "executor.h"
 #include "environment.h"
 #include <sys/stat.h>
-#include <stdio.h>
 
 void	check_executable(char *path)
 {
@@ -31,7 +30,8 @@ char	*lookup_executable(char *cmd)
 {
 	char	*path;
 
-	if (ft_strchr(cmd, '/') != NULL)
+	path = ft_getenv("PATH");
+	if (ft_strchr(cmd, '/') != NULL || path == NULL || path[0] == '\0')
 	{
 		check_executable(cmd);
 		return (cmd);
@@ -40,7 +40,10 @@ char	*lookup_executable(char *cmd)
 	{
 		path = find_path(cmd);
 		if (path == NULL)
+		{
+			print_error("minishell", cmd, "command not found");
 			exit(127);
+		}
 		if (access(path, X_OK) < 0)
 		{
 			print_error("minishell", "path", "Permission denied");
@@ -55,27 +58,25 @@ char	*find_path(char *cmd)
 	int		i;
 	char	*cmd_path;
 	char	**paths;
-	char	*paths_tmp;
 	char	*ret_path;
 
-	paths_tmp = ft_getenv("PATH");
-	paths = null_exit(ft_split(paths_tmp, ':'));
+	paths = null_exit(ft_split(ft_getenv("PATH"), ':'));
 	i = 0;
 	ret_path = NULL;
-	while (paths[i] && ft_strcmp(cmd, ".") && ft_strcmp(cmd, ".."))
+	if (cmd[0] != '\0' && ft_strcmp(cmd, ".") && ft_strcmp(cmd, ".."))
 	{
-		cmd_path = null_exit(ft_strjoin3(paths[i], "/", cmd));
-		if (access(cmd_path, F_OK) == 0)
+		while (paths[i])
 		{
-			ret_path = cmd_path;
-			break ;
+			cmd_path = null_exit(ft_strjoin3(paths[i], "/", cmd));
+			if (access(cmd_path, F_OK) == 0)
+			{
+				ret_path = cmd_path;
+				break ;
+			}
+			free(cmd_path);
+			i++;
 		}
-		free(cmd_path);
-		i++;
 	}
-	if (ret_path == NULL)
-		print_error("minishell", cmd, "command not found");
 	ft_dstrfree(paths);
 	return (ret_path);
 }
-
