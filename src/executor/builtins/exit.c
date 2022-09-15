@@ -4,11 +4,20 @@
 #include <stdio.h>
 #include <limits.h>
 
-int	parse_exit_num(const char *str, long *number)
+static int	parse_exit_num(const char *str, long *number)
 {
-	unsigned long	ret;
+	int		sign;
+	long	ret;
 
 	ret = 0;
+	sign = 1;
+	if (*str == '-')
+	{
+		sign = -1;
+		str++;
+	}
+	else if (*str == '+')
+		str++;
 	while (ft_isdigit(*str))
 	{
 		ret = (ret * 10) + (*str - '0');
@@ -16,6 +25,7 @@ int	parse_exit_num(const char *str, long *number)
 			return (-1);
 		str++;
 	}
+	ret *= sign;
 	if (*str != '\0')
 		return (-1);
 	*number = (long)ret;
