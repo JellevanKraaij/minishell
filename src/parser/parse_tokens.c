@@ -74,6 +74,7 @@ static void	*parser_error(t_list *tokens)
 	else
 		error_text = ((t_token *)(tokens->content))->str;
 	print_error("minishell", "syntax error near unexpected token", error_text);
+	g_last_exit_code = 258;
 	return (NULL);
 }
 
