@@ -1,14 +1,12 @@
 #include "minishell.h"
 #include "executor.h"
 #include <libft.h>
-#include <stdio.h>
 #include <limits.h>
 
-static int	parse_exit_num(const char *str, long long *number)
+static int	parse_exit_num(const char *str, long *number)
 {
-	int		sign;
-	long	ret;
-	long	prev;
+	int				sign;
+	unsigned long	ret;
 
 	ret = 0;
 	sign = 1;
@@ -21,18 +19,10 @@ static int	parse_exit_num(const char *str, long long *number)
 		str++;
 	while (ft_isdigit(*str))
 	{
-		prev = ret;
 		ret = (ret * 10) + (*str - '0');
-		if (sign < 0)
-		{
-			if (ret > prev)
-				return (-1);
-		}
-		else
-		{
-			if (ret < prev)
-				return (-1);
-		}
+		if ((ret > LONG_MAX && sign == 1) || \
+		ret > ((unsigned long)LONG_MAX + 1))
+			return (-1);
 		str++;
 	}
 	ret *= sign;
@@ -44,7 +34,7 @@ static int	parse_exit_num(const char *str, long long *number)
 
 int	builtin_exit(const char **argv, const char **envp)
 {
-	long long	num;
+	long	num;
 
 	(void)envp;
 	ft_putendl_fd("exit", STDERR_FILENO);
@@ -54,7 +44,7 @@ int	builtin_exit(const char **argv, const char **envp)
 	{
 		print_error("minishell: exit", (char *)argv[0], \
 					"numeric argument required");
-		return (255);
+		exit(255);
 	}
 	else if (ft_dstrlen((char **)argv) > 2)
 	{
