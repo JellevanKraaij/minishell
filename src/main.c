@@ -55,6 +55,7 @@ int	main(int argc, char **argv)
 	t_list	*commands;
 
 	(void)argc;
+	rl_outstream = stderr;
 	set_shell_variables(argv);
 	while (1)
 	{
