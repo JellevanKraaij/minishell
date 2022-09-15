@@ -42,7 +42,7 @@ int	builtin_exit(const char **argv, const char **envp)
 		exit(g_last_exit_code);
 	if (parse_exit_num(argv[1], &num) < 0)
 	{
-		print_error("minishell: exit", (char *)argv[0], \
+		print_error("minishell", (char *)argv[0], \
 					"numeric argument required");
 		exit(255);
 	}
