@@ -27,6 +27,28 @@ void	set_shell_variables(char **argv)
 	free(temp_char);
 }
 
+char	*read_prompt(char *prompt)
+{
+	char	*line;
+
+	enable_signals(REPRINT_PROMT);
+	line = readline(prompt);
+	enable_signals(IGNORE_SIGNAL);
+	if (line == NULL)
+	{
+		rl_clear_history();
+		ft_putendl_fd("exit", STDERR_FILENO);
+		exit (g_last_exit_code);
+	}
+	if (*line == '\0')
+	{
+		free(line);
+		return (NULL);
+	}
+	add_history(line);
+	return (line);
+}
+
 int	main(int argc, char **argv)
 {
 	char	*line;
@@ -36,13 +58,10 @@ int	main(int argc, char **argv)
 	set_shell_variables(argv);
 	while (1)
 	{
-		enable_signals(REPRINT_PROMT);
-		line = readline(SHELL_PROMPT);
-		enable_signals(IGNORE_SIGNAL);
-		commands = parse_exec(line);
-		g_last_exit_code = execute_cmd(commands);
-		if (*line)
-			add_history(line);
+		line = read_prompt(SHELL_PROMPT);
+		commands = parser(line);
 		free(line);
+		execute_commands(commands);
+		ft_lstclear(&commands, (void (*))(void *)destroy_command);
 	}
 }
