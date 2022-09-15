@@ -17,6 +17,7 @@ set (UTIL_SRCS
 	src/parser/split_tokens.c
 	src/parser/parse_tokens.c
 	src/parser/combine_tokens.c
+	src/parser/debug.c
 	src/executor/executor.c
 	src/executor/builtins/cd.c
 	src/executor/builtins/echo.c
@@ -33,7 +34,8 @@ set (UTIL_SRCS
 	src/executor/open_files.c
 	src/executor/heredoc.c
 	src/executor/heredoc_utils.c
-	src/executor/utils.c
+	src/executor/find_executable.c
+	src/executor/wait_childs.c
 	src/environment/ft_getenv.c
 	src/environment/ft_environ.c
 	src/environment/ft_unsetenv.c
@@ -43,7 +45,7 @@ set (EXEC_NAME minishell)
 
 # compiler settings:
 set (CMAKE_C_FLAGS "-Wall -Werror -Wextra")
-set (CMAKE_C_FLAGS_DEBUG "-g -fsanitize=address") #cmake -DCMAKE_BUILD_TYPE=DEBUG to add debug flags
+set (CMAKE_C_FLAGS_DEBUG "-g -fsanitize=address -DBUILD_DEBUG") #cmake -DCMAKE_BUILD_TYPE=DEBUG to add debug flags
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON) #vscode include path checking
 
 # enable specific operating settings:
