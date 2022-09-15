@@ -4,10 +4,11 @@
 #include <stdio.h>
 #include <limits.h>
 
-static int	parse_exit_num(const char *str, long *number)
+static int	parse_exit_num(const char *str, long long *number)
 {
 	int		sign;
 	long	ret;
+	long	prev;
 
 	ret = 0;
 	sign = 1;
@@ -20,21 +21,30 @@ static int	parse_exit_num(const char *str, long *number)
 		str++;
 	while (ft_isdigit(*str))
 	{
+		prev = ret;
 		ret = (ret * 10) + (*str - '0');
-		if (ret > LONG_MAX)
-			return (-1);
+		if (sign < 0)
+		{
+			if (ret > prev)
+				return (-1);
+		}
+		else
+		{
+			if (ret < prev)
+				return (-1);
+		}
 		str++;
 	}
 	ret *= sign;
 	if (*str != '\0')
 		return (-1);
-	*number = (long)ret;
+	*number = ret;
 	return (0);
 }
 
 int	builtin_exit(const char **argv, const char **envp)
 {
-	long	num;
+	long long	num;
 
 	(void)envp;
 	ft_putendl_fd("exit", STDERR_FILENO);
