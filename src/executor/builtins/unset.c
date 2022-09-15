@@ -18,7 +18,8 @@ int	builtin_unset(const char **argv, const char **envp)
 						"not a valid identifier");
 			ret = 1;
 		}
-		ft_unsetenv(argv[i]);
+		else
+			ft_unsetenv(argv[i]);
 		i++;
 	}
 	return (ret);
