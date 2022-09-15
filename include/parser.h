@@ -49,7 +49,8 @@ typedef struct s_command
 
 // lexer & parser functions
 t_token		*lexer_process(t_token *input);
-t_token		*expand_vars(t_token *input);
+t_list		*expand_vars(t_list *input);
+char		*expand_vars_string(char *input, t_type type);
 t_list		*split_tokens(t_list *tokens);
 t_list		*combine_tokens(t_list *tokens);
 t_list		*parse_tokens(t_list *tokens);

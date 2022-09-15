@@ -14,7 +14,7 @@ t_list	*parser(char *line)
 		return (NULL);
 	tokens = null_exit(ft_lstnew(create_token(line, DEFAULT)));
 	update_token_list(&tokens, lexer_process);
-	update_token_list(&tokens, expand_vars);
+	repalce_token_list(&tokens, expand_vars);
 	repalce_token_list(&tokens, split_tokens);
 	repalce_token_list(&tokens, combine_tokens);
 	if (BUILD_DEBUG)

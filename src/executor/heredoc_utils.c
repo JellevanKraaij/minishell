@@ -24,41 +24,28 @@ static char	*gen_filename(void)
 	return (NULL);
 }
 
-static t_type	file_to_token(t_fileflags flag)
-{
-	if (flag == INPUT_HEREDOC)
-		return (DOUBLE_QUOTED);
-	else if (flag == INPUT_HEREDOC_LIT)
-		return (SINGLE_QUOTED);
-	return (-1);
-}
-
 static int	parse_heredoc(t_file file, int fd)
 {
 	char	*line;
-	t_list	*token;
+	char	*tmp;
 
 	rl_clear_history();
 	while (1)
 	{
 		line = readline(HEREDOC_PROMT);
-		if (line == NULL)
+		if (line == NULL || ft_strcmp(line, file.name) == 0)
 		{
 			free(line);
 			return (0);
 		}
-		token = null_exit(ft_lstnew(create_token(line, \
-			file_to_token(file.flag))));
-		free(line);
-		update_token_list(&token, expand_vars);
-		line = ((t_token *)token->content)->str;
-		if (ft_strcmp(line, file.name) == 0)
+		if (file.flag == INPUT_HEREDOC)
 		{
-			ft_lstclear(&token, ((void (*))(void *)destroy_token));
-			return (0);
+			tmp = expand_vars_string(line, DOUBLE_QUOTED);
+			free(line);
+			line = tmp;
 		}
 		ft_putendl_fd(line, fd);
-		ft_lstclear(&token, ((void (*))(void *)destroy_token));
+		free(line);
 	}
 }
 
