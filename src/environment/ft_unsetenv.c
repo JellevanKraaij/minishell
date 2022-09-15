@@ -29,7 +29,8 @@ void	ft_unsetenv(const char *name)
 				sp++;
 			}
 		}
-		ep++;
+		else
+			ep++;
 	}
 	free(tmp);
 	ft_setenviron(ft_getenviron());

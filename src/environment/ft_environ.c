@@ -58,7 +58,8 @@ char	**ft_getenviron_value(void)
 				sp++;
 			}
 		}
-		ep++;
+		else
+			ep++;
 	}
 	return (env);
 }
