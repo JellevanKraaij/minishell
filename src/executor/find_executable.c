@@ -2,22 +2,7 @@
 #include "executor.h"
 #include "environment.h"
 #include <sys/stat.h>
-#include <sys/wait.h>
 #include <stdio.h>
-
-void	delete_files(t_list **created_files)
-{
-	t_list	*iterate;
-
-	iterate = *created_files;
-	while (iterate)
-	{
-		if (unlink(iterate->content) < 0)
-			perror("minishell");
-		iterate = iterate->next;
-	}
-	ft_lstclear(created_files, free);
-}
 
 void	check_executable(char *path)
 {
@@ -94,25 +79,3 @@ char	*find_path(char *cmd)
 	return (ret_path);
 }
 
-int	wait_for_childs(int child_count, int last_pid)
-{
-	int	i;
-	int	exit_code;
-	int	status;
-
-	i = 0;
-	exit_code = 1;
-	while (i < child_count)
-	{
-		if (waitpid(-1, &status, 0) == last_pid)
-		{
-			if (WIFEXITED(status))
-				exit_code = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				exit_code = WTERMSIG(status) + 128;
-		}
-		if (WIFEXITED(status) || WIFSIGNALED(status))
-			i++;
-	}
-	return (exit_code);
-}

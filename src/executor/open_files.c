@@ -4,6 +4,21 @@
 #include <fcntl.h>
 #include <string.h>
 #include <errno.h>
+#include <stdio.h>
+
+void	delete_files(t_list **created_files)
+{
+	t_list	*iterate;
+
+	iterate = *created_files;
+	while (iterate)
+	{
+		if (unlink(iterate->content) < 0)
+			perror("minishell");
+		iterate = iterate->next;
+	}
+	ft_lstclear(created_files, free);
+}
 
 static void	dup_file(int fd, int dir)
 {

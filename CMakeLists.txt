@@ -34,7 +34,8 @@ set (UTIL_SRCS
 	src/executor/open_files.c
 	src/executor/heredoc.c
 	src/executor/heredoc_utils.c
-	src/executor/utils.c
+	src/executor/find_executable.c
+	src/executor/wait_childs.c
 	src/environment/ft_getenv.c
 	src/environment/ft_environ.c
 	src/environment/ft_unsetenv.c
