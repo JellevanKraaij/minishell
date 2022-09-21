@@ -10,7 +10,10 @@ static void	split_default(t_list **lst, char *str)
 	i = 0;
 	split = null_exit(ft_splitset(str, WHITESPACE));
 	if (split[0] == NULL)
+	{
+		ft_split_free(split);
 		return ;
+	}
 	while (split[i])
 	{
 		ft_lstadd_back(lst, null_exit(\
@@ -20,6 +23,7 @@ static void	split_default(t_list **lst, char *str)
 			ft_lstnew(create_token(" ", SEPERATOR))));
 		i++;
 	}
+	ft_split_free(split);
 }
 
 t_list	*split_tokens(t_list *tokens)
