@@ -10,10 +10,10 @@ static int	check_amb_redir(t_token token, char *expanded, t_token prev)
 	if (!is_token_type_redir(prev) || token.type == DOUBLE_QUOTED)
 		return (0);
 	tmp = ft_strtrim(expanded, WHITESPACE);
-	printf("tmp='%s'\n", tmp);
 	if (ft_strlen(tmp) < 1 || ft_strchrset(tmp, WHITESPACE) != NULL)
 	{
 		print_error("minishell", token.str, "ambiguous redirect");
+		g_last_exit_code = 1;
 		free(tmp);
 		return (1);
 	}
