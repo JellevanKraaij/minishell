@@ -33,5 +33,5 @@ void	ft_unsetenv(const char *name)
 			ep++;
 	}
 	free(tmp);
-	ft_setenviron(ft_getenviron());
+	ft_setenviron(null_exit(ft_dstrdup(ft_getenviron())));
 }

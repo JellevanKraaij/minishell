@@ -16,9 +16,9 @@ void	ft_setenv(const char *name, const char *value, int overwrite)
 	if (!overwrite && ft_getenv(name) != NULL)
 		return ;
 	ft_unsetenv(name);
-	ep = ft_getenviron();
+	ep = null_exit(ft_dstrdup(ft_getenviron()));
 	ep_len = ft_dstrlen(ep);
-	ep = null_exit(ft_realloc((void *)ep, sizeof(char **) * (ep_len + 1), \
+	ep = null_exit(ft_reallocf((void *)ep, sizeof(char **) * (ep_len + 1), \
 	sizeof(char **) * (ep_len + 2)));
 	if (value != NULL)
 		ep[ep_len] = null_exit(ft_strjoin3(name, ENV_SEP, value));
