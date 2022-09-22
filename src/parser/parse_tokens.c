@@ -13,7 +13,7 @@ static int	handle_file(t_command *cmd, t_token token, t_fileflags fileflags)
 		(token.type == DOUBLE_QUOTED || token.type == SINGLE_QUOTED))
 		fileflags = INPUT_HEREDOC_LIT;
 	ft_lstadd_back(&cmd->files, \
-		null_exit(ft_lstnew(null_exit(create_tfile(token.str, fileflags)))));
+		null_exit(ft_lstnew(create_tfile(token.str, fileflags))));
 	return (0);
 }
 

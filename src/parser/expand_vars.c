@@ -9,7 +9,7 @@ static int	check_amb_redir(t_token token, char *expanded, t_token prev)
 
 	if (!is_token_type_redir(prev) || token.type == DOUBLE_QUOTED)
 		return (0);
-	tmp = ft_strtrim(expanded, WHITESPACE);
+	tmp = null_exit(ft_strtrim(expanded, WHITESPACE));
 	if (ft_strlen(tmp) < 1 || ft_strchrset(tmp, WHITESPACE) != NULL)
 	{
 		print_error("minishell", token.str, "ambiguous redirect");
