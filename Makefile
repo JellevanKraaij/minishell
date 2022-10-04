@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: tosinga <tosinga@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/04 17:43:30 by jvan-kra/     #+  #+#    #+#              #
-#    Updated: 2022/10/04 19:34:52 by tosinga          ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: tosinga <tosinga@student.42.fr>              +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/10/04 17:43:30 by jvan-kra/     #+#    #+#                  #
+#    Updated: 2022/10/04 19:34:52 by tosinga       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ SRC 	=	src/main.c\
 			src/parser/t_command.c\
 			src/parser/t_file.c\
 			src/parser/lexer_process.c\
-			src/environment/lexer_tokenize_quotes.c\
-			src/environment/lexer_tokenize_sym.c\
+			src/parser/lexer_tokenize_quotes.c\
+			src/parser/lexer_tokenize_sym.c\
 			src/parser/utils.c\
 			src/parser/expand_vars.c\
 			src/parser/expand_vars_string.c\

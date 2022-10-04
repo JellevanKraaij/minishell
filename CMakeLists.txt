@@ -18,6 +18,8 @@ set (UTIL_SRCS
 	src/parser/split_tokens.c
 	src/parser/parse_tokens.c
 	src/parser/combine_tokens.c
+	src/parser/lexer_tokenize_quotes.c
+	src/parser/lexer_tokenize_sym.c
 	src/parser/debug.c
 	src/executor/executor.c
 	src/executor/builtins/cd.c
