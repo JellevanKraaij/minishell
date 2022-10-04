@@ -3,7 +3,6 @@
 #include "environment.h"
 #include "libft.h"
 
-
 int	print_exp(char **envp);
 
 static int	export_only_name(const char *param)

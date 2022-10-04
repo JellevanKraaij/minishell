@@ -45,7 +45,7 @@ static size_t	tokenize_sym(char *line, int i, t_token *token)
 }
 
 static int	unclosed_quote(char *line, int i, t_token *token)
-{	
+{
 	int		current_pos;
 
 	current_pos = i;
@@ -88,7 +88,7 @@ static int	tokenize_word(char *line, int i, t_token *token)
 	return (i);
 }
 
-static int  tokenize_space(char *line, int i, t_token *token)
+static int	tokenize_space(char *line, int i, t_token *token)
 {
 	token->type = SEPERATOR;
 	token->str = null_exit(ft_strdup(" "));
