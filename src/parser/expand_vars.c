@@ -3,6 +3,7 @@
 #include "libft.h"
 #include <stdio.h>
 
+//in case of empty or invalid redirect name print error
 static int	check_amb_redir(t_token token, char *expanded, t_token prev)
 {
 	char	*tmp;
@@ -30,6 +31,14 @@ static int	is_expand(t_type type, t_type prev)
 {
 	return ((type == DEFAULT || type == DOUBLE_QUOTED) && prev != HEREDOC);
 }
+
+/**
+ * @brief expands variables in DEFAULT or DOUBLE_QUOTED 
+ * 			and in other cases ignores
+ * 
+ * @param tokens list to expand
+ * @return t_list* list of expanded tokens
+ */
 
 t_list	*expand_vars(t_list *tokens)
 {

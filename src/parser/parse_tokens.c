@@ -37,6 +37,7 @@ static void	add_arg_to_cmd(const char *arg, t_command *cmd)
 	cmd->argv[len + 1] = NULL;
 }
 
+//	fill struct with commando information
 t_list	*parse_command(t_command *cmd, t_list *tokens)
 {
 	t_token			token;
@@ -78,6 +79,12 @@ static void	*parser_error(t_list *tokens)
 	return (NULL);
 }
 
+/**
+ * @brief builds adstract syntax list from tokens
+ * 
+ * @param tokens list
+ * @return t_list* abstract syntax list
+ */
 t_list	*parse_tokens(t_list *tokens)
 {
 	t_list		*ret;

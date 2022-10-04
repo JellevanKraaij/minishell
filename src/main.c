@@ -27,6 +27,13 @@ void	set_shell_variables(char **argv)
 	free(temp_char);
 }
 
+/**
+ * @brief display promt and read line input
+ * 
+ * @param prompt 
+ * @return char* return line in case of input, return NULL 
+ * 			in case of empty intput.
+ */
 char	*read_prompt(char *prompt)
 {
 	char	*line;

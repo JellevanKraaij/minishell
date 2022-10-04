@@ -26,6 +26,12 @@ static void	split_default(t_list **lst, char *str)
 	ft_split_free(split);
 }
 
+/**
+ * @brief split default tokens on spaces
+ * 
+ * @param tokens list
+ * @return t_list* updated token list
+ */
 t_list	*split_tokens(t_list *tokens)
 {
 	t_list	*ret;

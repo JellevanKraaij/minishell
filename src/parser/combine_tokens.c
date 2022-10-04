@@ -43,6 +43,13 @@ static t_token	*try_combine(t_list **tokens)
 	return (ret);
 }
 
+/**
+ * @brief combining tokens without seperator & removing seperators
+ * 
+ * @param tokens list
+ * @return t_list* updated token list
+ */
+
 t_list	*combine_tokens(t_list *tokens)
 {
 	t_list	*ret;

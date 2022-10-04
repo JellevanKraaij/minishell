@@ -1,7 +1,8 @@
 # Compiled source #
 ###################
-hello-world
+minishell
 *build
+*.o
 
 # OS generated files #
 ######################

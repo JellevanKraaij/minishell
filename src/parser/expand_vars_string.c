@@ -64,6 +64,13 @@ static	int	var_is_valid_first(int c)
 		return (1);
 	return (0);
 }
+/**
+ * @brief expands all valid variables in string
+ * 
+ * @param input string possibly containing variables
+ * @param type string token type
+ * @return char* string containing expanded variables
+ */
 
 char	*expand_vars_string(char *input, t_type type)
 {

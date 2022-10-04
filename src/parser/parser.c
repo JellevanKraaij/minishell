@@ -5,6 +5,12 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+/**
+ * @brief create abstract syntax list from user input
+ * 
+ * @param line input
+ * @return t_list* abstract syntax list
+ */
 t_list	*parser(char *line)
 {
 	t_list		*tokens;
