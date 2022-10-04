@@ -7,14 +7,12 @@ extern char	**environ;
 static char	**_environ(char **new_env)
 {
 	static char	**env = NULL;
-	char		**env_old;
 
 	if (new_env != NULL)
 	{
-		env_old = env;
-		env = null_exit(ft_dstrdup(new_env));
-		if (env_old != NULL)
-			ft_dstrfree(env_old);
+		if (env != NULL)
+			ft_dstrfree(env);
+		env = new_env;
 	}
 	if (env == NULL)
 		env = null_exit(ft_dstrdup(environ));

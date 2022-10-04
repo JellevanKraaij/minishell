@@ -67,8 +67,8 @@ static void	write_exp(size_t i, char *loc, char **envp)
 	char	*value;
 
 	idx = loc - envp[i];
-	name = ft_strndup(envp[i], idx);
-	value = ft_strdup(&envp[i][idx + 1]);
+	name = null_exit(ft_strndup(envp[i], idx));
+	value = null_exit(ft_strdup(&envp[i][idx + 1]));
 	value = add_slash(value);
 	ft_putstr_fd(name, STDOUT_FILENO);
 	ft_putstr_fd("=\"", STDOUT_FILENO);
@@ -84,7 +84,7 @@ int	print_exp(char **envp)
 	size_t	i;
 
 	i = 0;
-	envp = ft_dstrdup(envp);
+	envp = null_exit(ft_dstrdup(envp));
 	sort_list(envp);
 	while (envp[i])
 	{

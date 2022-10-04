@@ -5,53 +5,48 @@
 #include <errno.h>
 #include <string.h>
 
-static int	set_pwd(const char **argv)
+static char	*parse_arg(const char **argv)
 {
-	const char	*tmp_pwd;
+	char	*chdir_path;
 
-	if (!getenv("PWD"))
+	if (!argv[1])
 	{
-		tmp_pwd = getcwd(NULL, 0);
-		if (tmp_pwd == NULL)
-		{
-			print_error("minishell", (char *)argv[0], "pwd not found");
-			return (1);
-		}
-		ft_setenv("PWD", tmp_pwd, 1);
-		free((char *)tmp_pwd);
+		chdir_path = ft_getenv("HOME");
+		if (!chdir_path)
+			print_error("minishell", (char *)argv[0], "HOME not set");
 	}
-	tmp_pwd = getcwd(NULL, 0);
-	if (tmp_pwd == NULL)
+	else if (ft_strcmp(argv[1], "-") == 0)
 	{
-		print_error("minishell", (char *)argv[0], "pwd not found");
-		return (1);
+		chdir_path = ft_getenv("OLDPWD");
+		if (!chdir_path)
+			print_error("minishell", (char *)argv[0], "old pwd not set");
 	}
-	ft_setenv("OLDPWD", tmp_pwd, 1);
-	free((char *)tmp_pwd);
-	return (0);
+	else
+		chdir_path = (char *)argv[1];
+	return (chdir_path);
 }
 
-static int	set_oldpwd_cd(const char **argv)
+static int	exec_cd(const char **argv)
 {
-	const char	*tmp;
+	char	*chdir_path;
+	char	*old_pwd;
 
-	tmp = argv[1];
-	if (!tmp)
-		tmp = (getenv("HOME"));
-	if (argv[1] && argv[1][0] == '-' && !argv[1][1])
-	{
-		tmp = (getenv("OLDPWD"));
-		if (!tmp)
-		{
-			print_error("minishell", (char *)argv[0], "old pwd not set");
-			return (1);
-		}
-	}
-	if (chdir(tmp) < 0)
+	chdir_path = parse_arg(argv);
+	if (!chdir_path)
+		return (1);
+	if (chdir(chdir_path) < 0)
 	{
 		print_error("minishell", (char *)argv[0], strerror(errno));
 		return (1);
 	}
+	old_pwd = ft_getenv("PWD");
+	if (old_pwd)
+		ft_setenv("OLDPWD", old_pwd, 1);
+	else
+		ft_unsetenv("OLDPWD");
+	chdir_path = getcwd(NULL, 0);
+	ft_setenv("PWD", chdir_path, 1);
+	free(chdir_path);
 	return (0);
 }
 
@@ -63,7 +58,7 @@ int	builtin_cd(const char **argv, const char **envp)
 		print_error("minishell", (char *)argv[0], "too many arguments");
 		return (1);
 	}
-	if (set_pwd(argv) || set_oldpwd_cd(argv))
+	if (exec_cd(argv))
 		return (1);
 	return (0);
 }

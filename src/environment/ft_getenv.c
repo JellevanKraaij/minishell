@@ -18,7 +18,7 @@ char	*ft_getenv(const char *name)
 	len = ft_strlen(name);
 	if (len < 1)
 		return (NULL);
-	tmp = ft_strjoin(name, "=");
+	tmp = null_exit(ft_strjoin(name, "="));
 	ep = ft_getenviron();
 	while (*ep)
 	{

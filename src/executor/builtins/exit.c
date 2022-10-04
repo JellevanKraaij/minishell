@@ -2,6 +2,8 @@
 #include "executor.h"
 #include <libft.h>
 #include <limits.h>
+#include <stdio.h>
+#include <readline/readline.h>
 
 static int	parse_exit_num(const char *str, long *number)
 {
@@ -44,6 +46,7 @@ int	builtin_exit(const char **argv, const char **envp)
 	{
 		print_error("minishell", (char *)argv[0], \
 					"numeric argument required");
+		rl_clear_history();
 		exit(255);
 	}
 	else if (ft_dstrlen((char **)argv) > 2)
