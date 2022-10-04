@@ -3,6 +3,12 @@
 #include "parser.h"
 #include "libft.h"
 
+/**
+ * @brief execute commands presented in the abstract syntact 
+ * 			list in chronological order
+ * 
+ * @param commands list
+ */
 void	execute_commands(t_list *commands)
 {
 	size_t		cmd_count;

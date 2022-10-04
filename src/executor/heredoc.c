@@ -1,6 +1,13 @@
 #include "minishell.h"
 #include "executor.h"
 
+/**
+ * @brief support heredoc input and create list of heredoc files
+ * 
+ * @param commands list
+ * @param created_files list
+ * @return int succes or failure
+ */
 int	heredoc_exec(t_list *commands, t_list **created_files)
 {
 	t_list	*files;

@@ -27,6 +27,12 @@ static int	pipe_multiple_commands(t_command *cmd, t_childs *childs, \
 	return (last_pid);
 }
 
+/**
+ * @brief execute commands in seperate childs in case of multiple command input
+ * 
+ * @param commands list
+ * @return int exit code
+ */
 int	multiple_commands(t_list *commands)
 {	
 	t_childs	childs;

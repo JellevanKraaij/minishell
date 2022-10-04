@@ -41,6 +41,12 @@ static void	restore_fds(int *backup_fd)
 		perror_exit("minishell", 1);
 }
 
+/**
+ * @brief execute command in case of single command input
+ * 
+ * @param cmd command struct
+ * @return int exit code
+ */
 int	single_command(t_command *cmd)
 {
 	pid_t		child_pid;
