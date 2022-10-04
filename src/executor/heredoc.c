@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   heredoc.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/04 17:44:18 by jvan-kra/     #+#    #+#                 */
+/*   Updated: 2022/10/04 17:44:18 by jvan-kra/     ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "executor.h"
 
 /**
  * @brief support heredoc input and create list of heredoc files
- * 
+ *
  * @param commands list
  * @param created_files list
  * @return int succes or failure

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/04 17:44:59 by jvan-kra/     #+#    #+#                 */
+/*   Updated: 2022/10/04 17:44:59 by jvan-kra/     ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "environment.h"
 #include "libft.h"
@@ -29,9 +41,9 @@ void	set_shell_variables(char **argv)
 
 /**
  * @brief display promt and read line input
- * 
- * @param prompt 
- * @return char* return line in case of input, return NULL 
+ *
+ * @param prompt
+ * @return char* return line in case of input, return NULL
  * 			in case of empty intput.
  */
 char	*read_prompt(char *prompt)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   expand_vars_string.c                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/04 17:44:32 by jvan-kra/     #+#    #+#                 */
+/*   Updated: 2022/10/04 17:44:32 by jvan-kra/     ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "environment.h"
 #include "parser.h"
@@ -66,7 +78,7 @@ static	int	var_is_valid_first(int c)
 }
 /**
  * @brief expands all valid variables in string
- * 
+ *
  * @param input string possibly containing variables
  * @param type string token type
  * @return char* string containing expanded variables

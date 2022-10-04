@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_getenv.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/04 17:43:42 by jvan-kra/     #+#    #+#                 */
+/*   Updated: 2022/10/04 17:43:42 by jvan-kra/     ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "environment.h"
 #include <libft.h>
@@ -5,7 +17,7 @@
 
 /**
  * @brief lookup the value of variable \p name in environment
- * 
+ *
  * @param name variable name
  * @return char* non modifieable reference to value
  */

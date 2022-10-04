@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/04 17:44:40 by jvan-kra/     #+#    #+#                 */
+/*   Updated: 2022/10/04 17:44:40 by jvan-kra/     ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "parser.h"
 #include <libft.h>
@@ -7,7 +19,7 @@
 
 /**
  * @brief create abstract syntax list from user input
- * 
+ *
  * @param line input
  * @return t_list* abstract syntax list
  */

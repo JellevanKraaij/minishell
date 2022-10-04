@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   find_executable.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/04 17:44:13 by jvan-kra/     #+#    #+#                 */
+/*   Updated: 2022/10/04 17:44:13 by jvan-kra/     ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "executor.h"
 #include "environment.h"
@@ -54,7 +66,7 @@ char	*lookup_executable(char *cmd)
 }
 
 char	*find_path(char *cmd)
-{	
+{
 	int		i;
 	char	*cmd_path;
 	char	**paths;

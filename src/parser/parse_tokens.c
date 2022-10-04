@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parse_tokens.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/04 17:44:38 by jvan-kra/     #+#    #+#                 */
+/*   Updated: 2022/10/04 17:44:38 by jvan-kra/     ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "parser.h"
 #include "libft.h"
@@ -81,7 +93,7 @@ static void	*parser_error(t_list *tokens)
 
 /**
  * @brief builds adstract syntax list from tokens
- * 
+ *
  * @param tokens list
  * @return t_list* abstract syntax list
  */

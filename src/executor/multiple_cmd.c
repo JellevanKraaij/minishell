@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   multiple_cmd.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/04 17:44:20 by jvan-kra/     #+#    #+#                 */
+/*   Updated: 2022/10/04 17:44:20 by jvan-kra/     ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "executor.h"
 #include "parser.h"
@@ -29,12 +41,12 @@ static int	pipe_multiple_commands(t_command *cmd, t_childs *childs, \
 
 /**
  * @brief execute commands in seperate childs in case of multiple command input
- * 
+ *
  * @param commands list
  * @return int exit code
  */
 int	multiple_commands(t_list *commands)
-{	
+{
 	t_childs	childs;
 	int			last_cmd;
 	int			last_pid;

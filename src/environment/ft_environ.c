@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_environ.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/04 17:43:40 by jvan-kra/     #+#    #+#                 */
+/*   Updated: 2022/10/04 17:43:40 by jvan-kra/     ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "environment.h"
 #include <libft.h>
@@ -21,7 +33,7 @@ static char	**_environ(char **new_env)
 
 /**
  * @brief get pointer to process environment
- * 
+ *
  * @return char** pointer to environment
  */
 
@@ -32,8 +44,8 @@ char	**ft_getenviron(void)
 
 /**
  * @brief get copy of process environment only with VALUE
- * 
- * @return char** 
+ *
+ * @return char**
  */
 
 char	**ft_getenviron_value(void)
@@ -64,7 +76,7 @@ char	**ft_getenviron_value(void)
 
 /**
  * @brief copy given enviroment to process environment
- * 
+ *
  * @param env environment to copy
  */
 

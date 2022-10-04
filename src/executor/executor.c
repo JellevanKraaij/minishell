@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   executor.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/04 17:44:11 by jvan-kra/     #+#    #+#                 */
+/*   Updated: 2022/10/04 17:44:11 by jvan-kra/     ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "executor.h"
 #include "parser.h"
 #include "libft.h"
 
 /**
- * @brief execute commands presented in the abstract syntact 
+ * @brief execute commands presented in the abstract syntact
  * 			list in chronological order
- * 
+ *
  * @param commands list
  */
 void	execute_commands(t_list *commands)

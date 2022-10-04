@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   combine_tokens.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/04 17:44:28 by jvan-kra/     #+#    #+#                 */
+/*   Updated: 2022/10/04 17:44:28 by jvan-kra/     ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "parser.h"
 #include <libft.h>
@@ -45,7 +57,7 @@ static t_token	*try_combine(t_list **tokens)
 
 /**
  * @brief combining tokens without seperator & removing seperators
- * 
+ *
  * @param tokens list
  * @return t_list* updated token list
  */

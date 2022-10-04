@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_setenv.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/04 17:43:45 by jvan-kra/     #+#    #+#                 */
+/*   Updated: 2022/10/04 17:43:45 by jvan-kra/     ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "environment.h"
 #include <libft.h>
 /**
  * @brief add or modify variable \p name in environment
- * 
+ *
  * @param name variable name
  * @param value variable value
  * @param overwrite overwrite existing value

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   single_cmd.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/04 17:44:24 by jvan-kra/     #+#    #+#                 */
+/*   Updated: 2022/10/04 17:44:24 by jvan-kra/     ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "executor.h"
 #include "parser.h"
@@ -43,7 +55,7 @@ static void	restore_fds(int *backup_fd)
 
 /**
  * @brief execute command in case of single command input
- * 
+ *
  * @param cmd command struct
  * @return int exit code
  */
