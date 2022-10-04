@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   builtin_utils.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*   By: jvan-kra/tosinga                             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/04 17:43:49 by jvan-kra/     #+#    #+#                 */
-/*   Updated: 2022/10/04 17:43:49 by jvan-kra/     ########   odam.nl         */
+/*   Created: 2022/10/04 17:43:49 by jvan-kra      #+#    #+#                 */
+/*   Updated: 2022/10/04 17:43:49 by jvan-kra      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_unsetenv.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
+/*   By: jvan-kra/tosinga                             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/04 17:43:47 by jvan-kra/     #+#    #+#                 */
-/*   Updated: 2022/10/04 17:43:47 by jvan-kra/     ########   odam.nl         */
+/*   Created: 2022/10/04 17:43:47 by jvan-kra      #+#    #+#                 */
+/*   Updated: 2022/10/04 17:43:47 by jvan-kra      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
