@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.h                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/04 17:45:21 by jvan-kra/     #+#    #+#                 */
-/*   Updated: 2022/10/04 17:45:21 by jvan-kra/     ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tosinga <tosinga@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/04 17:45:21 by jvan-kra/     #+  #+#    #+#             */
+/*   Updated: 2022/10/04 19:33:01 by tosinga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct s_command
 
 // lexer & parser functions
 t_token		*lexer_process(t_token *input);
+size_t		tokenize_sym(char *line, int i, t_token *token);
+int			tokenize_quoted(char *line, int i, t_token *token);
 t_list		*expand_vars(t_list *input);
 char		*expand_vars_string(char *input, t_type type);
 t_list		*split_tokens(t_list *tokens);

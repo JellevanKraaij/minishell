@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   lexer_process.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jvan-kra/tosinga           <jvan-kra/to      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/04 17:44:36 by jvan-kra/     #+#    #+#                 */
-/*   Updated: 2022/10/04 17:44:36 by jvan-kra/     ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   lexer_process.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tosinga <tosinga@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/04 17:44:36 by jvan-kra/     #+  #+#    #+#             */
+/*   Updated: 2022/10/04 19:32:35 by tosinga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,70 +21,6 @@ static int	ft_isspace(int i)
 	if (ft_strchr(WHITESPACE, i))
 		return (1);
 	return (0);
-}
-
-static ssize_t	strlen_quoted(const char *str, char c)
-{
-	char	*pntr;
-
-	pntr = ft_strchr(str, c);
-	if (pntr == NULL)
-		return (-1);
-	return (pntr - str);
-}
-
-static size_t	fill_token(t_type label, const char *sym, \
-				t_token *token)
-{
-	token->type = label;
-	token->str = null_exit(ft_strdup(sym));
-	return (ft_strlen(sym));
-}
-
-static size_t	tokenize_sym(char *line, int i, t_token *token)
-{
-	if (line[i] == '>' && line[i + 1] == '>')
-		return (fill_token(REDIR_OUTPUT_APPEND, ">>", token));
-	if (line[i] == '<' && line[i + 1] == '<')
-		return (fill_token(HEREDOC, "<<", token));
-	if (line[i] == '<')
-		return (fill_token(REDIR_INPUT, "<", token));
-	if (line[i] == '>')
-		return (fill_token(REDIR_OUTPUT, ">", token));
-	if (line[i] == '|')
-		return (fill_token(PIPE, "|", token));
-	return (0);
-}
-
-static int	unclosed_quote(char *line, int i, t_token *token)
-{
-	int		current_pos;
-
-	current_pos = i;
-	while (line[i])
-		i++;
-	token->str = null_exit(ft_substr(line, current_pos + 1, i));
-	return (i - current_pos);
-}
-
-static int	tokenize_quoted(char *line, int i, t_token *token)
-{
-	char	temp_token;
-	ssize_t	quote_length;
-
-	temp_token = line[i];
-	quote_length = strlen_quoted(&line[i + 1], temp_token);
-	if (quote_length < 0 || !line[i + 1])
-	{
-		token->type = UNCLOSED;
-		return (unclosed_quote(line, i, token));
-	}
-	if (temp_token == '\'')
-		token->type = SINGLE_QUOTED;
-	if (temp_token == '\"')
-		token->type = DOUBLE_QUOTED;
-	token->str = null_exit(ft_substr(line, i + 1, quote_length));
-	return (quote_length + 2);
 }
 
 static int	tokenize_word(char *line, int i, t_token *token)
