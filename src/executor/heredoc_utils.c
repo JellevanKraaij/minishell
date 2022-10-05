@@ -28,7 +28,10 @@ static char	*gen_filename(void)
 		num = null_exit(ft_itoa(i));
 		file_name = null_exit(ft_strjoin(HEREDOC_FILENAME, num));
 		if (access(file_name, F_OK) < 0)
+		{
+			free(num);
 			return (file_name);
+		}
 		free(num);
 		free(file_name);
 		i++;
