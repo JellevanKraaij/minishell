@@ -74,6 +74,7 @@ int	main(int argc, char **argv)
 	t_list	*commands;
 
 	(void)argc;
+	rl_catch_signals = 0;
 	rl_outstream = stderr;
 	set_shell_variables(argv);
 	while (1)
