@@ -29,7 +29,7 @@ void	execute_commands(t_list *commands)
 	if (commands == NULL)
 		return ;
 	created_files = NULL;
-	if (heredoc_exec(commands, &created_files) == 1)
+	if (heredoc_exec(commands, &created_files))
 	{
 		delete_files(&created_files);
 		g_last_exit_code = 1;

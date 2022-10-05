@@ -23,8 +23,8 @@ static void	sigint_handler(int sig)
 {
 	(void)sig;
 	ft_putchar_fd('\n', STDOUT_FILENO);
-	rl_on_new_line();
 	rl_replace_line("", 0);
+	rl_on_new_line();
 	rl_redisplay();
 	g_last_exit_code = 1;
 }
@@ -40,6 +40,7 @@ void	enable_signals(int print_promt)
 
 void	disable_signals(void)
 {
+	rl_catch_signals = 1;
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 }
