@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include <fcntl.h>
+#include <signal.h>
 
 static char	*gen_filename(void)
 {
@@ -77,6 +78,7 @@ static int	heredoc_fork_process(char *file_name, t_file *file, \
 	if (fork_id == 0)
 	{
 		disable_signals();
+		signal(SIGQUIT, SIG_IGN);
 		fd = open(file_name, O_CREAT | O_WRONLY, 0644);
 		if (fd < 0)
 			perror_exit("minishell", 1);

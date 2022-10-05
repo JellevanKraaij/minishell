@@ -58,6 +58,7 @@ void	enable_signals(int print_promt)
 
 void	disable_signals(void)
 {
+	rl_catch_signals = 1;
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 }
