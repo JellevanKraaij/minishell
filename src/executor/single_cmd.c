@@ -80,5 +80,5 @@ int	single_command(t_command *cmd)
 		}
 	}
 	child_pid = exec_single_cmd(cmd);
-	return (wait_for_childs(1, child_pid));
+	return (wait_for_lastcmd(1, child_pid));
 }

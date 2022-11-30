@@ -63,6 +63,6 @@ int	multiple_commands(t_list *commands)
 		commands = commands->next;
 		childs.child_count++;
 	}
-	ret_value = wait_for_childs(childs.child_count, last_pid);
+	ret_value = wait_for_lastcmd(childs.child_count, last_pid);
 	return (ret_value);
 }

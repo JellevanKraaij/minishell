@@ -29,19 +29,6 @@ static void	sigint_handler(int sig)
 	g_last_exit_code = 1;
 }
 
-static void	sigint_incmd_handler(int sig)
-{
-	(void)sig;
-	ft_putchar_fd('\n', STDERR_FILENO);
-}
-
-static void	sigquit_handler(int sig)
-{
-	(void)sig;
-	ft_putstr_fd("Quit: 3", STDERR_FILENO);
-	ft_putchar_fd('\n', STDERR_FILENO);
-}
-
 void	enable_signals(int print_promt)
 {
 	if (print_promt)
@@ -51,8 +38,8 @@ void	enable_signals(int print_promt)
 	}
 	else
 	{
-		signal(SIGINT, sigint_incmd_handler);
-		signal(SIGQUIT, sigquit_handler);
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 	}
 }
 

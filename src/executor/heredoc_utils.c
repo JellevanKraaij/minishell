@@ -16,6 +16,7 @@
 #include <readline/readline.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <sys/wait.h>
 
 static char	*gen_filename(void)
 {
@@ -65,6 +66,19 @@ static int	parse_heredoc(t_file file, int fd)
 	}
 }
 
+static int	wait_heredoc(int pid)
+{
+	int	status;
+
+	if (waitpid(pid, &status, 0) < 0)
+		perror_exit("minishell:", 1);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+		return (WTERMSIG(status));
+	return (-1);
+}
+
 static int	heredoc_fork_process(char *file_name, t_file *file, \
 			t_list **created_files)
 {
@@ -90,7 +104,7 @@ static int	heredoc_fork_process(char *file_name, t_file *file, \
 	file->name = file_name;
 	ft_lstadd_back(created_files, \
 					null_exit(ft_lstnew(null_exit(ft_strdup(file_name)))));
-	if (wait_for_childs(1, fork_id) > 0)
+	if (wait_heredoc(fork_id) != 0)
 		return (-1);
 	return (0);
 }
